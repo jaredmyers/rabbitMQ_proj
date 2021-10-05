@@ -2,7 +2,11 @@
 import pika, sys, os
 
 def main():
-    credentials = pika.PlainCredentials('taco', 'tastegood')
+
+    user = ''
+    password = ''
+
+    credentials = pika.PlainCredentials(user, password)
     connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', 5672, 'testHost', credentials))
     channel = connection.channel()
     
