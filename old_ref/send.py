@@ -1,8 +1,8 @@
 #!/usr/bin/env/ python
 import pika
 
-user = '';
-password = '';
+user = 'taco'
+password = 'tastegood'
 
 credentials = pika.PlainCredentials(user, password)
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', 5672, 'testHost', credentials))

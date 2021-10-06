@@ -3,20 +3,20 @@ import pika, sys, os
 
 def main():
 
-    user = ''
-    password = ''
+    user = 'taco'
+    password = 'tastegood'
 
     credentials = pika.PlainCredentials(user, password)
     connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', 5672, 'testHost', credentials))
     channel = connection.channel()
     
 
-    channel.queue_declare(queue='testQueue', durable=True)
+    channel.queue_declare(queue='queue1', durable=True)
     
     def callback(ch, method, properties, body):
         print(" [x] Received %r" % body)
 
-    channel.basic_consume(queue='testQueue', on_message_callback=callback, auto_ack=True)
+    channel.basic_consume(queue='queue1', on_message_callback=callback, auto_ack=True)
    
     print(' [*] Waiting for messages. To exit press ctrl+c')
     channel.start_consuming()
