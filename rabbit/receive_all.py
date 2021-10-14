@@ -5,11 +5,9 @@ on exchangeAll
 """
 
 from testClass import ListenFanout
+import credentials as cred
 
-user = 'taco'
-pw = 'tastegood'
-ip_address = 'localhost'
 exchange = 'exchangeAll'
 
-connection = ListenFanout(user, pw, ip_address)
+connection = ListenFanout(cred.user, cred.pw, cred.ip_address)
 connection.listen_fanout(exchange)

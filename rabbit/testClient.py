@@ -8,8 +8,8 @@ user = 'taco'
 pw = 'tastegood'
 ip = 'localhost'
 
-q = 'nothing queue1 queue2 queue3'
-e = 'nothing exchange1 exchange2 exchange3'
+q = 'nothing queue1 queue2 queue3 db2'
+e = 'exchangeAll exchange1 exchange2 exchange3 db_exchange'
 q = q.split()
 e = e.split()
 
@@ -17,7 +17,7 @@ choice = None
 
 while choice != 'exit':
     connection = RunClient(user, pw, ip)
-
+    
     choice = input("Enter a Queue: ")
 
     if choice == 'exit':

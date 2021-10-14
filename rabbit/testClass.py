@@ -6,6 +6,7 @@ import pika, sys
 class RunClient():
     """
     A class for sending messages to a specific rabbitMQ queue
+
     """
     def __init__(self, user, pw, ip):
         """
@@ -94,7 +95,7 @@ class RunServer():
 
         self.channel.basic_consume(queue=queue, on_message_callback=callback, auto_ack=True)
    
-        print(' [*] Waiting for messages. To exit press ctrl+c')
+        print(f' [*] Waiting for messages on {queue}')
 
         try:
             self.channel.start_consuming()
@@ -178,7 +179,7 @@ class ListenFanout():
         )
         self.channel = None
 
-    def listen_fanout(self, exchange):
+    def listen_fanout(self, exchange, web_log_path):
         """
         listens for all messages coming into specific exchange
 
@@ -200,6 +201,12 @@ class ListenFanout():
 
         def callback(ch, method, properties,body):
             print("[x] %r" % body)
+            send_log(body)
+
+        def send_log(log_body):
+            #web_log_path = '/home/it490/Desktop/project/website/webtest.log'
+            with open(web_log_path, 'ab') as file:
+                file.write(log_body)
 
         self.channel.basic_consume(
             queue=queue_name, on_message_callback=callback, auto_ack=True)

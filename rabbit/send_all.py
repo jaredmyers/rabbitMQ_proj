@@ -5,13 +5,11 @@ on exchangeAll
 """
 
 from testClass import SendFanout
+import credentials as cred
 
-user = 'taco'
-pw = 'tastegood'
-ip_address = 'localhost'
 exchange = 'exchangeAll'
 
-connection = SendFanout(user, pw, ip_address)
+connection = SendFanout(cred.user, cred.pw, cred.ip_address)
 
 message = 'test fanout message'
  

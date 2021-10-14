@@ -7,7 +7,7 @@ conn = mysql.connector.connect(
     database="testdb"
     )
 
-query = "select * from students;"
+query = "select * from site_login;"
 
 cursor = conn.cursor()
 cursor.execute(query)
