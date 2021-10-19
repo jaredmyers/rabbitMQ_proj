@@ -263,3 +263,55 @@ Traceback (most recent call last):
 AttributeError: 'str' object has no attribute 'decode'
 [pid: 3509|app: 0|req: 1/2] 127.0.0.1 () {58 vars in 1104 bytes} [Tue Oct 19 05:44:47 2021] POST /site_spotify/ => generated 60689 bytes in 384 msecs (HTTP/1.1 500) 6 headers in 186 bytes (1 switches on core 0)
 announcing my loyalty to the Emperor...
+Tue Oct 19 06:06:52 2021 - received message 0 from emperor
+SIGINT/SIGTERM received...killing workers...
+...brutally killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+worker 9 buried after 1 seconds
+worker 10 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/it490/Desktop/project/django/spotify/project.sock removed.
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Oct 19 02:11:36 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x562c1cbf2690
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 4 seconds on interpreter 0x562c1cbf2690 pid: 761 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 761)
+spawned uWSGI worker 1 (pid: 1082, cores: 1)
+spawned uWSGI worker 2 (pid: 1085, cores: 1)
+spawned uWSGI worker 3 (pid: 1086, cores: 1)
+spawned uWSGI worker 4 (pid: 1087, cores: 1)
+spawned uWSGI worker 5 (pid: 1088, cores: 1)
+spawned uWSGI worker 6 (pid: 1089, cores: 1)
+spawned uWSGI worker 7 (pid: 1090, cores: 1)
+spawned uWSGI worker 8 (pid: 1111, cores: 1)
+spawned uWSGI worker 9 (pid: 1112, cores: 1)
+spawned uWSGI worker 10 (pid: 1113, cores: 1)
