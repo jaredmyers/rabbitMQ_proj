@@ -4,18 +4,15 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth 
 import spotipy.util as util
 import sys, json
+import site_spotify.credentials as cred
 
-client_id = '4ed36c33643a4974817619f60d7615cd'
-client_sk = '7db6c1bc9d2f4a328f0968700b95fc69'
-redirect_uri = 'http://localhost:8080/'
 scope = 'user-library-read'
 scope2 = 'user-read-currently-playing'
-user = 'jaredrunner'
 
 def api_test():
     def get_service():
         try:
-            token = util.prompt_for_user_token(user, scope, client_id=client_id, client_secret=client_sk, redirect_uri=redirect_uri)
+            token = util.prompt_for_user_token(cred.user, scope, client_id=cred.client_id, client_secret=cred.client_sk, redirect_uri=cred.redirect_uri)
             service = spotipy.Spotify(auth=token)
             return service
         except:
