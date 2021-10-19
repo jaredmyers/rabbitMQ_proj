@@ -1,0 +1,9 @@
+[Unit]
+Description=uwsgi emperor for i490 spotify website
+After=network.target
+[Service]
+User=it490
+Restart=always
+ExecStart=/home/it490/.local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data
+[Install]
+WantedBy=multi-user.target

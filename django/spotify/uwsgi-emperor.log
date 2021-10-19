@@ -1,0 +1,265 @@
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Oct 19 00:29:38 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-37-generic #41~20.04.2-Ubuntu SMP Fri Sep 24 09:06:38 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /home/it490/Desktop/project/django/spotify
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x5611283df930
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x5611283df930 pid: 80175 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 80175)
+spawned uWSGI worker 1 (pid: 80180, cores: 1)
+spawned uWSGI worker 2 (pid: 80181, cores: 1)
+spawned uWSGI worker 3 (pid: 80182, cores: 1)
+spawned uWSGI worker 4 (pid: 80183, cores: 1)
+spawned uWSGI worker 5 (pid: 80184, cores: 1)
+spawned uWSGI worker 6 (pid: 80185, cores: 1)
+spawned uWSGI worker 7 (pid: 80186, cores: 1)
+spawned uWSGI worker 8 (pid: 80187, cores: 1)
+spawned uWSGI worker 9 (pid: 80188, cores: 1)
+spawned uWSGI worker 10 (pid: 80189, cores: 1)
+[pid: 80182|app: 0|req: 1/1] 127.0.0.1 () {50 vars in 936 bytes} [Tue Oct 19 04:30:13 2021] GET /site_spotify/ => generated 3053 bytes in 307 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+Sent SELECT account_name, pw FROM site_login WHERE account_name = 'kingelmer';!
+ kingelmer 234
+[pid: 80189|app: 0|req: 1/2] 127.0.0.1 () {58 vars in 1137 bytes} [Tue Oct 19 04:30:23 2021] POST /site_spotify/ => generated 0 bytes in 410 msecs (HTTP/1.1 302) 6 headers in 202 bytes (1 switches on core 0)
+<class 'dict'>
+[pid: 80188|app: 0|req: 1/3] 127.0.0.1 () {52 vars in 1007 bytes} [Tue Oct 19 04:30:23 2021] GET /site_spotify/dashboard => generated 1298 bytes in 1802 msecs (HTTP/1.1 200) 5 headers in 167 bytes (1 switches on core 0)
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Oct 19 00:58:56 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x5631612fe750
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x5631612fe750 pid: 3665 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 3665)
+spawned uWSGI worker 1 (pid: 3667, cores: 1)
+spawned uWSGI worker 2 (pid: 3668, cores: 1)
+spawned uWSGI worker 3 (pid: 3669, cores: 1)
+spawned uWSGI worker 4 (pid: 3670, cores: 1)
+spawned uWSGI worker 5 (pid: 3671, cores: 1)
+spawned uWSGI worker 6 (pid: 3672, cores: 1)
+spawned uWSGI worker 7 (pid: 3673, cores: 1)
+spawned uWSGI worker 8 (pid: 3674, cores: 1)
+spawned uWSGI worker 9 (pid: 3675, cores: 1)
+spawned uWSGI worker 10 (pid: 3676, cores: 1)
+Not Found: /
+[pid: 3671|app: 0|req: 1/1] 127.0.0.1 () {50 vars in 910 bytes} [Tue Oct 19 04:59:11 2021] GET / => generated 2168 bytes in 377 msecs (HTTP/1.1 404) 5 headers in 159 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+[pid: 3676|app: 0|req: 1/2] 127.0.0.1 () {50 vars in 936 bytes} [Tue Oct 19 04:59:18 2021] GET /site_spotify/ => generated 3053 bytes in 380 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+[pid: 3675|app: 0|req: 1/3] 10.0.2.2 () {42 vars in 738 bytes} [Tue Oct 19 04:59:28 2021] GET /site_spotify/ => generated 3053 bytes in 163 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+SIGINT/SIGTERM received...killing workers...
+Tue Oct 19 04:59:48 2021 - received message 0 from emperor
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+worker 5 buried after 2 seconds
+worker 9 buried after 2 seconds
+worker 10 buried after 2 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/it490/Desktop/project/django/spotify/project.sock removed.
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Oct 19 01:25:20 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /home/it490/Desktop/project/django/spotify
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x55bba6038940
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x55bba6038940 pid: 5343 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 5343)
+spawned uWSGI worker 1 (pid: 5346, cores: 1)
+spawned uWSGI worker 2 (pid: 5347, cores: 1)
+spawned uWSGI worker 3 (pid: 5348, cores: 1)
+spawned uWSGI worker 4 (pid: 5349, cores: 1)
+spawned uWSGI worker 5 (pid: 5350, cores: 1)
+spawned uWSGI worker 6 (pid: 5351, cores: 1)
+spawned uWSGI worker 7 (pid: 5352, cores: 1)
+spawned uWSGI worker 8 (pid: 5353, cores: 1)
+spawned uWSGI worker 9 (pid: 5354, cores: 1)
+spawned uWSGI worker 10 (pid: 5355, cores: 1)
+[pid: 5350|app: 0|req: 1/1] 127.0.0.1 () {50 vars in 936 bytes} [Tue Oct 19 05:25:37 2021] GET /site_spotify/ => generated 3053 bytes in 388 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+DAMN ! worker 1 (pid: 5346) died :( trying respawn ...
+Respawned uWSGI worker 1 (new pid: 5454)
+DAMN ! worker 2 (pid: 5347) died :( trying respawn ...
+Respawned uWSGI worker 2 (new pid: 5455)
+DAMN ! worker 3 (pid: 5348) died :( trying respawn ...
+Respawned uWSGI worker 3 (new pid: 5456)
+DAMN ! worker 4 (pid: 5349) died :( trying respawn ...
+Respawned uWSGI worker 4 (new pid: 5457)
+DAMN ! worker 5 (pid: 5350) died :( trying respawn ...
+Respawned uWSGI worker 5 (new pid: 5458)
+DAMN ! worker 6 (pid: 5351) died :( trying respawn ...
+Respawned uWSGI worker 6 (new pid: 5459)
+DAMN ! worker 7 (pid: 5352) died :( trying respawn ...
+Respawned uWSGI worker 7 (new pid: 5460)
+DAMN ! worker 8 (pid: 5353) died :( trying respawn ...
+Respawned uWSGI worker 8 (new pid: 5461)
+DAMN ! worker 9 (pid: 5354) died :( trying respawn ...
+Respawned uWSGI worker 9 (new pid: 5462)
+DAMN ! worker 10 (pid: 5355) died :( trying respawn ...
+Respawned uWSGI worker 10 (new pid: 5463)
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Oct 19 01:31:08 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x558c7540b6f0
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x558c7540b6f0 pid: 2750 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 2750)
+spawned uWSGI worker 1 (pid: 2752, cores: 1)
+spawned uWSGI worker 2 (pid: 2753, cores: 1)
+spawned uWSGI worker 3 (pid: 2754, cores: 1)
+spawned uWSGI worker 4 (pid: 2755, cores: 1)
+spawned uWSGI worker 5 (pid: 2756, cores: 1)
+spawned uWSGI worker 6 (pid: 2757, cores: 1)
+spawned uWSGI worker 7 (pid: 2758, cores: 1)
+spawned uWSGI worker 8 (pid: 2759, cores: 1)
+spawned uWSGI worker 9 (pid: 2760, cores: 1)
+spawned uWSGI worker 10 (pid: 2761, cores: 1)
+[pid: 2754|app: 0|req: 1/1] 127.0.0.1 () {50 vars in 936 bytes} [Tue Oct 19 05:31:13 2021] GET /site_spotify/ => generated 3053 bytes in 354 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+SIGINT/SIGTERM received...killing workers...
+Tue Oct 19 05:31:47 2021 - received message 0 from emperor
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+worker 9 buried after 1 seconds
+worker 10 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/it490/Desktop/project/django/spotify/project.sock removed.
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Oct 19 01:40:41 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x562456595690
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x562456595690 pid: 3507 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 3507)
+spawned uWSGI worker 1 (pid: 3509, cores: 1)
+spawned uWSGI worker 2 (pid: 3510, cores: 1)
+spawned uWSGI worker 3 (pid: 3511, cores: 1)
+spawned uWSGI worker 4 (pid: 3512, cores: 1)
+spawned uWSGI worker 5 (pid: 3513, cores: 1)
+spawned uWSGI worker 6 (pid: 3514, cores: 1)
+spawned uWSGI worker 7 (pid: 3515, cores: 1)
+spawned uWSGI worker 8 (pid: 3516, cores: 1)
+spawned uWSGI worker 9 (pid: 3517, cores: 1)
+spawned uWSGI worker 10 (pid: 3518, cores: 1)
+[pid: 3511|app: 0|req: 1/1] 127.0.0.1 () {52 vars in 934 bytes} [Tue Oct 19 05:41:04 2021] GET /site_spotify/ => generated 3053 bytes in 286 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+Sent SELECT account_name, pw FROM site_login WHERE account_name = 'kingelmer';!
+Internal Server Error: /site_spotify/
+Traceback (most recent call last):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/it490/Desktop/project/django/spotify/./site_spotify/views.py", line 12, in index
+    answer = process_login(request)
+  File "/home/it490/Desktop/project/django/spotify/./site_spotify/db_auth_login.py", line 22, in process_login
+    result = result.decode("utf-8")
+AttributeError: 'str' object has no attribute 'decode'
+[pid: 3509|app: 0|req: 1/2] 127.0.0.1 () {58 vars in 1104 bytes} [Tue Oct 19 05:44:47 2021] POST /site_spotify/ => generated 60689 bytes in 384 msecs (HTTP/1.1 500) 6 headers in 186 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
