@@ -4,12 +4,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth 
 import spotipy.util as util
 
-client_id = '4ed36c33643a4974817619f60d7615cd'
-client_sk = '7db6c1bc9d2f4a328f0968700b95fc69'
-redirect_uri = 'https://www.google.com/'
 scope = 'user-library-read'
 scope2 = 'user-read-currently-playing'
-user = 'jaredrunner'
 
 def get_service():
     try:
