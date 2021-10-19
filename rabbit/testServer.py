@@ -7,7 +7,7 @@ from testClass import RunServer
 user = 'taco'
 pw = 'tastegood'
 ip = 'localhost'
-queue = 'db2'
+queue = 'queue1'
 
 listener = RunServer(user, pw, ip)
 
