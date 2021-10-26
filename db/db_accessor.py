@@ -9,10 +9,10 @@ queue = 'db1'
 def db_access(q):
 
     conn = mysql.connector.connect(
-        host='localhost',
-        user="testUser",
-        password="12345",
-        database="testdb"
+        host=cred.db_host,
+        user=cred.db_user,
+        password=cred.db_pw,
+        database=cred.db_database
     )
 
     query = q.decode("utf-8")
@@ -25,7 +25,7 @@ def db_access(q):
         cursor.execute(query)
         result = cursor.fetchall()
     except Exception:
-        result = 'error'
+        result = 'fetch error'
     
     if result == []:
         result = 'Not Found'
@@ -34,7 +34,7 @@ def db_access(q):
 
     print(result)
 
-    if result != 'error' and result != 'Not Found':
+    if result != 'fetch error' and result != 'Not Found':
         new_result = ''
         for row in result:
             for data in row:

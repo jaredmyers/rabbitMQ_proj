@@ -19,7 +19,7 @@ def process_login(request):
         connection = RunSubscriber(cred.user, cred.pw, cred.ip_address)
         result = connection.db_subscribe(exchange, pull_queue)
 
-        result = result.decode("utf-8")
+        #result = result.decode("utf-8")
         
         return result
         

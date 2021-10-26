@@ -10,13 +10,19 @@ scope = 'user-library-read'
 scope2 = 'user-read-currently-playing'
 
 def api_test():
+   
+
     def get_service():
         try:
-            token = util.prompt_for_user_token(cred.user, scope, client_id=cred.client_id, client_secret=cred.client_sk, redirect_uri=cred.redirect_uri)
+            token = util.prompt_for_user_token(cred.spot_user, scope, client_id=cred.client_id, client_secret=cred.client_sk, redirect_uri=cred.redirect_uri)
             service = spotipy.Spotify(auth=token)
+            print(type(token))
+            print(token)
+            
             return service
-        except:
-            print('Error')
+        except Exception as e:
+            print(e)
+    
 
 #oauth_object = spotipy.SpotifyOAuth(client_id=client_id, client_secret=client_sk, redirect_uri=redirect_uri, scope=scope)
 
@@ -35,8 +41,7 @@ def api_test():
         sys.exit("error, service none")
 
     results = sp.current_user_saved_tracks()
-    print(type(results))
-
+ 
     saved_tracks = []
     for idx, item in enumerate(results['items']):
         track = item['track']

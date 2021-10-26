@@ -23,8 +23,29 @@ def index(request):
     })
 
 def dashboard(request):
+    
     saved_tracks = api_test()
+    #if request.session['token']:
+    #    saved_tracks = api_test(request.session['token'])
+    #else:
+    #    print("It didn't work.")
 
     return render(request, "site_spotify/dashboard.html", {
         "saved_tracks": saved_tracks 
+    })
+
+def apiconnect(request):
+
+    return render(request, "site_spotify/apiconnect.html")
+
+def urlredirect(request):
+
+
+    code = request.GET['code']
+    #request.session['access_token'] = token
+    
+    #return HttpResponseRedirect(reverse("site_spotify:dashboard"))
+
+    return render(request, "site_spotify/fetchtoken.html", {
+        "code": code
     })
