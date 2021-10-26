@@ -9,12 +9,12 @@ import site_spotify.credentials as cred
 scope = 'user-library-read'
 scope2 = 'user-read-currently-playing'
 
-def api_test():
+def api_test(token):
    
 
     def get_service():
         try:
-            token = util.prompt_for_user_token(cred.spot_user, scope, client_id=cred.client_id, client_secret=cred.client_sk, redirect_uri=cred.redirect_uri)
+            #token = util.prompt_for_user_token(cred.spot_user, scope, client_id=cred.client_id, client_secret=cred.client_sk, redirect_uri=cred.redirect_uri)
             service = spotipy.Spotify(auth=token)
             print(type(token))
             print(token)

@@ -23,8 +23,13 @@ def index(request):
     })
 
 def dashboard(request):
-    
-    saved_tracks = api_test()
+
+    if request.method == 'POST':
+        print(request.POST)
+        if 'token' in request.POST:
+            token = request.POST['token']
+            saved_tracks = api_test(token)
+
     #if request.session['token']:
     #    saved_tracks = api_test(request.session['token'])
     #else:
