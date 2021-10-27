@@ -24,19 +24,25 @@ def index(request):
 
 def dashboard(request):
 
+    if 'saved_tracks' not in request.session:
+        request.session["saved_tracks"] = []
+
     if request.method == 'POST':
-        print(request.POST)
         if 'token' in request.POST:
             token = request.POST['token']
-            saved_tracks = api_test(token)
+            print("Django, the token is: " + token)
+            print("sending to api...")
+            request.session["saved_tracks"] = api_test(token)
 
     #if request.session['token']:
     #    saved_tracks = api_test(request.session['token'])
     #else:
     #    print("It didn't work.")
 
+    print("after api call....")
+    print(request.session["saved_tracks"])
     return render(request, "site_spotify/dashboard.html", {
-        "saved_tracks": saved_tracks 
+        "saved_tracks": request.session['saved_tracks'] 
     })
 
 def apiconnect(request):
@@ -46,7 +52,10 @@ def apiconnect(request):
 def urlredirect(request):
 
 
-    code = request.GET['code']
+    if request.method == 'GET':
+        if 'code' in request.GET:
+            code = request.GET['code']
+
     #request.session['access_token'] = token
     
     #return HttpResponseRedirect(reverse("site_spotify:dashboard"))

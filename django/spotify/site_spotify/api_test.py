@@ -47,6 +47,8 @@ def api_test(token):
         track = item['track']
         saved_tracks.append((idx, track['artists'][0]['name'], " - ", track['name']))
 
+    print(saved_tracks)
+
     return saved_tracks
 
 #sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_sk))
