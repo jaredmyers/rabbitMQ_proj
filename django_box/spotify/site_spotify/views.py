@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from site_spotify.db_auth_login import process_login
 from site_spotify.api_test import api_test
+from site_spotify.forms import RegisterForm, LoginForm
 
 saved_tracks = []
 
@@ -23,6 +24,23 @@ def index(request):
     })
 
 def dashboard(request):
+
+    if request.method =='POST':
+        form = LoginForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            print("form valid")
+            username = form.cleaned_data['username']
+            pw = form.cleaned_data['pw']
+            print(username, pw)
+            if process_login(username, pw) == False:
+                return HttpResponseRedirect(reverse("site_spotify:login"))
+        else:
+            print("form not valid")
+            return render(request, "site_spotify/login.html", {
+                "form": form
+            })
+
 
     if 'saved_tracks' not in request.session:
         request.session["saved_tracks"] = []
@@ -62,4 +80,17 @@ def urlredirect(request):
 
     return render(request, "site_spotify/fetchtoken.html", {
         "code": code
+    })
+
+def login(request):
+    
+    return render(request, "site_spotify/login.html", {
+        "form": RegisterForm()
+    })
+
+def register(request):
+
+    return render(request, "site_spotify/register.html", {
+        "form": RegisterForm()
+
     })

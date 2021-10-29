@@ -4080,3 +4080,338 @@ worker 10 buried after 1 seconds
 goodbye to uWSGI.
 chdir(): No such file or directory [core/uwsgi.c line 1649]
 unlink(): No such file or directory [core/uwsgi.c line 1662]
+*** Starting uWSGI 2.0.20 (64bit) on [Thu Oct 28 17:44:55 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /home/it490/Desktop/project/django_box/spotify
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x55ec6fd57930
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x55ec6fd57930 pid: 4345 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 4345)
+spawned uWSGI worker 1 (pid: 4348, cores: 1)
+spawned uWSGI worker 2 (pid: 4349, cores: 1)
+spawned uWSGI worker 3 (pid: 4350, cores: 1)
+spawned uWSGI worker 4 (pid: 4351, cores: 1)
+spawned uWSGI worker 5 (pid: 4352, cores: 1)
+spawned uWSGI worker 6 (pid: 4353, cores: 1)
+spawned uWSGI worker 7 (pid: 4354, cores: 1)
+spawned uWSGI worker 8 (pid: 4355, cores: 1)
+spawned uWSGI worker 9 (pid: 4356, cores: 1)
+spawned uWSGI worker 10 (pid: 4357, cores: 1)
+[pid: 4351|app: 0|req: 1/1] 127.0.0.1 () {52 vars in 934 bytes} [Thu Oct 28 21:45:00 2021] GET /site_spotify/ => generated 3053 bytes in 302 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+*** Starting uWSGI 2.0.20 (64bit) on [Thu Oct 28 17:47:23 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x557864d24690
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x557864d24690 pid: 4500 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 4500)
+spawned uWSGI worker 1 (pid: 4502, cores: 1)
+spawned uWSGI worker 2 (pid: 4503, cores: 1)
+spawned uWSGI worker 3 (pid: 4504, cores: 1)
+spawned uWSGI worker 4 (pid: 4505, cores: 1)
+spawned uWSGI worker 5 (pid: 4506, cores: 1)
+spawned uWSGI worker 6 (pid: 4507, cores: 1)
+spawned uWSGI worker 7 (pid: 4508, cores: 1)
+spawned uWSGI worker 8 (pid: 4509, cores: 1)
+spawned uWSGI worker 9 (pid: 4510, cores: 1)
+spawned uWSGI worker 10 (pid: 4511, cores: 1)
+Thu Oct 28 21:47:41 2021 - received message 0 from emperor
+SIGINT/SIGTERM received...killing workers...
+...brutally killing workers...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 9 buried after 1 seconds
+worker 10 buried after 1 seconds
+worker 8 buried after 2 seconds
+goodbye to uWSGI.
+VACUUM: unix socket /home/it490/Desktop/project/django_box/spotify/project.sock removed.
+*** Starting uWSGI 2.0.20 (64bit) on [Thu Oct 28 17:48:30 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x56002660f690
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 3 seconds on interpreter 0x56002660f690 pid: 859 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 859)
+spawned uWSGI worker 1 (pid: 1351, cores: 1)
+spawned uWSGI worker 2 (pid: 1352, cores: 1)
+spawned uWSGI worker 3 (pid: 1353, cores: 1)
+spawned uWSGI worker 4 (pid: 1354, cores: 1)
+spawned uWSGI worker 5 (pid: 1355, cores: 1)
+spawned uWSGI worker 6 (pid: 1356, cores: 1)
+spawned uWSGI worker 7 (pid: 1357, cores: 1)
+spawned uWSGI worker 8 (pid: 1358, cores: 1)
+spawned uWSGI worker 9 (pid: 1359, cores: 1)
+spawned uWSGI worker 10 (pid: 1360, cores: 1)
+[pid: 1359|app: 0|req: 1/1] 127.0.0.1 () {50 vars in 903 bytes} [Thu Oct 28 21:49:45 2021] GET /site_spotify/ => generated 3053 bytes in 423 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+...brutally killing workers...
+Thu Oct 28 22:40:23 2021 - received message 0 from emperor
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+worker 5 buried after 1 seconds
+worker 6 buried after 1 seconds
+worker 7 buried after 1 seconds
+worker 8 buried after 1 seconds
+worker 9 buried after 1 seconds
+worker 10 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /etc/uwsgi/vassals
+closing all non-uwsgi socket fds > 2 (max_fd = 1024)...
+found fd 3 mapped to socket 0 (/home/it490/Desktop/project/django_box/spotify/project.sock)
+running /home/it490/.local/bin/uwsgi
+*** has_emperor mode detected (fd: 6) ***
+[uWSGI] getting INI configuration from spotify_uwsgi.ini
+*** Starting uWSGI 2.0.20 (64bit) on [Thu Oct 28 22:40:24 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x564cf43d2d70
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x564cf43d2d70 pid: 859 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 859)
+spawned uWSGI worker 1 (pid: 6275, cores: 1)
+spawned uWSGI worker 2 (pid: 6276, cores: 1)
+spawned uWSGI worker 3 (pid: 6277, cores: 1)
+spawned uWSGI worker 4 (pid: 6278, cores: 1)
+spawned uWSGI worker 5 (pid: 6279, cores: 1)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:25 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:25 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6275)...
+spawned uWSGI worker 6 (pid: 6280, cores: 1)
+spawned uWSGI worker 7 (pid: 6281, cores: 1)
+spawned uWSGI worker 8 (pid: 6282, cores: 1)
+spawned uWSGI worker 9 (pid: 6283, cores: 1)
+spawned uWSGI worker 10 (pid: 6284, cores: 1)
+worker 1 killed successfully (pid: 6275)
+Respawned uWSGI worker 1 (new pid: 6285)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:26 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:26 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6285)...
+worker 1 killed successfully (pid: 6285)
+Respawned uWSGI worker 1 (new pid: 6286)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:27 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:27 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6286)...
+worker 1 killed successfully (pid: 6286)
+Respawned uWSGI worker 1 (new pid: 6287)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:28 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:28 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6287)...
+worker 1 killed successfully (pid: 6287)
+Respawned uWSGI worker 1 (new pid: 6288)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:29 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:29 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6288)...
+worker 1 killed successfully (pid: 6288)
+Respawned uWSGI worker 1 (new pid: 6289)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:30 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:30 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6289)...
+worker 1 killed successfully (pid: 6289)
+Respawned uWSGI worker 1 (new pid: 6292)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:31 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:31 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6292)...
+worker 1 killed successfully (pid: 6292)
+Respawned uWSGI worker 1 (new pid: 6293)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:32 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:32 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6293)...
+worker 1 killed successfully (pid: 6293)
+Respawned uWSGI worker 1 (new pid: 6294)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:33 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:33 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6294)...
+worker 1 killed successfully (pid: 6294)
+Respawned uWSGI worker 1 (new pid: 6295)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:34 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:34 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6295)...
+worker 1 killed successfully (pid: 6295)
+Respawned uWSGI worker 1 (new pid: 6296)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:35 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:35 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6296)...
+worker 1 killed successfully (pid: 6296)
+worker respawning too fast !!! i have to sleep a bit (2 seconds)...
+Respawned uWSGI worker 1 (new pid: 6297)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:38 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:38 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6297)...
+worker 1 killed successfully (pid: 6297)
+Respawned uWSGI worker 1 (new pid: 6298)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:39 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:39 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6298)...
+worker 1 killed successfully (pid: 6298)
+Respawned uWSGI worker 1 (new pid: 6299)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:40 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:40 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6299)...
+worker 1 killed successfully (pid: 6299)
+Respawned uWSGI worker 1 (new pid: 6302)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:41 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:41 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6302)...
+worker 1 killed successfully (pid: 6302)
+Respawned uWSGI worker 1 (new pid: 6303)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:42 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:42 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6303)...
+worker 1 killed successfully (pid: 6303)
+Respawned uWSGI worker 1 (new pid: 6304)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:43 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:43 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6304)...
+worker 1 killed successfully (pid: 6304)
+Respawned uWSGI worker 1 (new pid: 6305)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:44 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:44 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6305)...
+worker 1 killed successfully (pid: 6305)
+Respawned uWSGI worker 1 (new pid: 6306)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:45 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:45 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6306)...
+worker 1 killed successfully (pid: 6306)
+Respawned uWSGI worker 1 (new pid: 6307)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:46 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:46 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6307)...
+worker 1 killed successfully (pid: 6307)
+Respawned uWSGI worker 1 (new pid: 6311)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:47 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:47 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6311)...
+worker 1 killed successfully (pid: 6311)
+Respawned uWSGI worker 1 (new pid: 6312)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:48 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:48 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6312)...
+worker 1 killed successfully (pid: 6312)
+worker respawning too fast !!! i have to sleep a bit (2 seconds)...
+Respawned uWSGI worker 1 (new pid: 6315)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:51 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:51 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6315)...
+worker 1 killed successfully (pid: 6315)
+Respawned uWSGI worker 1 (new pid: 6316)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:52 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:52 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6316)...
+worker 1 killed successfully (pid: 6316)
+Respawned uWSGI worker 1 (new pid: 6317)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Thu Oct 28 22:40:53 2021 - lost communication with the Emperor, goodbye...
+Thu Oct 28 22:40:53 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 6317)...

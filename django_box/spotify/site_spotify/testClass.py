@@ -46,7 +46,7 @@ class RunPublisher():
         self.channel.queue_declare(queue=queue, durable=True)
 
         self.channel.basic_publish(exchange=exchange, routing_key='', body=message)
-        print(f"Sent {message}!")
+        print(f"Sent {message}")
         self.connection.close()
     
     def db_publish(self, exchange, queue, message):
@@ -66,7 +66,7 @@ class RunPublisher():
         self.channel.queue_declare(queue=queue, durable=True)
 
         self.channel.basic_publish(exchange=exchange, routing_key=queue, body=message)
-        print(f"Sent {message}!")
+        print(f"Sent {message}")
         self.connection.close()
 
     def fan_publish(self, exchange, message):
@@ -197,6 +197,7 @@ class RunSubscriber():
         def send_log(log_body):
             with open(log_path, 'ab') as file:
                 file.write(log_body)
+                file.write(str.encode("\n"))
 
         self.channel.basic_consume(
             queue=queue_name, on_message_callback=callback, auto_ack=True)

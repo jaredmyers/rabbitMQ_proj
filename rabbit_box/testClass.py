@@ -179,7 +179,7 @@ class ListenFanout():
         )
         self.channel = None
 
-    def listen_fanout(self, exchange, web_log_path):
+    def listen_fanout(self, exchange, log_path):
         """
         listens for all messages coming into specific exchange
 
@@ -205,7 +205,7 @@ class ListenFanout():
 
         def send_log(log_body):
             #web_log_path = '/home/it490/Desktop/project/website/webtest.log'
-            with open(web_log_path, 'ab') as file:
+            with open(log_path, 'ab') as file:
                 file.write(log_body)
 
         self.channel.basic_consume(

@@ -6,13 +6,10 @@ exchange = 'db_exchange'
 push_queue = 'db1'
 pull_queue = 'db2'
 
-def process_login(request):
-    if request.method == "POST":
-        account = request.POST["account"]
-        passw = request.POST["pw"]
+def process_login(username, password):
         connection = RunPublisher(cred.user, cred.pw, cred.ip_address)
         
-        message = f"SELECT account_name, pw FROM site_login WHERE account_name = '{account}';"
+        message = f"{username}:{password}"
         connection.db_publish(exchange, push_queue, message)
         
         # grabbing response from rabbit
