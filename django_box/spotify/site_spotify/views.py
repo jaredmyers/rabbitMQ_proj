@@ -6,6 +6,7 @@ from site_spotify.api_test import api_test
 from site_spotify.forms import RegisterForm, LoginForm
 import uuid
 from site_spotify.logPublisher import sendLog
+from site_spotify.send_to_db import send_to_db
 
 saved_tracks = []
 
@@ -56,7 +57,7 @@ def c_home(request):
 
     print("LOGIN SUCCESSFUL")
 
-    sessionId = str(authentication)
+    sessionId = authentication
 
     response = render(request, "site_spotify/home.html")
     response.set_cookie('sessionId', sessionId)
@@ -119,28 +120,192 @@ def register(request):
 
 # Main 5 website pages #
 def home(request):
-    return render(request, "site_spotify/home.html")
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
+
+        print("rendering...")
+        return render(request, "site_spotify/home.html")
+
+    except Exception as e:
+        print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
+    
 
 def chat(request):
-    return render(request, "site_spotify/chat.html")
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
+
+        print("rendering...")
+        return render(request, "site_spotify/chat.html")
+
+    except Exception as e:
+        print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
+
 
 def forum(request):
-    return render(request, "site_spotify/forum.html")
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
+
+        print("rendering...")
+        return render(request, "site_spotify/forum.html")
+
+    except Exception as e:
+        print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
 
 def friends(request):
     try:
 
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
 
-
-        print(request.COOKIES['sessionId'])
-        print(request.COOKIES.get('sessionId'))
- 
-
+        print("rendering...")
         return render(request, "site_spotify/friends.html")
 
     except Exception as e:
         print(e)
-        sendLog(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
 
 def stats(request):
-    return render(request, "site_spotify/stats.html")
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
+
+        print("rendering...")
+        return render(request, "site_spotify/stats.html")
+
+    except Exception as e:
+        print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
+
+def connect(request):
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
+
+        print("rendering...")
+        return render(request, "site_spotify/stats.html")
+
+    except Exception as e:
+        print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
+
+def logout(request):
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if response == False:
+                print('cookie is false')
+                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+    })
+
+        print("rendering...")
+        return render(request, "site_spotify/stats.html")
+
+    except Exception as e:
+        print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })

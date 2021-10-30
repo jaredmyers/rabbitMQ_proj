@@ -10,3 +10,9 @@ MySQL Connection not available.
 MySQL Connection not available.
 2055: Cursor is not connected
 2055: Cursor is not connected
+'sessionId'
+From Django views: 'sessionId'
+From Django views: 'sessionId'
+From Django views: invalid literal for int() with base 10: b'1b58394a-39c3-11ec-b0b9-c9c5744488f5'
+From Django views: invalid literal for int() with base 10: b'1b58394a-39c3-11ec-b0b9-c9c5744488f5'
+From Django views: invalid literal for int() with base 10: b'1b58394a-39c3-11ec-b0b9-c9c5744488f5'

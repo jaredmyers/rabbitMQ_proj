@@ -1,7 +1,7 @@
 """
 Test Class for demo
 """
-import pika, sys
+import pika, sys, uuid
 
 class RunPublisher():
     """
@@ -87,6 +87,40 @@ class RunPublisher():
         self.channel.basic_publish(exchange=exchange, routing_key='', body=message)
         print(" [x]Sent %r" % message)
         self.connection.close()
+
+    def rpc_publish(self, message, queue):
+
+        self.channel = self.connection.channel()
+
+        result = self.channel.queue_declare(queue='', exclusive=True)
+        #self.callback_queue = result.method.queue
+        callback_queue = result.method.queue
+
+        def on_response(ch, method, props, body):
+            if self.corr_id == props.correlation_id:
+                self.response = body
+
+        self.channel.basic_consume(
+            queue=callback_queue,
+            on_message_callback=on_response,
+            auto_ack=True)
+
+        def call(n):
+            self.response = None
+            self.corr_id = str(uuid.uuid4())
+            self.channel.basic_publish(
+                exchange='',
+                routing_key=queue,
+                properties=pika.BasicProperties(
+                    reply_to=self.callback_queue,
+                    correlation_id=self.corr_id,
+                ),
+                body=str(n))
+            while self.response is None:
+                self.connection.process_data_events()
+            return int(self.response)
+        
+        call(message)
 
 
 class RunSubscriber():
@@ -207,3 +241,82 @@ class RunSubscriber():
         except KeyboardInterrupt:
             print("interupted")
         sys.exit("exited program")
+
+    def rpc_subscribe(self, queue):
+
+        self.channel = self.connection.channel()
+
+        self.channel.queue_declare(queue=queue)
+
+
+        def fib(n):
+            if n == 0:
+                return 0
+            elif n == 1:
+                return 1
+            else:
+                return fib(n - 1) + fib(n - 2)
+
+
+        def on_request(ch, method, props, body):
+            n = int(body)
+
+            print(" [.] fib(%s)" % n)
+            response = fib(n)
+
+            ch.basic_publish(exchange='',
+                            routing_key=props.reply_to,
+                            properties=pika.BasicProperties(correlation_id = \
+                                                                props.correlation_id),
+                            body=str(response))
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+
+
+        #channel.basic_qos(prefetch_count=1)
+        self.channel.basic_consume(queue=queue, on_message_callback=on_request)
+
+        print(" [x] Awaiting RPC requests")
+        self.channel.start_consuming()
+
+class RpcPublisher():
+
+    def __init__(self, user, pw, ip):
+        self.credentials = pika.PlainCredentials(user, pw)
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(
+            ip,
+            5672,
+            'testHost',
+            self.credentials)
+        )
+
+        self.channel = self.connection.channel()
+
+        result = self.channel.queue_declare(queue='', exclusive=True)
+        self.callback_queue = result.method.queue
+
+        self.channel.basic_consume(
+            queue=self.callback_queue,
+            on_message_callback=self.on_response,
+            auto_ack=True)
+
+    def on_response(self, ch, method, props, body):
+        if self.corr_id == props.correlation_id:
+            self.response = body
+
+    def call(self, message, queue):
+        self.response = None
+        self.corr_id = str(uuid.uuid4())
+        print("running calls publish...")
+        self.channel.basic_publish(
+            exchange='',
+            routing_key=queue,
+            properties=pika.BasicProperties(
+                reply_to=self.callback_queue,
+                correlation_id=self.corr_id,
+            ),
+            body=str(message))
+        print("while loop for processing...")
+        while self.response is None:
+            self.connection.process_data_events()
+        return self.response
+

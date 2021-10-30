@@ -1,7 +1,8 @@
 """
 Test Class for demo
 """
-import pika, sys
+import pika, sys, uuid
+from db_rpc_accessor import accessor_methods
 
 class RunPublisher():
     """
@@ -87,6 +88,40 @@ class RunPublisher():
         self.channel.basic_publish(exchange=exchange, routing_key='', body=message)
         print(" [x]Sent %r" % message)
         self.connection.close()
+
+    def rpc_publish(self, message):
+
+        self.channel = self.connection.channel()
+
+        result = self.channel.queue_declare(queue='', exclusive=True)
+        #self.callback_queue = result.method.queue
+        callback_queue = result.method.queue
+
+        def on_response(ch, method, props, body):
+            if self.corr_id == props.correlation_id:
+                self.response = body
+
+        self.channel.basic_consume(
+            queue=callback_queue,
+            on_message_callback=on_response,
+            auto_ack=True)
+
+        def call(n):
+            self.response = None
+            self.corr_id = str(uuid.uuid4())
+            self.channel.basic_publish(
+                exchange='',
+                routing_key='rpc_queue',
+                properties=pika.BasicProperties(
+                    reply_to=self.callback_queue,
+                    correlation_id=self.corr_id,
+                ),
+                body=str(n))
+            while self.response is None:
+                self.connection.process_data_events()
+            return int(self.response)
+        
+        call(message)
 
 
 class RunSubscriber():
@@ -239,3 +274,33 @@ class RunSubscriber():
         except KeyboardInterrupt:
             print("interupted")
         sys.exit("exited program")
+
+    def rpc_subscribe(self, queue):
+
+        self.channel = self.connection.channel()
+
+        self.channel.queue_declare(queue=queue)
+
+
+        def access_db(body, queue):
+            response = accessor_methods(body, queue)
+            return response
+   
+        def on_request(ch, method, props, body):
+
+            print(" [.] message(%s)" % body)
+            response = access_db(body.decode('utf-8'), queue)
+
+            ch.basic_publish(exchange='',
+                            routing_key=props.reply_to,
+                            properties=pika.BasicProperties(correlation_id = \
+                                                                props.correlation_id),
+                            body=str(response))
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+
+
+        #channel.basic_qos(prefetch_count=1)
+        self.channel.basic_consume(queue=queue, on_message_callback=on_request)
+
+        print(" [x] Awaiting RPC requests")
+        self.channel.start_consuming()
