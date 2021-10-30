@@ -4,6 +4,8 @@ from django.urls import reverse
 from site_spotify.db_auth_login import process_login
 from site_spotify.api_test import api_test
 from site_spotify.forms import RegisterForm, LoginForm
+import uuid
+from site_spotify.logPublisher import sendLog
 
 saved_tracks = []
 
@@ -36,7 +38,6 @@ def c_home(request):
             print(username, pw)
 
             authentication = process_login(username, pw)
-            authentication = int(authentication)
             print(authentication)
             if authentication == False:
                 print("LOGIN FAIL1")
@@ -55,8 +56,10 @@ def c_home(request):
 
     print("LOGIN SUCCESSFUL")
 
+    sessionId = str(authentication)
+
     response = render(request, "site_spotify/home.html")
-    response.set_cookie('sessionId', '123456')
+    response.set_cookie('sessionId', sessionId)
     return response
 
     #if 'saved_tracks' not in request.session:
@@ -125,7 +128,19 @@ def forum(request):
     return render(request, "site_spotify/forum.html")
 
 def friends(request):
-    return render(request, "site_spotify/friends.html")
+    try:
+
+
+
+        print(request.COOKIES['sessionId'])
+        print(request.COOKIES.get('sessionId'))
+ 
+
+        return render(request, "site_spotify/friends.html")
+
+    except Exception as e:
+        print(e)
+        sendLog(e)
 
 def stats(request):
     return render(request, "site_spotify/stats.html")

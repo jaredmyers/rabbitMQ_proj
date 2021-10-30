@@ -1,14 +1,14 @@
 import subprocess, select
-from testClass import SendFanout
-import credentials as cred
+from site_spotify.testClass import RunPublisher
+import site_spotify.credentials as cred
 
+#import sys
+#sys.tracebacklimit = 0
 
 def sendLog(log_lines):
     exchange = 'exchangeAll'
-    connection = SendFanout(cred.user, cred.pw, cred.ip_address)
-    connection.send_fanout(exchange, log_lines)
+    connection = RunPublisher(cred.user, cred.pw, cred.ip_address)
+    connection.fan_publish(exchange, log_lines)
 
 
 #source_path = '/var/log/mysql/mysql_gen.log'
-
-

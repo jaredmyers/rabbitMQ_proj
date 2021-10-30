@@ -3,6 +3,7 @@ from testClass import RunSubscriber
 from testClass import RunPublisher
 import credentials as cred
 from logPublisher import sendLog
+import uuid
 
 exchange = 'db_exchange'
 queue = 'db1'
@@ -34,7 +35,7 @@ def db_access(given_creds):
             
         cursor.execute(query)
         query_result = cursor.fetchall()
-        conn.close()
+        
             
         if query_result == []:
             print('Not Found')
@@ -56,6 +57,25 @@ def db_access(given_creds):
                 cred_match = 0
         else:
             cred_match = 0
+        
+        if cred_match:
+            query = f"SELECT id FROM users WHERE uname = '{username}';"
+            cursor = conn.cursor()
+            cursor.execute(query)
+            query_result = cursor.fetchall()
+            userId = query_result[0][0]
+
+            sessionId = uuid.uuid1()
+            sessionId = str(sessionId)
+
+            query = f"INSERT into sessions (userId, sessionId) values ('{userId}', '{sessionId}');"
+            cursor= conn.cursor()
+            cursor.execute(query)
+            conn.commit()
+            conn.close()
+            
+            cred_match = sessionId
+
 
         cred_match = str.encode(str(cred_match))
         pub_conn = RunPublisher(cred.user, cred.pw, cred.ip_address)
