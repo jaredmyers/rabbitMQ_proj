@@ -25,6 +25,7 @@ def index(request):
 
 def dashboard(request):
 
+    bad_login = False
     if request.method =='POST':
         form = LoginForm(request.POST)
         print(request.POST)
@@ -33,32 +34,43 @@ def dashboard(request):
             username = form.cleaned_data['username']
             pw = form.cleaned_data['pw']
             print(username, pw)
-            if process_login(username, pw) == False:
-                return HttpResponseRedirect(reverse("site_spotify:login"))
+
+            authentication = process_login(username, pw).decode("utf-8")
+            authentication = int(authentication)
+            print(authentication)
+            if authentication == False:
+                print("LOGIN FAIL1")
+                bad_login = True
+                return render(request, "site_spotify/login.html", {
+                    "form": form, "bad_login": bad_login
+                })
+            #return HttpResponseRedirect(reverse("site_spotify:login"))
         else:
             print("form not valid")
+            print("LOGIN FAIL2")
+            bad_login = True
             return render(request, "site_spotify/login.html", {
-                "form": form
+                "form": form, "bad_login": bad_login
             })
 
-
+    print("LOGIN SUCCESSFUL")
     if 'saved_tracks' not in request.session:
         request.session["saved_tracks"] = []
 
-    if request.method == 'POST':
-        if 'token' in request.POST:
-            token = request.POST['token']
-            print("Django, the token is: " + token)
-            print("sending to api...")
-            request.session["saved_tracks"] = api_test(token)
+    #if request.method == 'POST':
+    #    if 'token' in request.POST:
+    #        token = request.POST['token']
+    #        print("Django, the token is: " + token)
+    #        print("sending to api...")
+    #        request.session["saved_tracks"] = api_test(token)
 
     #if request.session['token']:
     #    saved_tracks = api_test(request.session['token'])
     #else:
     #    print("It didn't work.")
 
-    print("after api call....")
-    print(request.session["saved_tracks"])
+    #print("after api call....")
+    #print(request.session["saved_tracks"])
     return render(request, "site_spotify/dashboard.html", {
         "saved_tracks": request.session['saved_tracks'] 
     })
@@ -85,7 +97,7 @@ def urlredirect(request):
 def login(request):
     
     return render(request, "site_spotify/login.html", {
-        "form": RegisterForm()
+        "form": RegisterForm(), 
     })
 
 def register(request):
@@ -94,3 +106,6 @@ def register(request):
         "form": RegisterForm()
 
     })
+
+def sidebar(request):
+    return render(request, "site_spotify/sidebar.html")

@@ -8,5 +8,6 @@ urlpatterns = [
     path("apiconnect", views.apiconnect, name="apiconnect"),
     path("urlredirect", views.urlredirect, name="urlredirect"),
     path("login", views.login, name="login"),
-    path("register", views.register, name="register")
+    path("register", views.register, name="register"),
+    path("sidebar", views.sidebar, name="sidebar")
 ]

@@ -3,3 +3,5 @@
 1054 (42S22): Unknown column 'username' in 'where clause'1054 (42S22): Unknown column 'username' in 'where clause'
 1054 (42S22): Unknown column 'username' in 'where clause'
 1054 (42S22): Unknown column 'username' in 'where clause'
+object of type 'int' has no len()
+object of type 'int' has no len()

@@ -25,7 +25,7 @@ def db_access(given_creds):
         username = given_creds[0]
         password = given_creds[1]
 
-        query = f"SELECT uname, pw FROM users WHERE username = '{username}';"
+        query = f"SELECT uname, pw FROM users WHERE uname = '{username}';"
 
         # console log for debug
         print(query) 
@@ -54,16 +54,15 @@ def db_access(given_creds):
                 cred_match = 1
             else:
                 cred_match = 0
-            
-                
-            cred_match = str.encode(str(cred_match))
         else:
             cred_match = 0
 
+        cred_match = str.encode(str(cred_match))
         pub_conn = RunPublisher(cred.user, cred.pw, cred.ip_address)
         pub_conn.db_publish(exchange, 'db2', cred_match)
 
     except Exception as e:
+        print(e)
         sendLog(str(e))
   
 sub_conn = RunSubscriber(cred.user, cred.pw, cred.ip_address)
