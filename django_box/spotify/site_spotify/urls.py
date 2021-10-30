@@ -4,10 +4,15 @@ from . import views
 app_name = 'site_spotify'
 urlpatterns = [
     path("", views.index, name="index"),
-    path("dashboard", views.dashboard, name="dashboard"),
+    path("c_home", views.c_home, name="c_home"),
     path("apiconnect", views.apiconnect, name="apiconnect"),
     path("urlredirect", views.urlredirect, name="urlredirect"),
     path("login", views.login, name="login"),
     path("register", views.register, name="register"),
-    path("sidebar", views.sidebar, name="sidebar")
+    path("home", views.home, name="home"),
+    path("chat", views.chat, name="chat"),
+    path("forum", views.forum, name="forum"),
+    path("friends", views.friends, name="friends"),
+    path("stats", views.stats, name="stats")
+    
 ]

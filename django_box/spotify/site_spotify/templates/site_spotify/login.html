@@ -28,7 +28,7 @@
           </div>
           <div class="login-wrapper my-auto">
             <h1 class="login-title">Log in</h1>
-            <form action="{% url 'site_spotify:dashboard' %}" method="post">
+            <form action="{% url 'site_spotify:c_home' %}" method="post">
                 {% csrf_token %}
                 {{ form.errors }}
                 <div class="form-group">

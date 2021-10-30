@@ -23,7 +23,7 @@ def index(request):
         "login": answer
     })
 
-def dashboard(request):
+def c_home(request):
 
     bad_login = False
     if request.method =='POST':
@@ -35,7 +35,7 @@ def dashboard(request):
             pw = form.cleaned_data['pw']
             print(username, pw)
 
-            authentication = process_login(username, pw).decode("utf-8")
+            authentication = process_login(username, pw)
             authentication = int(authentication)
             print(authentication)
             if authentication == False:
@@ -54,8 +54,13 @@ def dashboard(request):
             })
 
     print("LOGIN SUCCESSFUL")
-    if 'saved_tracks' not in request.session:
-        request.session["saved_tracks"] = []
+
+    response = render(request, "site_spotify/home.html")
+    response.set_cookie('sessionId', '123456')
+    return response
+
+    #if 'saved_tracks' not in request.session:
+    #    request.session["saved_tracks"] = []
 
     #if request.method == 'POST':
     #    if 'token' in request.POST:
@@ -71,9 +76,10 @@ def dashboard(request):
 
     #print("after api call....")
     #print(request.session["saved_tracks"])
-    return render(request, "site_spotify/dashboard.html", {
-        "saved_tracks": request.session['saved_tracks'] 
-    })
+    
+    #return render(request, "site_spotify/dashboard.html", {
+    #    "saved_tracks": request.session['saved_tracks'] 
+    #})
 
 def apiconnect(request):
 
@@ -107,5 +113,19 @@ def register(request):
 
     })
 
-def sidebar(request):
-    return render(request, "site_spotify/sidebar.html")
+
+# Main 5 website pages #
+def home(request):
+    return render(request, "site_spotify/home.html")
+
+def chat(request):
+    return render(request, "site_spotify/chat.html")
+
+def forum(request):
+    return render(request, "site_spotify/forum.html")
+
+def friends(request):
+    return render(request, "site_spotify/friends.html")
+
+def stats(request):
+    return render(request, "site_spotify/stats.html")

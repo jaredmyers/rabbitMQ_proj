@@ -17,6 +17,8 @@ def process_login(username, password):
         result = connection.db_subscribe(exchange, pull_queue)
 
         #result = result.decode("utf-8")
+
+        print(f"from processlogin: {result}")
         
         return result
         
