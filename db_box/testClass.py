@@ -289,13 +289,13 @@ class RunSubscriber():
         def on_request(ch, method, props, body):
 
             print(" [.] message(%s)" % body)
-            response = access_db(body.decode('utf-8'), queue)
+            response = access_db(body, queue)
 
             ch.basic_publish(exchange='',
                             routing_key=props.reply_to,
                             properties=pika.BasicProperties(correlation_id = \
                                                                 props.correlation_id),
-                            body=str(response))
+                            body=response)
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
 

@@ -19,8 +19,12 @@ def process_login(username, password):
         #result = result.decode("utf-8")
 
         print(f"from processlogin: {result}")
+        result = result.decode("utf-8")
+
+        if result == '0':
+                result = ''
         
-        return result.decode("utf-8")
+        return result
         
 
         #return HttpResponseRedirect(reverse("webtest:success"))

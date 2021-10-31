@@ -39,8 +39,9 @@ def c_home(request):
             print(username, pw)
 
             authentication = process_login(username, pw)
+            
             print(authentication)
-            if authentication == False:
+            if not authentication:
                 print("LOGIN FAIL1")
                 bad_login = True
                 return render(request, "site_spotify/login.html", {
@@ -138,6 +139,9 @@ def home(request):
         print("rendering...")
         return render(request, "site_spotify/home.html")
 
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))
@@ -166,6 +170,9 @@ def chat(request):
         print("rendering...")
         return render(request, "site_spotify/chat.html")
 
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))
@@ -194,6 +201,9 @@ def forum(request):
         print("rendering...")
         return render(request, "site_spotify/forum.html")
 
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))
@@ -221,6 +231,9 @@ def friends(request):
         print("rendering...")
         return render(request, "site_spotify/friends.html")
 
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))
@@ -248,6 +261,9 @@ def stats(request):
         print("rendering...")
         return render(request, "site_spotify/stats.html")
 
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))
@@ -275,6 +291,10 @@ def connect(request):
         print("rendering...")
         return render(request, "site_spotify/stats.html")
 
+   
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))
@@ -288,20 +308,18 @@ def logout(request):
 
         if 'sessionId' in request.COOKIES:
             print('cookie detected...')
-            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            delete = True
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session', delete)
             print(f"response: {response}")
-            if response == False:
-                print('cookie is false')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
-        else:
-            print("no cookie detected")
-            return render(request, "site_spotify/login.html", {
-                "form": LoginForm(), 
-    })
+            
+            response = render(request, "site_spotify/login.html", {"form":LoginForm()})
+            response.delete_cookie('sessionId')
+            print("rendering...")
+            return response
 
-        print("rendering...")
-        return render(request, "site_spotify/stats.html")
-
+   #
+   # Mandatory Exception
+   #
     except Exception as e:
         print(e)
         sendLog("From Django views: " + str(e))

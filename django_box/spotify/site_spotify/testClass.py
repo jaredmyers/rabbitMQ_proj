@@ -307,6 +307,7 @@ class RpcPublisher():
         self.response = None
         self.corr_id = str(uuid.uuid4())
         print("running calls publish...")
+        print(message)
         self.channel.basic_publish(
             exchange='',
             routing_key=queue,
@@ -314,7 +315,7 @@ class RpcPublisher():
                 reply_to=self.callback_queue,
                 correlation_id=self.corr_id,
             ),
-            body=str(message))
+            body=message)
         print("while loop for processing...")
         while self.response is None:
             self.connection.process_data_events()
