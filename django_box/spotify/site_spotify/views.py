@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from site_spotify.db_auth_login import process_login
+#from site_spotify.db_auth_login import process_login
+from site_spotify.register_user import process_login
 from site_spotify.api_test import api_test
 from site_spotify.forms import RegisterForm, LoginForm
 import uuid
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
+from site_spotify.register_user import register_user
 
 saved_tracks = []
 
@@ -29,35 +31,65 @@ def index(request):
 def c_home(request):
 
     bad_login = False
-    if request.method =='POST':
-        form = LoginForm(request.POST)
-        print(request.POST)
+    if request.method == 'POST':
+        ## block for handling if form is registration
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            print("form valid")
+            print("register form valid")
             username = form.cleaned_data['username']
             pw = form.cleaned_data['pw']
-            print(username, pw)
+            pw2 = form.cleaned_data['pw2']
+            if not pw == pw2:
+                print("passwords don't match")
+                bad_login = True
+                return render(request, "site_spotify/register.html", {
+                    "form": form, "bad_login": bad_login
+                })
+            else:
+                registered = register_user(username, pw)
+                if registered:
+                    print("user was registered")
+                    print(registered)
+                    sessionId = registered
+                    response = render(request, "site_spotify/home.html")
+                    response.set_cookie('sessionId', sessionId)
+                    return response
+                else:
+                    print("user was not registered, dup uname")
+                    bad_login = True
+                    return render(request, "site_spotify/register.html", {
+                        "form": form, "bad_login": bad_login
+                })
+        else:
+            ## block for handling if form is regular login
+            form = LoginForm(request.POST)
+            print(request.POST)
+            if form.is_valid():
+                print("loginForm form valid")
+                username = form.cleaned_data['username']
+                pw = form.cleaned_data['pw']
+                print(username, pw)
 
-            authentication = process_login(username, pw)
+                authentication = process_login(username, pw)
             
-            print(authentication)
-            if not authentication:
-                print("LOGIN FAIL1")
+                print(authentication)
+                if not authentication:
+                    print("LOGIN FAIL1")
+                    bad_login = True
+                    return render(request, "site_spotify/login.html", {
+                        "form": form, "bad_login": bad_login
+                    })
+                #return HttpResponseRedirect(reverse("site_spotify:login"))
+            else:
+                print("form not valid")
+                print("LOGIN FAIL2")
                 bad_login = True
                 return render(request, "site_spotify/login.html", {
                     "form": form, "bad_login": bad_login
                 })
-            #return HttpResponseRedirect(reverse("site_spotify:login"))
-        else:
-            print("form not valid")
-            print("LOGIN FAIL2")
-            bad_login = True
-            return render(request, "site_spotify/login.html", {
-                "form": form, "bad_login": bad_login
-            })
 
-    print("LOGIN SUCCESSFUL")
-
+        print("LOGIN SUCCESSFUL")
+    
     sessionId = authentication
 
     response = render(request, "site_spotify/home.html")

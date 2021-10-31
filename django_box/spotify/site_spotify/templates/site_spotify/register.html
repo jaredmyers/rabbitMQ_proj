@@ -14,7 +14,9 @@
   <link rel="stylesheet" href="{% static 'site_spotify/login.css' %}">
 </head>
 <body>
-    {% csrf_token %}
+  {% if bad_login %}
+  <script>alert("Double check passwords or choose different username!");</script>
+  {% endif %}
   <main>
     <div class="container-fluid">
       <div class="row">
@@ -24,7 +26,9 @@
           </div>
           <div class="login-wrapper my-auto">
             <h1 class="login-title">Register</h1>
-            <form action="#!">
+            <form action="{% url 'site_spotify:c_home' %}" method="post">
+              {% csrf_token %}
+              {{ form.errors }}
               <div class="form-group">
                 <!--<label for="username">Username</label>-->
                 <!--<input type="email" name="email" id="email" class="form-control" placeholder="email@example.com">-->
@@ -44,7 +48,7 @@
               </div>
 
 
-              <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Login">
+              <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login">
             </form>
             <!--<a href="#!" class="forgot-password-link">Forgot password?</a>-->
             <p class="login-wrapper-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>

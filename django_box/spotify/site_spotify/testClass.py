@@ -242,42 +242,6 @@ class RunSubscriber():
             print("interupted")
         sys.exit("exited program")
 
-    def rpc_subscribe(self, queue):
-
-        self.channel = self.connection.channel()
-
-        self.channel.queue_declare(queue=queue)
-
-
-        def fib(n):
-            if n == 0:
-                return 0
-            elif n == 1:
-                return 1
-            else:
-                return fib(n - 1) + fib(n - 2)
-
-
-        def on_request(ch, method, props, body):
-            n = int(body)
-
-            print(" [.] fib(%s)" % n)
-            response = fib(n)
-
-            ch.basic_publish(exchange='',
-                            routing_key=props.reply_to,
-                            properties=pika.BasicProperties(correlation_id = \
-                                                                props.correlation_id),
-                            body=str(response))
-            ch.basic_ack(delivery_tag=method.delivery_tag)
-
-
-        #channel.basic_qos(prefetch_count=1)
-        self.channel.basic_consume(queue=queue, on_message_callback=on_request)
-
-        print(" [x] Awaiting RPC requests")
-        self.channel.start_consuming()
-
 class RpcPublisher():
 
     def __init__(self, user, pw, ip):
