@@ -15,5 +15,6 @@ urlpatterns = [
     path("friends", views.friends, name="friends"),
     path("stats", views.stats, name="stats"),
     path("connect", views.connect, name="connect"),
-    path("logout", views.logout, name="logout")
+    path("logout", views.logout, name="logout"),
+    path("testing", views.testing, name="testing")
 ]

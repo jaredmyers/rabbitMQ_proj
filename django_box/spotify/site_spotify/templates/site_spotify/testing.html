@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'site_spotify/forum.css' %}">
+    <button id="open">
+        Click Me
+    </button>
+
+<div class="modal-container" id="modal_container">
+        <div class="modal">
+                <h1>Modals are cool.</h1>
+                <form action="">
+                        <input type="text" placeholder="Name">
+                        <input type="email" placeholder="E-Mail">
+                        <button href="#" id="close">Submit</button>
+                </form>
+                <a href="#">Close</a>
+        </div>
+</div>
+
+<script>
+    const open = document.getElementById('open');
+    const modal_container = document.getElementById('modal_container');
+    const close = document.getElementById('close');
+
+    open.addEventListener('click', () => {
+            modal_container.classList.add('show');
+    });
+    
+    close.addEventListener('click', () => {
+            modal_container.classList.remove('show');
+    });
+</script>

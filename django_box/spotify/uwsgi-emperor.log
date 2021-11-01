@@ -4672,3 +4672,40 @@ Sat Oct 30 00:59:38 2021 - uWSGI worker 5 screams: UAAAAAAH my master disconnect
 Sat Oct 30 00:59:38 2021 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
 Sat Oct 30 00:59:38 2021 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
 Sat Oct 30 00:59:38 2021 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 2.0.20 (64bit) on [Sun Oct 31 21:31:15 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x5575fe956690
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 3 seconds on interpreter 0x5575fe956690 pid: 686 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 686)
+spawned uWSGI worker 1 (pid: 983, cores: 1)
+spawned uWSGI worker 2 (pid: 984, cores: 1)
+spawned uWSGI worker 3 (pid: 985, cores: 1)
+spawned uWSGI worker 4 (pid: 986, cores: 1)
+spawned uWSGI worker 5 (pid: 987, cores: 1)
+spawned uWSGI worker 6 (pid: 988, cores: 1)
+spawned uWSGI worker 7 (pid: 989, cores: 1)
+spawned uWSGI worker 8 (pid: 990, cores: 1)
+spawned uWSGI worker 9 (pid: 991, cores: 1)
+spawned uWSGI worker 10 (pid: 992, cores: 1)

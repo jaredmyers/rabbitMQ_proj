@@ -359,3 +359,7 @@ def logout(request):
         return render(request, "site_spotify/login.html", {
         "form": LoginForm(), 
     })
+def testing(request):
+        return render(request, "site_spotify/another_test.html", {
+            "form": LoginForm(), 
+    })
