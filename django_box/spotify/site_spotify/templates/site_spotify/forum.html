@@ -1,5 +1,6 @@
 {% extends "site_spotify/main_template.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block body %}
 <script src="{% static 'site_spotify/jquery.min.js' %}"></script>
@@ -22,7 +23,15 @@
         font-size: 14px;
         padding: 10px 25px;
 }
-
+button {
+        background-color: #47a386;
+        border: 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        color: #fff;
+        font-size: 14px;
+        padding: 10px 25px;
+}
 
 
 .after_modal_appended
@@ -73,8 +82,12 @@
             </div>
             <div class="modal-body">
                 <form action="">
-                    <input type="text" placeholder="Thread Name">
-                    <input type="text" placeholder="Discussion">
+                    {% csrf_token %}
+                    {{ form.errors }}
+                    <!--<input type="text" placeholder="Thread Name">-->
+                    {{ form.threadname|as_crispy_field }}
+                    <!--<input type="text" placeholder="Discussion">-->
+                    {{ form.threadcontent|as_crispy_field }}
                     <button href="#" id="close">Submit</button>
                 </form>
             </div>
@@ -85,17 +98,52 @@
   
         </div>
       </div>
-      <ul>
-        
-            <li>test1</li>
-            <li>test2</li>
-            <li>No saved tracks.</li>
-            <li>testing3</li>
-            <li>testing4</li>
-      
 
-    </ul>
-
+      <div class="container">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">Thread Title Here</h4>
+                <p class="card-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                </p>
+                <p>
+                    <a href="#" class="mr-2">StoopKid</a>
+                    <a href="#" class="mr-2">5 Answers</a>
+                    <a href="#" class="mr-2">10 Comments</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+      <div class="card mb-3">
+          <div class="card-body">
+              <h4 class="card-title">Thread Title Here</h4>
+              <p class="card-text">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+              </p>
+              <p>
+                  <a href="#" class="mr-2">KingElmer</a>
+                  <a href="#" class="mr-2">2 Answers</a>
+                  <a href="#" class="mr-2">3 Comments</a>
+              </p>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">Thread Title Here</h4>
+            <p class="card-text">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+            </p>
+            <p>
+                <a href="#" class="mr-2">Wyatt</a>
+                <a href="#" class="mr-2">1 Answers</a>
+                <a href="#" class="mr-2">2 Comments</a>
+            </p>
+        </div>
+    </div>
+</div>
 
    </div>
     

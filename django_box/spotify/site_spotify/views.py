@@ -4,7 +4,7 @@ from django.urls import reverse
 #from site_spotify.db_auth_login import process_login
 from site_spotify.register_user import process_login
 from site_spotify.api_test import api_test
-from site_spotify.forms import RegisterForm, LoginForm
+from site_spotify.forms import RegisterForm, LoginForm, PostThread
 import uuid
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
@@ -230,8 +230,11 @@ def forum(request):
                 "form": LoginForm(), 
     })
 
+        thread_posts = []
         print("rendering...")
-        return render(request, "site_spotify/forum.html")
+        return render(request, "site_spotify/forum.html", {
+            "form": PostThread(), "thread_posts": thread_posts
+        })
 
    #
    # Mandatory Exception
@@ -243,6 +246,11 @@ def forum(request):
         return render(request, "site_spotify/login.html", {
         "form": LoginForm(), 
     })
+
+def detail(request, id):
+    thread_posts = []
+    return render(request, "site_spotify/detail.html", {"thread_posts": thread_posts})
+
 
 def friends(request):
     try:

@@ -1,6 +1,6 @@
 import mysql.connector
 import credentials as cred
-import bcrypt, uuid
+import bcrypt, uuid, datetime
 
 
 def accessor_methods(body,queue):
@@ -117,6 +117,21 @@ def accessor_methods(body,queue):
         
         return ''
 
+    def get_threads():
+        cursor = conn.cursor()
+        query = f"SELECT id FROM users WHERE uname = '{username}';"
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+        
+        if isinstance(qr[0][3], datetime.datetime):
+            pass
+        
+        thread_info = []
+        for i in query_result:
+            for p in i:
+                thread_info.append()
+
+
 
 ## Main entry point
 
@@ -129,6 +144,8 @@ def accessor_methods(body,queue):
         return register_user(body)
     elif "login" in body:
         return login(body)
+    elif "get_threads" in body:
+        return get_threads()
     else:
         return check_session(body)
 

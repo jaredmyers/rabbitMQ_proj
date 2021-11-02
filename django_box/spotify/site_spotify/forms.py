@@ -8,3 +8,7 @@ class RegisterForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(label='User Name')
     pw = forms.CharField(label="Password")
+
+class PostThread(forms.Form):
+    threadname = forms.CharField(label="Thread Name:")
+    threadcontent = forms.CharField(widget=forms.Textarea, label="Discussion:")
