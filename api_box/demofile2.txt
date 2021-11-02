@@ -1,0 +1,10 @@
+0,Sugar Tastes Like Salt,Sugar Tastes Like Salt,The Orielles,2017-03-13
+1,Rock 'n' Roll Lifestyle,Motorcade of Generosity,Cake,1994
+2,Mr. Mastodon Farm,Motorcade of Generosity,Cake,1994
+3,Total Football,Wide Awake!,Parquet Courts,2018-05-18
+4,Wide Awake,Wide Awake!,Parquet Courts,2018-05-18
+5,『82.99 F.M』,A Millions Miles Away,Macross 82-99,2014-05-07
+6,Águas De Março,Elis & Tom, , Elis Regina & Antônio Carlos Jobim,1974-06-17
+7,The Basement - Live on Standard Selects,Lunar Vacation (Live on Standard Selects),Lunar Vacation,2019-05-29
+8,Superstar - from the Rock Opera "Jesus Christ Superstar",The World Of Charlie Byrd,Charlie Byrd,1973-09-09
+9,Bobbi's Second World,Disco Volador,The Orielles,2020-02-28
