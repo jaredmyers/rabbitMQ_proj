@@ -26,6 +26,15 @@ def send_new_thread(sessionId, threadname, threadcontent):
     response = send_to_db(message,'threads')
     print("from send_new_thread: ")
     print(response)
+
+def send_new_reply(sessionId, threadID, replycontent):
+    message = "new_reply:" + sessionId + ":" + threadID + ":" + replycontent
+    response = send_to_db(message, 'threads')
+    print("from send_new_reply: ")
+    print(response)
+
+
+
     
 class Thread_main():
     

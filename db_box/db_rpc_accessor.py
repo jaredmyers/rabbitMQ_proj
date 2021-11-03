@@ -196,16 +196,30 @@ def accessor_methods(body,queue):
 
         return '1'
 
-        '''
-        with sesssion id, get userID..  the add to thread table values(userID, title, content)
-
-        return bool for success or fail
-        
-        
-        '''
-
     def make_new_reply(body):
-        pass
+        body = body.split(':')
+        sessionId = body[1]
+        threadID = body[2]
+        replycontent = body[3]
+
+        query = f"select userID from sessions where sessionId='{sessionId}';"
+        cursor = conn.cursor()
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        if not query_result:
+            return ''
+        userID = query_result[0][0]
+
+        query = "insert into replies (threadID, userID, content) values (%s,%s,%s);"
+        val = (threadID,userID, replycontent)
+        cursor.execute(query, val)
+        conn.commit()
+        conn.close()
+
+        return '1'
+
+
 
 ## Main entry point
 
@@ -224,6 +238,8 @@ def accessor_methods(body,queue):
         return get_reply_page(body)
     elif "new_thread" in body:
         return make_new_thread(body)
+    elif "new_reply" in body:
+        return make_new_reply(body)
     else:
         return check_session(body)
 

@@ -9,7 +9,7 @@ import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.register_user import register_user
-from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread
+from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
 from site_spotify.process_threads import Thread_main, Thread_replies
 
 
@@ -233,6 +233,7 @@ def forum(request):
                 "form": LoginForm(), 
     })
     
+        # take in and send new thread
         if request.method == "POST":
             form = PostThread(request.POST)
             if form.is_valid():
@@ -268,20 +269,27 @@ def forum(request):
 
 def thread(request, id):
     
+    # take in and send new reply
     if request.method == "POST":
         form = PostReply(request.POST)
         if form.is_valid():
             replycontent = form.cleaned_data['replycontent']
-        print(replycontent)
+            send_new_reply(request.COOKIES['sessionId'], str(id), replycontent)
     
+    # get the thread and its replies
     thread_and_replies = get_reply_page(str(id)).split("+")
     thread = thread_and_replies[0]
     replies = thread_and_replies[1]
+
+    #load thread from json to object
     j = json.loads(thread)
     thread = Thread_main(j["author"], j["threadID"], j["title"], j["content"], j["date"])
 
+    # segment each reply
     replies = replies.split(';')
     del replies[-1]
+
+    # load replies from json to reply object, create list of reply objects
     reply_list = []
     for reply in replies:
         j = json.loads(reply)
