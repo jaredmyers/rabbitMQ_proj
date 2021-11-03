@@ -1,4 +1,4 @@
-import os, sys, re
+import os, sys, re, requests, json
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
@@ -13,14 +13,42 @@ scope = "user-library-read,user-top-read,playlist-modify-public"
 PULL_FILE_PATH="/comboLists/"
 USERNAME1="wizzywizzard"
 USERNAME2="Test"
+#AUTH_TOKEN
 
 
 def main():
+    token = util.prompt_for_user_token(USERNAME1, scope)
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+    currentUserProfileObj = sp.current_user()
+    SPOTIFY_USER_ID=currentUserProfileObj["id"]
+    createPlaylist("Nematode_Test_Tunes",token,SPOTIFY_USER_ID)
+    print("PlaylistCreated")
 
-def createPlaylist():
-    print("creating playlist")
-    return("playlist_ID")
+def createPlaylist(name, tokenIn,userID):
+        data = json.dumps({
+            "name": name,
+            "description": "Test Playlist 1",
+            "public": True
+        })
+        url = f"https://api.spotify.com/v1/users/{userID}/playlists"
+        response = place_post_api_request(url, data, tokenIn)
+        response_json = response.json()
+
+        # create playlist
+        playlist_id = response_json["id"]
+        playlist = [name, playlist_id]
+        return playlist
+
+def place_post_api_request(url, data,inToken):
+        response = requests.post(
+            url,
+            data=data,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {inToken}"
+            }
+        )
+        return response
 
 def pullTrackIDsFromFile(filePath):
     print("pulling track IDs from file and pushing them back as a list")
