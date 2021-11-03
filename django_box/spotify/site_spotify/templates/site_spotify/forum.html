@@ -25,7 +25,7 @@
         margin-bottom: 10px;
         margin-left: 18px;
 }
-button {
+.tango {
         background-color: #47a386;
         border: 0;
         border-radius: 5px;
@@ -83,14 +83,14 @@ button {
               <h4 class="modal-title">Add Thread</h4>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form action="{% url 'site_spotify:forum' %}" method="post">
                     {% csrf_token %}
                     {{ form.errors }}
                     <!--<input type="text" placeholder="Thread Name">-->
                     {{ form.threadname|as_crispy_field }}
                     <!--<input type="text" placeholder="Discussion">-->
                     {{ form.threadcontent|as_crispy_field }}
-                    <button href="#" id="close">Submit</button>
+                    <input class="tango" id="close" type='submit' value="submit">
                 </form>
             </div>
             <div class="modal-footer">

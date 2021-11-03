@@ -21,6 +21,11 @@ def get_reply_page(id):
     print(response)
     return response
 
+def send_new_thread(sessionId, threadname, threadcontent):
+    message = 'new_thread:' + sessionId + ':' + threadname + ':' + threadcontent
+    response = send_to_db(message,'threads')
+    print("from send_new_thread: ")
+    print(response)
     
 class Thread_main():
     

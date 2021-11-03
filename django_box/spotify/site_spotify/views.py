@@ -9,7 +9,7 @@ import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.register_user import register_user
-from site_spotify.process_threads import get_thread_info, get_reply_page
+from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread
 from site_spotify.process_threads import Thread_main, Thread_replies
 
 
@@ -232,12 +232,16 @@ def forum(request):
             return render(request, "site_spotify/login.html", {
                 "form": LoginForm(), 
     })
-
+    
+        if request.method == "POST":
+            form = PostThread(request.POST)
+            if form.is_valid():
+                threadname = form.cleaned_data['threadname']
+                threadcontent = form.cleaned_data['threadcontent']
+                send_new_thread(request.COOKIES['sessionId'], threadname, threadcontent)
 
         list_of_threads = get_thread_info()
-        print("------------------------------")
-        print(list_of_threads)
-        print("------------------------------")
+
         thread_posts = []
         for thread in list_of_threads:
             j = json.loads(thread)

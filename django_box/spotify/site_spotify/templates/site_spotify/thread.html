@@ -35,8 +35,17 @@
                 </div>
             </div>
             {% endfor %}
+                    <!-- Reply Form -->
+            <div class="card">
+                <h6 class="card-header">Post Reply</h6>
+                <div class="card-body">
+                    <textarea class="form-control comment-text"></textarea>
+                    <button type=button class="btn btn-dark my-3 save-comment">Submit</button>
+                </div>
+            </div>
             <a href="{% url 'site_spotify:forum' %}">Go Back</a>
         </div>
+
     </div>
     
 

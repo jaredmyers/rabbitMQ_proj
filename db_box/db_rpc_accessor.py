@@ -171,12 +171,26 @@ def accessor_methods(body,queue):
             replies_json_string += '"date":"'+i[2].strftime('%Y-%m-%d')+'"}'
             replies_json_string += ';'
 
+        conn.close()
         return (thread_json_string + replies_json_string)
 
+    def make_new_thread(body):
+        body = body.split(':')
+        sessionId = body[1]
+        threadname = body[2]
+        threadcontent = body[3]
 
-       
+        '''
+        with sesssion id, get userID..  the add to thread table values(userID, title, content)
 
-        query = f"select * from replies where threadID = '{threadID}';"
+        return bool for success or fail
+        
+        
+        '''
+
+    def make_new_reply(body):
+        pass
+
 ## Main entry point
 
     print(f"from db accessor methods: {body}")
@@ -192,6 +206,8 @@ def accessor_methods(body,queue):
         return get_threads()
     elif "get_reply_page" in body:
         return get_reply_page(body)
+    elif "new_thread" in body:
+        return make_new_thread(body)
     else:
         return check_session(body)
 
