@@ -22,6 +22,8 @@
         color: #fff;
         font-size: 14px;
         padding: 10px 25px;
+        margin-bottom: 10px;
+        margin-left: 18px;
 }
 button {
         background-color: #47a386;
@@ -99,51 +101,27 @@ button {
         </div>
       </div>
 
+      {% for thread in thread_posts %} 
       <div class="container">
         <div class="card mb-3">
             <div class="card-body">
-                <h4 class="card-title">Thread Title Here</h4>
+                <h4 class="card-title"><a href="/site_spotify/thread/{{ thread.threadID }}">{{ thread.title }}</a></h4>
                 <p class="card-text">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                  {{ thread.content }}
                 </p>
                 <p>
-                    <a href="#" class="mr-2">StoopKid</a>
-                    <a href="#" class="mr-2">5 Answers</a>
-                    <a href="#" class="mr-2">10 Comments</a>
+                    <a class="mr-2">{{ thread.author }}</a>
+                    <a class="mr-2">5 Answers</a>
+                    <a class="mr-2"> {{ thread.date }}</a>
                 </p>
             </div>
         </div>
     </div>
-    <div class="container">
-      <div class="card mb-3">
-          <div class="card-body">
-              <h4 class="card-title">Thread Title Here</h4>
-              <p class="card-text">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-              </p>
-              <p>
-                  <a href="#" class="mr-2">KingElmer</a>
-                  <a href="#" class="mr-2">2 Answers</a>
-                  <a href="#" class="mr-2">3 Comments</a>
-              </p>
-          </div>
-      </div>
-  </div>
-  <div class="container">
-    <div class="card mb-3">
-        <div class="card-body">
-            <h4 class="card-title">Thread Title Here</h4>
-            <p class="card-text">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-            </p>
-            <p>
-                <a href="#" class="mr-2">Wyatt</a>
-                <a href="#" class="mr-2">1 Answers</a>
-                <a href="#" class="mr-2">2 Comments</a>
-            </p>
-        </div>
-    </div>
-</div>
+    {% empty %}
+    <ul>
+      <li> No thread posts.</li>
+    </ul>
+    {% endfor %}
 
    </div>
     

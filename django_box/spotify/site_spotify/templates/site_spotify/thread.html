@@ -1,0 +1,44 @@
+{% extends "site_spotify/main_template.html" %}
+
+{% block body %}
+
+
+    <div class="container">
+        <h2>{{ thread.title }}</h2>
+        <p>
+            <span class="mr-4">{{ thread.date }}</span>
+            <!--<a> {{ thread.author }}</a>-->
+        </p>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-1"></div>
+
+        <div class="col-11">
+            <p>
+                {{ thread.content }}
+            </p>
+            <p>
+                <a href="#" class="mr-3">{{ thread.author }}</a>
+                <span>{{ reply_count }} replies</span>
+            </p>
+            <!-- Replies section-->
+            <h3 class="my-2">Replies</h3>
+            {% for reply in reply_list %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p>{{ reply.content }}</p>
+                    <p>
+                        <a href="#" class="mr-2">{{ reply.author }}</a>
+                        <a>{{ reply.date }}</a>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+            <a href="{% url 'site_spotify:forum' %}">Go Back</a>
+        </div>
+    </div>
+    
+
+
+{% endblock %}

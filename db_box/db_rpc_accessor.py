@@ -19,6 +19,7 @@ def accessor_methods(body,queue):
         cursor = conn.cursor() 
         cursor.execute(query)
         query_result = cursor.fetchall()
+        conn.close()
 
         if query_result == []:
             return str(0)
@@ -34,20 +35,21 @@ def accessor_methods(body,queue):
         cursor = conn.cursor()
         cursor.execute(query)
         conn.commit()
+        conn.close()
         
         return '1'
 
     def generate_sessionId(username):
         
-        query = f"SELECT id FROM users WHERE uname = '{username}';"
+        query = f"SELECT userID FROM users WHERE uname = '{username}';"
         cursor = conn.cursor()
         cursor.execute(query)
         query_result = cursor.fetchall()
-        userId = query_result[0][0]
+        userID = query_result[0][0]
 
         sessionId = uuid.uuid4().hex
         
-        query = f"INSERT into sessions (userId, sessionId) values ('{userId}', '{sessionId}');"
+        query = f"INSERT into sessions (userID, sessionId) values ('{userID}', '{sessionId}');"
         cursor= conn.cursor()
         cursor.execute(query)
         conn.commit()
@@ -60,7 +62,7 @@ def accessor_methods(body,queue):
         username = body[1]
         hashed_pw = body[2]
 
-        query = f"SELECT id FROM users WHERE uname = '{username}';"
+        query = f"SELECT userID FROM users WHERE uname = '{username}';"
         cursor = conn.cursor()
         cursor.execute(query)
         query_result = cursor.fetchall()
@@ -70,9 +72,11 @@ def accessor_methods(body,queue):
             query = f"insert into users (uname, pw) values ('{username}', '{hashed_pw}');"
             cursor.execute(query)
             conn.commit()
+            conn.close()
             
             return generate_sessionId(username)
         else:
+            conn.close()
             return ''
 
     def login(body):
@@ -90,6 +94,7 @@ def accessor_methods(body,queue):
         query_result = cursor.fetchall()
         
         if not query_result:
+            conn.close()
             return ''
         
         uname = query_result[0][0]
@@ -99,14 +104,14 @@ def accessor_methods(body,queue):
         print("credmatch from accessor methods: ", cred_match)
 
         if cred_match:
-            query = f"SELECT id FROM users WHERE uname = '{username}';"
+            query = f"SELECT userID FROM users WHERE uname = '{username}';"
             cursor.execute(query)
             query_result = cursor.fetchall()
-            userId = query_result[0][0]
+            userID = query_result[0][0]
 
             sessionId = uuid.uuid4().hex
         
-            query = f"INSERT into sessions (userId, sessionId) values ('{userId}', '{sessionId}');"
+            query = f"INSERT into sessions (userID, sessionId) values ('{userID}', '{sessionId}');"
             cursor.execute(query)
             conn.commit()
             conn.close()
@@ -115,24 +120,63 @@ def accessor_methods(body,queue):
             
             return sessionId
         
+        conn.close()
         return ''
 
     def get_threads():
         cursor = conn.cursor()
-        query = f"SELECT id FROM users WHERE uname = '{username}';"
+        query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID;"
         cursor.execute(query)
         query_result = cursor.fetchall()
-        
-        if isinstance(qr[0][3], datetime.datetime):
-            pass
-        
-        thread_info = []
+        conn.close()
+
+        # json strings delimited by semicolon
+        json_string = ''
         for i in query_result:
-            for p in i:
-                thread_info.append()
+            json_string += '{"author":"'+i[0]+'",'
+            json_string += '"threadID":"'+str(i[1])+'",'
+            json_string += '"title":"'+i[2]+'",'
+            json_string += '"content":"'+i[3]+'",'
+            json_string += '"date":"'+i[4].strftime('%Y-%m-%d')+'"}'
+            json_string += ';'
+
+        return json_string
+
+    def get_reply_page(body):
+        body = body.split(":")
+        threadID = body[1]
+
+        cursor = conn.cursor()
+        query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID and threads.threadID='{threadID}';"
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        thread_json_string = ''
+        for i in query_result:
+            thread_json_string += '{"author":"'+i[0]+'",'
+            thread_json_string += '"threadID":"'+str(i[1])+'",'
+            thread_json_string += '"title":"'+i[2]+'",'
+            thread_json_string += '"content":"'+i[3]+'",'
+            thread_json_string += '"date":"'+i[4].strftime('%Y-%m-%d')+'"}'
+            thread_json_string += '+'
+
+        query = f"select users.uname, replies.content, replies.replyts from users,replies where users.userID=replies.userID and replies.threadID='{threadID}';"
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        replies_json_string = ''
+        for i in query_result:
+            replies_json_string += '{"author":"'+i[0]+'",'
+            replies_json_string += '"content":"'+i[1]+'",'
+            replies_json_string += '"date":"'+i[2].strftime('%Y-%m-%d')+'"}'
+            replies_json_string += ';'
+
+        return (thread_json_string + replies_json_string)
 
 
+       
 
+        query = f"select * from replies where threadID = '{threadID}';"
 ## Main entry point
 
     print(f"from db accessor methods: {body}")
@@ -146,6 +190,8 @@ def accessor_methods(body,queue):
         return login(body)
     elif "get_threads" in body:
         return get_threads()
+    elif "get_reply_page" in body:
+        return get_reply_page(body)
     else:
         return check_session(body)
 

@@ -5,10 +5,13 @@ from django.urls import reverse
 from site_spotify.register_user import process_login
 from site_spotify.api_test import api_test
 from site_spotify.forms import RegisterForm, LoginForm, PostThread
-import uuid
+import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.register_user import register_user
+from site_spotify.process_threads import get_thread_info, get_reply_page
+from site_spotify.process_threads import Thread_main, Thread_replies
+
 
 saved_tracks = []
 
@@ -230,26 +233,54 @@ def forum(request):
                 "form": LoginForm(), 
     })
 
+
+        list_of_threads = get_thread_info()
+        print("------------------------------")
+        print(list_of_threads)
+        print("------------------------------")
         thread_posts = []
+        for thread in list_of_threads:
+            j = json.loads(thread)
+            object = Thread_main(j["author"], j["threadID"], j["title"], j["content"], j["date"])
+            thread_posts.append(object)
+
         print("rendering...")
         return render(request, "site_spotify/forum.html", {
             "form": PostThread(), "thread_posts": thread_posts
         })
+
 
    #
    # Mandatory Exception
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {
         "form": LoginForm(), 
     })
 
-def detail(request, id):
-    thread_posts = []
-    return render(request, "site_spotify/detail.html", {"thread_posts": thread_posts})
+def thread(request, id):
+    thread_and_replies = get_reply_page(str(id)).split("+")
+    thread = thread_and_replies[0]
+    replies = thread_and_replies[1]
+    j = json.loads(thread)
+    thread = Thread_main(j["author"], j["threadID"], j["title"], j["content"], j["date"])
+
+    replies = replies.split(';')
+    del replies[-1]
+    reply_list = []
+    for reply in replies:
+        j = json.loads(reply)
+        object = Thread_replies(j["author"],j["content"],j["date"])
+        reply_list.append(object)
+    
+    reply_count = len(reply_list)
+        
+    return render(request, "site_spotify/thread.html", {
+        "thread": thread, "reply_list": reply_list, "reply_count": reply_count})
 
 
 def friends(request):

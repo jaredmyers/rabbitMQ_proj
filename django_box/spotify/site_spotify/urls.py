@@ -17,5 +17,5 @@ urlpatterns = [
     path("connect", views.connect, name="connect"),
     path("logout", views.logout, name="logout"),
     path("testing", views.testing, name="testing"),
-    path("detail/<int:id", views.detail, name="detail")
+    path("thread/<int:id>", views.thread, name="thread")
 ]
