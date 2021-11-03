@@ -125,7 +125,7 @@ def accessor_methods(body,queue):
 
     def get_threads():
         cursor = conn.cursor()
-        query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID;"
+        query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID order by ts desc;"
         cursor.execute(query)
         query_result = cursor.fetchall()
         conn.close()
@@ -179,6 +179,22 @@ def accessor_methods(body,queue):
         sessionId = body[1]
         threadname = body[2]
         threadcontent = body[3]
+
+        query = f"select userID from sessions where sessionId='{sessionId}';"
+        cursor = conn.cursor()
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+        
+        if not query_result:
+            return ''
+        userID = query_result[0][0]
+        
+        query = f"insert into threads (userID, title, content) values ('{userID}','{threadname}','{threadcontent}');"
+        cursor.execute(query)
+        conn.commit()
+        conn.close()
+
+        return '1'
 
         '''
         with sesssion id, get userID..  the add to thread table values(userID, title, content)
