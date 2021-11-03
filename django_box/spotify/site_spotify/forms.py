@@ -12,3 +12,6 @@ class LoginForm(forms.Form):
 class PostThread(forms.Form):
     threadname = forms.CharField(label="Thread Name:")
     threadcontent = forms.CharField(widget=forms.Textarea, label="Discussion:")
+
+class PostReply(forms.Form):
+    replycontent = forms.CharField(widget=forms.Textarea, label="reply")

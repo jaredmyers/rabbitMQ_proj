@@ -4,7 +4,7 @@ from django.urls import reverse
 #from site_spotify.db_auth_login import process_login
 from site_spotify.register_user import process_login
 from site_spotify.api_test import api_test
-from site_spotify.forms import RegisterForm, LoginForm, PostThread
+from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply
 import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
@@ -267,6 +267,13 @@ def forum(request):
     })
 
 def thread(request, id):
+    
+    if request.method == "POST":
+        form = PostReply(request.POST)
+        if form.is_valid():
+            replycontent = form.cleaned_data['replycontent']
+        print(replycontent)
+    
     thread_and_replies = get_reply_page(str(id)).split("+")
     thread = thread_and_replies[0]
     replies = thread_and_replies[1]
@@ -284,7 +291,7 @@ def thread(request, id):
     reply_count = len(reply_list)
         
     return render(request, "site_spotify/thread.html", {
-        "thread": thread, "reply_list": reply_list, "reply_count": reply_count})
+        "thread": thread, "reply_list": reply_list, "reply_count": reply_count, "form": PostReply()})
 
 
 def friends(request):

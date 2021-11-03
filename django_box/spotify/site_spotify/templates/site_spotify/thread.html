@@ -1,7 +1,17 @@
 {% extends "site_spotify/main_template.html" %}
-
+{% load crispy_forms_tags %}
 {% block body %}
-
+<style>
+.tango {
+    background-color: #47a386;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 25px;
+}
+</style>
 
     <div class="container">
         <h2>{{ thread.title }}</h2>
@@ -39,8 +49,14 @@
             <div class="card">
                 <h6 class="card-header">Post Reply</h6>
                 <div class="card-body">
-                    <textarea class="form-control comment-text"></textarea>
-                    <button type=button class="btn btn-dark my-3 save-comment">Submit</button>
+                    <form action="/site_spotify/thread/{{ thread.threadID }}" method="post">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        {{ form.replycontent|as_crispy_field }}
+
+                        <input class="tango" id="close" type='submit' value="submit">
+                    <!--<textarea class="form-control comment-text"></textarea>
+                    <button type=button class="btn btn-dark my-3 save-comment">Submit</button>-->
                 </div>
             </div>
             <a href="{% url 'site_spotify:forum' %}">Go Back</a>
