@@ -10,7 +10,7 @@ from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
 from site_spotify.process_threads import Thread_main, Thread_replies
-from site_spotify.process_api import fetch_token, store_token_api
+from site_spotify.process_api import fetch_token, store_token_api, api_test2
 import datetime
 
 saved_tracks = []
@@ -163,7 +163,7 @@ def home(request):
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
             if response == False:
-                print('cookie is false')
+                print('cookie is false or expired')
                 return render(request, "site_spotify/login.html", {"form": LoginForm()})
         else:
             print("no cookie detected")
@@ -171,14 +171,15 @@ def home(request):
                 "form": LoginForm(), 
             })
 
-        # get API token and store
+        saved_tracks = []
+        # take in spotifys code and get api token, then store db
         if request.method == 'GET':
             if 'code' in request.GET:
                 code = request.GET['code']
-                response = store_token_api(fetch_token(code), request.COOKIES['sessionId'])
+                token = fetch_token(code)
+                response = store_token_api(token, request.COOKIES['sessionId'])
+                saved_tracks = api_test2(token)
         
-
-
         print("rendering...")
         return render(request, "site_spotify/home.html", {"saved_tracks": saved_tracks})
 

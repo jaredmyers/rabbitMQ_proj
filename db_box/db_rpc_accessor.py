@@ -14,16 +14,26 @@ def accessor_methods(body,queue):
 
     def check_session(body):
         sessionId = body
+        token_expiry = 0.5
 
-        query = f"SELECT sessionId FROM sessions WHERE sessionId = '{sessionId}';"
+        query = f"SELECT sessionId, sTime FROM sessions WHERE sessionId = '{sessionId}';"
         cursor = conn.cursor() 
         cursor.execute(query)
         query_result = cursor.fetchall()
         
 
         if query_result == []:
-            return str(0)
+            return ''
         else:
+            token_issue_date = query_result[0][1]
+            current_time = datetime.datetime.now()
+            diff = current_time - token_issue_date
+            diff_hours = diff.total_seconds()/3600
+
+            if diff_hours > token_expiry:
+                delete_session(f'delete:{sessionId}')
+                return ''
+
             return str(query_result[0][0])
 
     def delete_session(body):
