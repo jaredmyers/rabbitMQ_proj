@@ -19,7 +19,7 @@ def accessor_methods(body,queue):
         cursor = conn.cursor() 
         cursor.execute(query)
         query_result = cursor.fetchall()
-        conn.close()
+        
 
         if query_result == []:
             return str(0)
@@ -35,7 +35,7 @@ def accessor_methods(body,queue):
         cursor = conn.cursor()
         cursor.execute(query)
         conn.commit()
-        conn.close()
+        
         
         return '1'
 
@@ -53,7 +53,7 @@ def accessor_methods(body,queue):
         cursor= conn.cursor()
         cursor.execute(query)
         conn.commit()
-        conn.close()
+        
             
         return sessionId
     
@@ -72,11 +72,10 @@ def accessor_methods(body,queue):
             query = f"insert into users (uname, pw) values ('{username}', '{hashed_pw}');"
             cursor.execute(query)
             conn.commit()
-            conn.close()
+            
             
             return generate_sessionId(username)
         else:
-            conn.close()
             return ''
 
     def login(body):
@@ -94,7 +93,6 @@ def accessor_methods(body,queue):
         query_result = cursor.fetchall()
         
         if not query_result:
-            conn.close()
             return ''
         
         uname = query_result[0][0]
@@ -114,7 +112,6 @@ def accessor_methods(body,queue):
             query = f"INSERT into sessions (userID, sessionId) values ('{userID}', '{sessionId}');"
             cursor.execute(query)
             conn.commit()
-            conn.close()
 
             print("sessionId from accessor methods: " + sessionId)
             
@@ -128,7 +125,6 @@ def accessor_methods(body,queue):
         query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID order by ts desc;"
         cursor.execute(query)
         query_result = cursor.fetchall()
-        conn.close()
 
         # json strings delimited by semicolon
         json_string = ''
@@ -160,7 +156,7 @@ def accessor_methods(body,queue):
             thread_json_string += '"date":"'+i[4].strftime('%Y-%m-%d')+'"}'
             thread_json_string += '+'
 
-        query = f"select users.uname, replies.content, replies.replyts from users,replies where users.userID=replies.userID and replies.threadID='{threadID}';"
+        query = f"select users.uname, replies.content, replies.replyts from users,replies where users.userID=replies.userID and replies.threadID='{threadID}' order by replies.replyts desc;"
         cursor.execute(query)
         query_result = cursor.fetchall()
 
@@ -171,7 +167,6 @@ def accessor_methods(body,queue):
             replies_json_string += '"date":"'+i[2].strftime('%Y-%m-%d')+'"}'
             replies_json_string += ';'
 
-        conn.close()
         return (thread_json_string + replies_json_string)
 
     def make_new_thread(body):
@@ -192,7 +187,6 @@ def accessor_methods(body,queue):
         query = f"insert into threads (userID, title, content) values ('{userID}','{threadname}','{threadcontent}');"
         cursor.execute(query)
         conn.commit()
-        conn.close()
 
         return '1'
 
@@ -215,9 +209,31 @@ def accessor_methods(body,queue):
         val = (threadID,userID, replycontent)
         cursor.execute(query, val)
         conn.commit()
-        conn.close()
 
         return '1'
+
+    def store_token(body):
+        body = body.split(":")
+        sessionId = body[1]
+        api_token = body[2]
+
+        query = f"select userID from sessions where sessionId='{sessionId}';"
+        cursor = conn.cursor()
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        if not query_result:
+            return ''
+
+        userID = query_result[0][0]
+
+        query = "insert into apitokens (apitoken, userID) values (%s, %s);"
+        val = (api_token, userID)
+        cursor.execute(query, val)
+        conn.commit()
+
+        return '1'
+
 
 
 
@@ -240,6 +256,8 @@ def accessor_methods(body,queue):
         return make_new_thread(body)
     elif "new_reply" in body:
         return make_new_reply(body)
+    elif "store_token" in body:
+        return store_token(body)
     else:
         return check_session(body)
 

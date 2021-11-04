@@ -21,4 +21,13 @@
     </div>
     </section>
 
+    <ul>
+        {% for track in saved_tracks %}
+            <li>{{ track }}</li>
+        {% empty %}
+            <li>Connect to Spotify to see tracks!</li>
+        {% endfor %}
+
+    </ul>
+
 {% endblock %}

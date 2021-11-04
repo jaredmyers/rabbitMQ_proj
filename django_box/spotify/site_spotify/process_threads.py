@@ -3,7 +3,6 @@ from site_spotify.send_to_db import send_to_db
 import json
 
 def get_thread_info():
-
     message = 'get_threads'
     response = send_to_db(message, 'threads')
     print("from get_thread_info: ")
@@ -33,9 +32,6 @@ def send_new_reply(sessionId, threadID, replycontent):
     print("from send_new_reply: ")
     print(response)
 
-
-
-    
 class Thread_main():
     
     def __init__(self, author, threadID, title, content, date):
