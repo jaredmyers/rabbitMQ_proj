@@ -162,14 +162,19 @@ def home(request):
             print('cookie detected...')
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
-            if response == False:
+            if not response:
                 print('cookie is false or expired')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
         else:
             print("no cookie detected")
+            please_log_in = True
             return render(request, "site_spotify/login.html", {
-                "form": LoginForm(), 
-            })
+                "form": LoginForm(), "please_log_in": please_log_in})
 
         saved_tracks = []
         # take in spotifys code and get api token, then store db
@@ -202,9 +207,14 @@ def chat(request):
             print('cookie detected...')
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
-            if response == False:
-                print('cookie is false')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+            if not response:
+                print('cookie is false or expired')
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
         else:
             print("no cookie detected")
             return render(request, "site_spotify/login.html", {
@@ -233,9 +243,14 @@ def forum(request):
             print('cookie detected...')
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
-            if response == False:
-                print('cookie is false')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+            if not response:
+                print('cookie is false or expired')
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
         else:
             print("no cookie detected")
             return render(request, "site_spotify/login.html", {
@@ -318,9 +333,14 @@ def friends(request):
             print('cookie detected...')
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
-            if response == False:
-                print('cookie is false')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+            if not response:
+                print('cookie is false or expired')
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
         else:
             print("no cookie detected")
             return render(request, "site_spotify/login.html", {
@@ -348,9 +368,14 @@ def stats(request):
             print('cookie detected...')
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
-            if response == False:
-                print('cookie is false')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+            if not response:
+                print('cookie is false or expired')
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
         else:
             print("no cookie detected")
             return render(request, "site_spotify/login.html", {
@@ -378,9 +403,14 @@ def connect(request):
             print('cookie detected...')
             response = send_to_db(request.COOKIES['sessionId'], 'check_session')
             print(f"response: {response}")
-            if response == False:
-                print('cookie is false')
-                return render(request, "site_spotify/login.html", {"form": LoginForm()})
+            if not response:
+                print('cookie is false or expired')
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
         else:
             print("no cookie detected")
             return render(request, "site_spotify/login.html", {

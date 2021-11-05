@@ -1,13 +1,14 @@
 import base64, requests, sys
 from urllib.parse import urlencode
 from site_spotify.send_to_db import send_to_db
+import site_spotify.credentials as cred
 import spotipy
 
 def fetch_token(auth_code):
 
-    CLIENT_ID = '4ed36c33643a4974817619f60d7615cd'
-    CLIENT_SECRET = '7db6c1bc9d2f4a328f0968700b95fc69'
-    redirect_uri = 'http://192.168.1.3/site_spotify/home'
+    CLIENT_ID = cred.client_id
+    CLIENT_SECRET = cred.client_sk
+    redirect_uri = 'http://10.202.5.100/site_spotify/home'
     url_endpoint = 'https://accounts.spotify.com/api/token'
 
     client_creds = f"{CLIENT_ID}:{CLIENT_SECRET}"

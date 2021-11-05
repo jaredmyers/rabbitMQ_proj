@@ -14,7 +14,7 @@ def accessor_methods(body,queue):
 
     def check_session(body):
         sessionId = body
-        token_expiry = 0.5
+        token_expiry = 0.50
 
         query = f"SELECT sessionId, sTime FROM sessions WHERE sessionId = '{sessionId}';"
         cursor = conn.cursor() 
@@ -22,7 +22,13 @@ def accessor_methods(body,queue):
         query_result = cursor.fetchall()
         
 
-        if query_result == []:
+
+        #if not query_result:
+        #    return ''
+        #else:
+        #    return str(query_result[0][0])
+
+        if not query_result:
             return ''
         else:
             token_issue_date = query_result[0][1]
@@ -34,7 +40,7 @@ def accessor_methods(body,queue):
                 delete_session(f'delete:{sessionId}')
                 return ''
 
-            return str(query_result[0][0])
+            return query_result[0][0]
 
     def delete_session(body):
         body = body.split(':')
@@ -118,6 +124,10 @@ def accessor_methods(body,queue):
             userID = query_result[0][0]
 
             sessionId = uuid.uuid4().hex
+
+            query = f"DELETE FROM sessions WHERE userID='{userID}';"
+            cursor.execute(query)
+            conn.commit()
         
             query = f"INSERT into sessions (userID, sessionId) values ('{userID}', '{sessionId}');"
             cursor.execute(query)

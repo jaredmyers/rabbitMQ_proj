@@ -18,6 +18,12 @@
   {% if bad_login %}
     <script>alert("Login not found! Please check again.");</script>
   {% endif %}
+  {% if session_expired %}
+    <script>alert("Your session has expired!");</script>
+  {% endif %}
+  {% if please_log_in %}
+    <script>alert("Please log in!");</script>
+  {% endif %}
     
   <main>
     <div class="container-fluid">

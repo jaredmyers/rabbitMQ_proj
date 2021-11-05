@@ -5,6 +5,10 @@ user = 'taco'
 pw = 'tastegood'
 ip_address = 'localhost'
 
+#user='rebecca'
+#pw='njit'
+#ip_address='10.203.197.74'
+
 # MySQL Database
 
 db_host='localhost'
