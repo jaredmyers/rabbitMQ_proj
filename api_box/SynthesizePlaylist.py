@@ -12,17 +12,22 @@ scope = "user-library-read,user-top-read,playlist-modify-public"
 
 PULL_FILE_PATH="/comboLists/"
 USERNAME1="wizzywizzard"
-USERNAME2="Test"
+USERNAME2="TestUser"
 #AUTH_TOKEN
-
 
 def main():
     token = util.prompt_for_user_token(USERNAME1, scope)
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
     currentUserProfileObj = sp.current_user()
     SPOTIFY_USER_ID=currentUserProfileObj["id"]
-    createPlaylist("Nematode_Test_Tunes",token,SPOTIFY_USER_ID)
-    print("PlaylistCreated")
+    playlistName=(USERNAME1+"&"+USERNAME2+"'s Mesh")
+    nwPlaylistObj=createPlaylist(playlistName,token,SPOTIFY_USER_ID)
+    print("Playlist "+nwPlaylistObj[1]+" Created")
+    #call data puller function
+    sampleSongIds=["4TYEIckMi7PTCh1kiknKSy","0lj4hDaua3ezKyLJ2oXFWw"]
+    
+    addToPlaylist(sampleSongIds,sp,nwPlaylistObj[1])
+
 
 def createPlaylist(name, tokenIn,userID):
         data = json.dumps({
@@ -30,10 +35,9 @@ def createPlaylist(name, tokenIn,userID):
             "description": "Test Playlist 1",
             "public": True
         })
-        url = f"https://api.spotify.com/v1/users/{userID}/playlists"
+        url = "https://api.spotify.com/v1/users/"+userID+"/playlists"
         response = place_post_api_request(url, data, tokenIn)
         response_json = response.json()
-
         # create playlist
         playlist_id = response_json["id"]
         playlist = [name, playlist_id]
@@ -54,7 +58,8 @@ def pullTrackIDsFromFile(filePath):
     print("pulling track IDs from file and pushing them back as a list")
 
 
-def addToPlaylist(listOfTrackIDs):
+def addToPlaylist(listOfTrackIDs,spooter,playlist_id):
+    spooter.playlist_add_items(playlist_id, listOfTrackIDs)
     print("adding tracks")
 
 
