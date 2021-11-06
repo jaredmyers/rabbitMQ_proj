@@ -4,7 +4,7 @@ import credentials as cred
 from send_to_db import send_to_db
 
 '''
-The body of the incoming message will contain a command and an access token (or any other info)
+The body of the incoming message will contain a command and an sessionId (or any other info)
 in the format of "<command>:<sessionId>" The command will route
 the message to an accessor method, which will parse the message and 
 execute the command, returning the results
