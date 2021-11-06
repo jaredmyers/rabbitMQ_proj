@@ -4,11 +4,11 @@ from django.urls import reverse
 #from site_spotify.db_auth_login import process_login
 from site_spotify.register_user import register_user, process_login
 from site_spotify.api_test import api_test
-from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply
+from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply, AddFriend
 import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
-from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
+from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply, add_friend, get_friends
 from site_spotify.process_threads import Thread_main, Thread_replies
 from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks
 import datetime
@@ -222,9 +222,23 @@ def chat(request):
             return render(request, "site_spotify/login.html", {
                 "form": LoginForm(), 
     })
+        if request.method == 'POST':
+            form = AddFriend(request.POST)
+            print(request.POST)
+            if form.is_valid():
+                print("addfriend form valid")
+                friendname = form.cleaned_data['addfriend']
+                print(friendname)
+                add_friend(request.COOKIES['sessionId'], friendname)
 
+        
+        friends_list = get_friends(request.COOKIES['sessionId'])
+        friend_number = len(friends_list)
+            
         print("rendering...")
-        return render(request, "site_spotify/chat.html")
+        return render(request, "site_spotify/chat.html", {
+            "form": AddFriend(), "friends_list": friends_list, "friend_number": friend_number
+        })
 
    #
    # Mandatory Exception
