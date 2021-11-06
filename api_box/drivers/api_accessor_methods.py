@@ -67,12 +67,13 @@ def accessor_methods(body, queue):
         access_token = get_token_from_db(sessionId)
 
         if not access_token:
-            return []
+            return ''
         
         sp = spotipy.Spotify(access_token)
 
         if sp == None:
-            sys.exit("error, service none")
+            print("error, service none")
+            return ''
 
         results = sp.current_user_saved_tracks()
     
