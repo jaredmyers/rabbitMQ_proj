@@ -254,6 +254,22 @@ def accessor_methods(body,queue):
 
         return '1'
 
+    def get_token(body):
+        body = body.split(":")
+        sessionId = body[1]
+
+        query = f"select apitokens.apitoken from apitokens,sessions where sessions.sessionId = %s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        if not query_result:
+            return ''
+
+        access_token = query_result[0][0]
+
+        return access_token
 
 
 
@@ -278,6 +294,8 @@ def accessor_methods(body,queue):
         return make_new_reply(body)
     elif "store_token" in body:
         return store_token(body)
+    elif "get_token" in (body):
+        return get_token(body)
     else:
         return check_session(body)
 

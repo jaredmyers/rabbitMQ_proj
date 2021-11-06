@@ -10,7 +10,7 @@ from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
 from site_spotify.process_threads import Thread_main, Thread_replies
-from site_spotify.process_api import fetch_token, store_token_api, api_test2
+from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks
 import datetime
 
 saved_tracks = []
@@ -176,14 +176,16 @@ def home(request):
             return render(request, "site_spotify/login.html", {
                 "form": LoginForm(), "please_log_in": please_log_in})
 
-        saved_tracks = []
+        
         # take in spotifys code and get api token, then store db
         if request.method == 'GET':
             if 'code' in request.GET:
                 code = request.GET['code']
                 token = fetch_token(code)
                 response = store_token_api(token, request.COOKIES['sessionId'])
-                saved_tracks = api_test2(token)
+        
+        
+        saved_tracks = get_saved_tracks(request.COOKIES['sessionId'])
         
         print("rendering...")
         return render(request, "site_spotify/home.html", {"saved_tracks": saved_tracks})
@@ -390,6 +392,7 @@ def stats(request):
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {

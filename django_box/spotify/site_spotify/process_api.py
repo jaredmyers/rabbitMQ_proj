@@ -1,10 +1,11 @@
 import base64, requests, sys
 from urllib.parse import urlencode
 from site_spotify.send_to_db import send_to_db
+from site_spotify.send_to_api import send_to_api
 import site_spotify.credentials as cred
 import spotipy
 
-def fetch_token(auth_code):
+def fetch_token2(auth_code):
 
     CLIENT_ID = cred.client_id
     CLIENT_SECRET = cred.client_sk
@@ -34,14 +35,6 @@ def fetch_token(auth_code):
 
     return access_token
 
-def store_token_api(token, sessionId):
-    message = 'store_token:' + sessionId + ':' + token
-    response = send_to_db(message,'check_session')
-    print("from store_token_api: ")
-    print(response)
-
-    return response
-
 def api_test2(access_token):
 
     sp = spotipy.Spotify(access_token)
@@ -58,7 +51,26 @@ def api_test2(access_token):
 
     return saved_tracks
     
-    
+def store_token_api(token, sessionId):
+    message = 'store_token:' + sessionId + ':' + token
+    response = send_to_db(message,'check_session')
+    print("from store_token_api: ")
+    print(response)
 
+    return response
 
+def fetch_token(auth_code):
+    message = 'fetch_token:' + auth_code
+    response = send_to_api(message, 'api_info')
+    print("from process_api_fetchToken: ")
+    print(response)
+    return response
+
+def get_saved_tracks(sessionId):
+    message = "get_saved_tracks:"+ sessionId
+    response = send_to_api(message, 'api_info')
+
+    saved_tracks = response.split(";")
+
+    return saved_tracks
 
