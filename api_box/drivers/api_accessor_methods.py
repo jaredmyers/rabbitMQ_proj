@@ -88,7 +88,7 @@ def accessor_methods(body, queue):
     def another_api_call(body):
         pass
 
-    def pullAllUserInfo():
+    def pullAllUserInfo(body):
         #import spotipy
         #from spotipy.oauth2 import SpotifyOAuth
         import json
@@ -117,8 +117,7 @@ def accessor_methods(body, queue):
         userStats["followedArtists"]=getFollowing(username=SPOTIFY_USERNAME)
         userStats["savedAlbums"]=getSavedAlbums(username=SPOTIFY_USERNAME)
         output=json.dumps(userStats)
-        return(output)
-
+        
         def getFollowing(username=None):
             #sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
             followingArtists = sp.current_user_followed_artists(limit=ARTIST_LIMIT)
@@ -246,6 +245,7 @@ def accessor_methods(body, queue):
             #print("ArtistFreqDict: "+str(artistFreqDict)+"\n")
             returnDict={"genres":genreStatDict,"tracks":trackObjList,"avgYear":AvgReleaseYearStat,"artistFreqByTopTracks":artistFreqDict}
             return(returnDict)
+        return(output)
 
  
     ## Main Entry Point ##
