@@ -19,7 +19,7 @@ def accessor_methods(body, queue):
     '''
 
     def fetch_token(body):
-        '''takes in string in format "command:aut_code", returns api token string '''
+        '''takes in string in format "command:auth_code", returns api token string '''
 
         body = body.split(":")
         auth_code = body[1]
