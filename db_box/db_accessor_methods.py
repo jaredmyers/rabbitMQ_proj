@@ -301,12 +301,16 @@ def accessor_methods(body,queue):
         sessionId = body[1]
         username = body[2]
 
+        ## this whole function deserves a more elegant SQL solution. I gotta move on. ##
+
+        ## grab current users userID
         query = "select userID from sessions where sessionId=%s;"
         val = (sessionId,)
         cursor = conn.cursor()
         cursor.execute(query, val)
         userID1 = cursor.fetchall()[0][0]
 
+        ## grab potential friends userID
         query = "select userID from users where uname=%s;"
         val = (username,)
         cursor = conn.cursor()
@@ -318,6 +322,18 @@ def accessor_methods(body,queue):
         
         userID2 = query_result[0][0]
 
+        # check if they are already friends
+        query = "select * from friends where userID1=%s and userID2=%s or userID1=%s and userID2=%s"
+        val = (userID1,userID2,userID2,userID1)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        if query_result:
+            return ''
+
+
+        ## add friend
         query = "insert into friends (userID1, userID2) values (%s, %s);"
         val = (userID1, userID2)
         cursor = conn.cursor()
@@ -330,7 +346,7 @@ def accessor_methods(body,queue):
         body = body.split(":")
         sessionId = body[1]
 
-        ## this whole function deserves a more complicated SQL query. I gotta move on. ##
+        ## this whole function deserves a more elegant SQL solution. I gotta move on. ##
         query = "select userID from sessions where sessionId=%s;"
         val = (sessionId,)
         cursor = conn.cursor()
@@ -361,7 +377,7 @@ def accessor_methods(body,queue):
         for i in query_result:
             if i[0] in userID_list:
                 friend_names += i[1] + ":" # these are uname strings from db
-                
+
         return friend_names
 
 ## Main entry point

@@ -229,7 +229,7 @@ def chat(request):
                 print("addfriend form valid")
                 friendname = form.cleaned_data['addfriend']
                 print(friendname)
-                add_friend(request.COOKIES['sessionId'], friendname)
+                add_friend_response = add_friend(request.COOKIES['sessionId'], friendname)
 
         
         friends_list = get_friends(request.COOKIES['sessionId'])
