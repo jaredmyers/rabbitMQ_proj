@@ -254,11 +254,22 @@ def accessor_methods(body,queue):
 
         return '1'
 
-    def get_token(body):
+    def delete_token(body):
         body = body.split(":")
         sessionId = body[1]
 
-        query = f"select apitokens.apitoken from apitokens,sessions where sessions.sessionId = %s;"
+        query = "delete apitokens from apitokens inner join sessions on sessions.userID=apitokens.userID where sessions.sessionId=%s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        conn.commit()
+
+    def get_token(body):
+        body = body.split(":")
+        sessionId = body[1]
+        api_expiry = 0.9
+
+        query = f"select apitokens.apitoken, apitokens.tTime from apitokens,sessions where sessions.sessionId = %s;"
         val = (sessionId,)
         cursor = conn.cursor()
         cursor.execute(query, val)
@@ -266,6 +277,15 @@ def accessor_methods(body,queue):
 
         if not query_result:
             return ''
+        else:
+            api_issue_date = query_result[0][1]
+            current_time = datetime.datetime.now()
+            diff = current_time - api_issue_date
+            diff_hours = diff.total_seconds()/3600
+
+            if diff_hours > api_expiry:
+                delete_token(f'delete_token:{sessionId}')
+                return ''
 
         access_token = query_result[0][0]
 

@@ -69,8 +69,15 @@ def fetch_token(auth_code):
 def get_saved_tracks(sessionId):
     message = "get_saved_tracks:"+ sessionId
     response = send_to_api(message, 'api_info')
+    print("-------FROM GET_SAVED_TRACKS:")
+    print(response)
+    print("-------------")
+
+    if not response:
+        return []
 
     saved_tracks = response.split(";")
-
+    del saved_tracks[-1]
+    
     return saved_tracks
 

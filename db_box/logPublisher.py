@@ -1,5 +1,5 @@
 import subprocess, select
-from testClass import RunPublisher
+import PikaClasses
 import credentials as cred
 
 #import sys
@@ -7,7 +7,7 @@ import credentials as cred
 
 def sendLog(log_lines):
     exchange = 'exchangeAll'
-    connection = RunPublisher(cred.user, cred.pw, cred.ip_address)
+    connection = PikaClasses.RunPublisher(cred.user, cred.pw, cred.ip_address)
     connection.fan_publish(exchange, log_lines)
 
 

@@ -5,7 +5,7 @@ from send_to_db import send_to_db
 
 '''
 The body of the incoming message will contain a command and a sessionId (or any other info)
-in the format of "command>:<sessionId" The command will route
+in the format of "command:sessionId" The command will route
 the message to an accessor method, which will parse the message and 
 execute the command, returning the results
 
