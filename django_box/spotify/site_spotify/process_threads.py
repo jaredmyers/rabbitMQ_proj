@@ -32,6 +32,26 @@ def send_new_reply(sessionId, threadID, replycontent):
     print("from send_new_reply: ")
     print(response)
 
+def add_friend(sessionId, friendname):
+    message = "add_friend:" + sessionId + ':' + friendname
+    response = send_to_db(message, 'threads')
+    print("send from add_friend:")
+    print(response)
+
+def get_friends(sessionId):
+    message = "get_friends:" + sessionId
+    response = send_to_db(message, 'threads')
+    print("sent from get_friends: ")
+    print(response)
+
+    if not response:
+        return []
+    
+    friends_list = response.split(":")
+    del friends_list[-1]
+
+    return friends_list
+
 class Thread_main():
     
     def __init__(self, author, threadID, title, content, date):

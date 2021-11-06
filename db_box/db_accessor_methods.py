@@ -56,7 +56,7 @@ def accessor_methods(body,queue):
         return '1'
 
     def generate_sessionId(username):
-        
+        ''' internal method'''
         query = f"SELECT userID FROM users WHERE uname = '{username}';"
         cursor = conn.cursor()
         cursor.execute(query)
@@ -255,6 +255,7 @@ def accessor_methods(body,queue):
         return '1'
 
     def delete_token(body):
+        ''' internal method'''
         body = body.split(":")
         sessionId = body[1]
 
@@ -291,7 +292,77 @@ def accessor_methods(body,queue):
 
         return access_token
 
+    def check_friend(body):
+        ''' internal method'''
+        pass
+    
+    def add_friend(body):
+        body = body.split(":")
+        sessionId = body[1]
+        username = body[2]
 
+        query = "select userID from sessions where sessionId=%s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        userID1 = cursor.fetchall()[0][0]
+
+        query = "select userID from users where uname=%s;"
+        val = (username,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        if not query_result:
+            return ''
+        
+        userID2 = query_result[0][0]
+
+        query = "insert into friends (userID1, userID2) values (%s, %s);"
+        val = (userID1, userID2)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        conn.commit()
+
+        return '1'
+
+    def get_friends(body):
+        body = body.split(":")
+        sessionId = body[1]
+
+        ## this whole function deserves a more complicated SQL query. I gotta move on. ##
+        query = "select userID from sessions where sessionId=%s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        userID = cursor.fetchall()[0][0]
+
+        query = "select * from friends where userID1=%s or userID2 =%s;"
+        val = (userID,userID)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        if not query_result:
+            return ''
+
+        userID_list = []
+        for i in query_result:
+            for p in i:
+                if p != userID:
+                    userID_list.append(p) # these are userID ints from db
+        
+        query = "select * from users"
+        cursor = conn.cursor()
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        friend_names = ''
+        for i in query_result:
+            if i[0] in userID_list:
+                friend_names += i[1] + ":" # these are uname strings from db
+                
+        return friend_names
 
 ## Main entry point
 
@@ -316,6 +387,10 @@ def accessor_methods(body,queue):
         return store_token(body)
     elif "get_token" in (body):
         return get_token(body)
+    elif "add_friend" in body:
+        return add_friend(body)
+    elif "get_friends" in body:
+        return get_friends(body)
     else:
         return check_session(body)
 
