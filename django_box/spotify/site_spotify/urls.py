@@ -17,5 +17,6 @@ urlpatterns = [
     path("connect", views.connect, name="connect"),
     path("logout", views.logout, name="logout"),
     path("testing", views.testing, name="testing"),
-    path("thread/<int:id>", views.thread, name="thread")
+    path("thread/<int:id>", views.thread, name="thread"),
+    path("room/<str:chat_recipient>", views.chatroom, name="chatroom")
 ]

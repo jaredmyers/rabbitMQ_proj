@@ -448,7 +448,7 @@ p {margin: 0;}
                                     <b class="text-inverse">{{ friend }}</b>
                                  </div>
                                  <div class="media-body valign-middle text-right overflow-visible">
-                                       <a href="/site_spotify/room/{{ friend }}" class="btn btn-default">Chat</a>
+                                       <a href="/site_spotify/chat/{{ friend }}" class="btn btn-default">Chat</a>
                                  </div>
                             </div>
                         </div>
@@ -469,7 +469,7 @@ p {margin: 0;}
                             {{ form.errors }}
                             {{ form.addfriend|as_crispy_field }}
     
-                            <input class="tango" id="close" type='submit' name="Add" value="Add Friend">
+                            <input class="tango" id="close" type='submit' value="Add Friend">
                             <input class="bravo" id="close" type='submit' name="Remove" value="Remove Friend">
                            
                         <!--<textarea class="form-control comment-text"></textarea>
@@ -478,26 +478,30 @@ p {margin: 0;}
                 </div>
             </div>
       <div class="col-6 border">
-        <h3 class="m-t-0 m-b-20">Chat</h3>
+        <h3 class="m-t-0 m-b-20">Chatting: {{ chat_recipient }}</h3>
         <div class="card mb-2 chatbox">
             <div class="card-body">
+                 <p>stoopkid: Hey! this is me chatting!</p>
+                 <p>kingelmer: Yo dawg, hows it going over there</p>
+               
+                
 
+                
             </div>
         </div>
-        <!-- form to enter chat messages
+        <!-- form to enter chat messages-->
 
         <div class="card bg-transparent">
             <div class="card-body">
                 <form action="#" method="post">
                     {% csrf_token %}
                     {{ form.errors }}
-                    {{ form.addfriend|as_crispy_field }}
+                    {{ form2.sendmessage|as_crispy_field }}
     
                     <input class="tango" id="close" type='submit' value="Send Message">
 
             </div>
         </div>
-    -->
       </div>
 
       </div>

@@ -4,7 +4,7 @@ from django.urls import reverse
 #from site_spotify.db_auth_login import process_login
 from site_spotify.register_user import register_user, process_login
 from site_spotify.api_test import api_test
-from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply, AddFriend
+from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply, AddFriend, SendChat
 import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
@@ -245,6 +245,64 @@ def chat(request):
    #
     except Exception as e:
         print(e)
+        sendLog("From Django views: " + str(e))
+
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
+
+def chatroom(request, chat_recipient):
+
+    try:
+
+        if 'sessionId' in request.COOKIES:
+            print('cookie detected...')
+            response = send_to_db(request.COOKIES['sessionId'], 'check_session')
+            print(f"response: {response}")
+            if not response:
+                print('cookie is false or expired')
+                session_expired = True
+                response = render(request, "site_spotify/login.html", {
+                    "form":LoginForm(), "session_expired": session_expired })
+                response.delete_cookie('sessionId')
+                print("session terminated")
+                return response
+        else:
+            print("no cookie detected")
+            return render(request, "site_spotify/login.html", {
+                "form": LoginForm(), 
+            })
+
+        if request.method == 'POST':
+            form = AddFriend(request.POST)
+            print(request.POST)
+            if form.is_valid():
+                print("addfriend form valid")
+                friendname = form.cleaned_data['addfriend']
+                print(friendname)
+                add_friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+            else:
+                form = SendChat(request.POST)
+                if form.is_valid():
+                    print("send chat form valid")
+
+        
+        friends_list = get_friends(request.COOKIES['sessionId'])
+        friend_number = len(friends_list)
+
+        
+            
+        print("rendering...")
+        return render(request, "site_spotify/chatroom.html", {
+            "form": AddFriend(), "friends_list": friends_list, "friend_number": friend_number, "chat_recipient": chat_recipient, "form2": SendChat()
+        })
+
+   #
+   # Mandatory Exception
+   #
+    except Exception as e:
+        print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {

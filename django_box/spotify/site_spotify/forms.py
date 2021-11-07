@@ -18,3 +18,6 @@ class PostReply(forms.Form):
 
 class AddFriend(forms.Form):
     addfriend = forms.CharField(label="")
+
+class SendChat(forms.Form):
+    sendmessage = forms.CharField(label="")
