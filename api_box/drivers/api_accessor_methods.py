@@ -100,6 +100,21 @@ def accessor_methods(body, queue):
         #import pika
         import re
         
+        scope = "user-library-read,user-top-read,user-follow-read" #scope for account access, we only need read access here.
+        TRACK_LIST_LIMIT=40
+        SPECIFIED_TIME_RANGE="short_term" #This variable will be utilized by the "self analyzing diff" function to track taste changes.
+        ARTIST_LIMIT=50
+        SPOTIFY_USERNAME="Test"#default should be overwritten automatically by main script
+        WRITE_DIRECTORY="./usersData/"#directory path for writing user files
+        #TODO Exception Handling and Logging
+        
+        sp = spotipy.Spotify(access_token)
+        #Gets user's username, this is required for filenaming
+        currentUserProfileObj = sp.current_user()
+        SPOTIFY_USERNAME=currentUserProfileObj['display_name']
+        SPOTIFY_USER_ID=currentUserProfileObj["id"] #Used in playlists function
+        currentUserFollowers=currentUserProfileObj["followers"] #Not currently used for anything
+        
         def getFollowing(username=None):
             #sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
             followingArtists = sp.current_user_followed_artists(limit=ARTIST_LIMIT)
@@ -228,20 +243,7 @@ def accessor_methods(body, queue):
             returnDict={"genres":genreStatDict,"tracks":trackObjList,"avgYear":AvgReleaseYearStat,"artistFreqByTopTracks":artistFreqDict}
             return(returnDict)
         
-        scope = "user-library-read,user-top-read,user-follow-read" #scope for account access, we only need read access here.
-        TRACK_LIST_LIMIT=40
-        SPECIFIED_TIME_RANGE="short_term" #This variable will be utilized by the "self analyzing diff" function to track taste changes.
-        ARTIST_LIMIT=50
-        SPOTIFY_USERNAME="Test"#default should be overwritten automatically by main script
-        WRITE_DIRECTORY="./usersData/"#directory path for writing user files
-        #TODO Exception Handling and Logging
         
-        sp = spotipy.Spotify(access_token)
-        #Gets user's username, this is required for filenaming
-        currentUserProfileObj = sp.current_user()
-        SPOTIFY_USERNAME=currentUserProfileObj['display_name']
-        SPOTIFY_USER_ID=currentUserProfileObj["id"] #Used in playlists function
-        currentUserFollowers=currentUserProfileObj["followers"] #Not currently used for anything
         #Establish User Stats Object/Dict
         userStats={}
         #Get all the goodies & write to file!
