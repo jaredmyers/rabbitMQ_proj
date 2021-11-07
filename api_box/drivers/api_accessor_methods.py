@@ -88,7 +88,9 @@ def accessor_methods(body, queue):
     def another_api_call(body):
         pass
 
-    def pullAllUserInfo(body):
+    def pullAllUserInfo(body,simpleOrComplex=True):
+        #simpleOrComplex determines the return type of the function. If True (default) it gives basic user stats for the user "my stats" page. If false it gives a DENSE JSON object used for comparing users at the database level.
+
         # grab access token from rabbit message
         body = body.split(":")
         sessionId = body[1]
@@ -243,6 +245,52 @@ def accessor_methods(body, queue):
             returnDict={"genres":genreStatDict,"tracks":trackObjList,"avgYear":AvgReleaseYearStat,"artistFreqByTopTracks":artistFreqDict}
             return(returnDict)
         
+        def getTopGenres(userStatDict,removeDuplicates=True,topLimit=15):
+            #removeDuplicates attempts to "clean" the genres you get back of similar/cliche genres
+            #topLimit defines the number of genres returned, from most frequent to least. If there are less genres present than the top limit the function returns less than that.
+            genreDict=userStatDict["genres"]
+            topGenreNum=0
+            topGenreList=[]
+            print((userStatDict["genres"]))
+            for genre in genreDict:
+                if genreDict[genre] > topGenreNum:
+                    topGenreList.insert(0,genre)
+                    topGenreNum=genreDict[genre]
+                else:
+                    topGenreList.append(genre)
+            #print("\n")
+            #print(topGenreList)
+            
+            if(removeDuplicates==True):
+                #previousGene=""
+                clicheStrings={" rock":0," jazz":0," indie":0," hip-hop":0," pop":0," folk":0," country":0,"american ":0,"modern ":0,"classical ":0,"british ":0,"mexican ":0,"australian ":0,"canadian ":0}
+                for genre in topGenreList:
+                    if genre=="rock":
+                        topGenreList.remove(genre)
+                    if genre=="pop":
+                        topGenreList.remove(genre)
+                    if genre=="electronic":
+                        topGenreList.remove(genre)
+                    if genre=='alternative rock': 
+                        topGenreList.remove(genre)
+                    if genre=="pop rock":
+                        topGenreList.remove(genre)
+                    if genre=="rap":
+                        topGenreList.remove(genre)
+                    for cliche in clicheStrings:
+                        if genre in topGenreList:
+                            if clicheStrings[cliche]>5:
+                                #print(genre)
+                                topGenreList.remove(genre)
+                                clicheStrings[cliche]=0
+                            if cliche in genre:
+                                clicheStrings[cliche]+=1
+                if(len(topGenreList)<15):
+                    return(topGenreList)
+                else:
+                    return(topGenreList[0:topLimit])
+            else:
+                return(topGenreList[0:topLimit])
         
         #Establish User Stats Object/Dict
         userStats={}
@@ -252,8 +300,10 @@ def accessor_methods(body, queue):
         userStats["followedArtists"]=getFollowing(username=SPOTIFY_USERNAME)
         userStats["savedAlbums"]=getSavedAlbums(username=SPOTIFY_USERNAME)
         output=json.dumps(userStats)
-        
-        return(output)
+        if simpleOrComplex !=True:
+            return(output)
+        else:
+            getTopGenres()
 
  
     ## Main Entry Point ##
