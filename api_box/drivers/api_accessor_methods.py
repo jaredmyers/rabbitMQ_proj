@@ -91,7 +91,8 @@ def accessor_methods(body, queue):
     def pullAllUserInfo(body):
         # grab access token from rabbit message
         body = body.split(":")
-        access_token = body[1]
+        sessionId = body[1]
+        access_token = get_token_from_db(sessionId)
 
         #import spotipy
         #from spotipy.oauth2 import SpotifyOAuth
@@ -262,5 +263,5 @@ def accessor_methods(body, queue):
         return fetch_token(body)
     elif "get_saved_tracks" in body:
         return get_saved_tracks(body)
-    elif "get_all_user_info" in body:
+    elif "get_stats" in body:
         return pullAllUserInfo(body)

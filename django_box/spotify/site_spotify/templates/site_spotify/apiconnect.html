@@ -40,7 +40,7 @@
               //var redirect_uri = 'http://10.202.5.100/site_spotify/home';
               var redirect_uri = 'http://192.168.1.4/site_spotify/home';
               var authorize = 'https://accounts.spotify.com/authorize';
-              var scope = 'user-library-read';
+              var scope = 'user-library-read user-top-read user-follow-read';
 
 
               function requestAuthorization(){
@@ -53,7 +53,7 @@
                 url += "&response_type=code";
                 url += "&redirect_uri=" + encodeURI(redirect_uri);
                 url += "&show_dialog=true";
-                url += "&scope=user-library-read";
+                url += "&scope=user-library-read user-top-read user-follow-read";
                 window.location.href = url; // Show Spotify's authorization screen
 
               }

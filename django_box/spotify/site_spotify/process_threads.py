@@ -38,6 +38,8 @@ def add_friend(sessionId, friendname):
     print("send from add_friend:")
     print(response)
 
+    return response
+
 def get_friends(sessionId):
     message = "get_friends:" + sessionId
     response = send_to_db(message, 'threads')

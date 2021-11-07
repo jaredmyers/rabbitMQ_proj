@@ -81,3 +81,11 @@ def get_saved_tracks(sessionId):
     
     return saved_tracks
 
+def get_stats_page(sessionId):
+    message = "get_stats:" + sessionId
+    response = send_to_api(message, 'api_info')
+    print("-------FROM GET_STATS_PAGE:")
+    print(response)
+    print("-------------")
+
+
