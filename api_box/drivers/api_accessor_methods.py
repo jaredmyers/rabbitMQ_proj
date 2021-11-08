@@ -245,6 +245,26 @@ def accessor_methods(body, queue):
             returnDict={"genres":genreStatDict,"tracks":trackObjList,"avgYear":AvgReleaseYearStat,"artistFreqByTopTracks":artistFreqDict}
             return(returnDict)
         
+        def mostListenedToArtists(userStatDict):
+            #print(userStatDict['artistFreqByTopTracks'])
+            returnFreqList=[]
+            
+            #print((userStatDict['artistFreqByTopTracks']).items())
+            ezSortDict={}
+            for artistObj in (userStatDict['artistFreqByTopTracks']).items():
+                ezSortDict[artistObj[0]]=(artistObj[1][0])
+            #print(ezSortDict)
+            
+            sortedDict=(dict(sorted(ezSortDict.items(), key=lambda item: item[1])))
+            returnList=[]
+            for lightWeightArtistObj in sortedDict:
+                newTempList=((userStatDict['artistFreqByTopTracks'])[lightWeightArtistObj])
+                newTempList.insert(0,lightWeightArtistObj)
+                returnList.append(newTempList)
+            returnList.reverse()
+            #print(returnList) WOOOO!
+            return(returnList)
+
         def getTopGenres(userStatDict,removeDuplicates=True,topLimit=15):
             #removeDuplicates attempts to "clean" the genres you get back of similar/cliche genres
             #topLimit defines the number of genres returned, from most frequent to least. If there are less genres present than the top limit the function returns less than that.
@@ -303,7 +323,9 @@ def accessor_methods(body, queue):
         if simpleOrComplex !=True:
             return(output)
         else:
-            getTopGenres()
+            simplifiedReturnObject=[]
+            simplifiedReturnObject.append(getTopGenres(userStats))
+            simplifiedReturnObject.append(mostListenedToArtists(userStats))
 
  
     ## Main Entry Point ##
