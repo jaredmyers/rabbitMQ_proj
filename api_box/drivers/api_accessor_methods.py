@@ -297,7 +297,7 @@ def accessor_methods(body, queue):
             #print(returnList) WOOOO!
             return(returnList)
         
-        def getRecommendationsFromSpotify(spot,artistList,userInfo,genreList=None,includePreview=False):
+        def getRecommendationsFromSpotify(spot,artistList,userInfo,genreList=None,includePreview=True):
             matchingGenreSeeds=[]
             if genreList != None:
                 recSeeds=spot.recommendation_genre_seeds()
