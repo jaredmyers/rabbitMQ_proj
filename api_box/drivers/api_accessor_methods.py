@@ -128,7 +128,7 @@ def accessor_methods(body, queue):
                 artistReturnList.append([artist["id"],artist["name"]])
                 #f.write((artist['id']+","+artist['name'])+"\n")
             #f.close()
-            print(artistReturnList)
+            #print(artistReturnList)
             return(artistReturnList)
 
         def getSavedAlbums(username=None):
@@ -264,6 +264,39 @@ def accessor_methods(body, queue):
             returnList.reverse()
             #print(returnList) WOOOO!
             return(returnList)
+        
+        def getRecommendationsFromSpotify(spot,artistList,userInfo,genreList=None,includePreview=False):
+            matchingGenreSeeds=[]
+            if genreList != None:
+                recSeeds=spot.recommendation_genre_seeds()
+                badWords=["post","pre","modern","classic"]
+                for genreSeed in recSeeds['genres']:
+                    for genre in genreList:
+                        #Big O notation = infinity and beyond
+                        for word in genre.split():
+                            if word in genreSeed:
+                                if genreSeed not in matchingGenreSeeds:
+                                    if word not in badWords:
+                                        matchingGenreSeeds.append(genreSeed)
+            artistSeeds=[]
+            for artistObj in artistList:
+                artistSeeds.append(artistObj[2])
+            #TODO make an input variable that lets you decide what factors you want to weigh for recommendation presentation
+            trackSeeds=[]
+            for track in userInfo['tracks']:
+                trackSeeds.append(track["id"])
+
+            recommendedTacksJson=spot.recommendations(seed_artists=artistSeeds[0:4])
+            print((recommendedTacksJson["tracks"][0]).keys())
+            returnList=[]
+            if includePreview==True:
+                for recTrack in recommendedTacksJson["tracks"]:
+                    returnList.append([recTrack["name"],((recTrack["artists"])[0])['name'],recTrack["id"],recTrack["popularity"],recTrack["preview_url"]])
+            else:
+                for recTrack in recommendedTacksJson["tracks"]:
+                    returnList.append([recTrack["name"],((recTrack["artists"])[0])['name'],recTrack["id"],recTrack["popularity"]])
+            #print(returnList)
+            return(returnList)
 
         def getTopGenres(userStatDict,removeDuplicates=True,topLimit=15):
             #removeDuplicates attempts to "clean" the genres you get back of similar/cliche genres
@@ -326,6 +359,9 @@ def accessor_methods(body, queue):
             simplifiedReturnObject=[]
             simplifiedReturnObject.append(getTopGenres(userStats))
             simplifiedReturnObject.append(mostListenedToArtists(userStats))
+            simplifiedReturnObject.append(userStats['avgYear'])
+            simplifiedReturnObject.append(getRecommendationsFromSpotify(sp,simplifiedReturnObject[1],userStats,genreList=getTopGenres(userStats,removeDuplicates=False, topLimit=100)))
+            return(simplifiedReturnObject)
 
  
     ## Main Entry Point ##
