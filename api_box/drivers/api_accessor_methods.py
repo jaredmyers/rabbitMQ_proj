@@ -85,9 +85,37 @@ def accessor_methods(body, queue):
         return saved_tracks
 
 
-    def another_api_call(body):
-        pass
+    def convert_pullAllUserInfo(simplifiedReturnObject):
+            
+            # converting simplifiedReturnObject to string 
+            # delim elements by ':', lists by ';'  indexes by '+'
+            # this will be an attempt at winning the most innefficient coding award 
+            
+            # index 0 - genres
+            most_listened_genres = ''
+            for i in simplifiedReturnObject[0]:
+                most_listened_genres += i + ":"
+            most_listened_genres += "+"
 
+            # index 1 - artists
+            most_freq_artists = ''
+            for i in simplifiedReturnObject[1]:
+                most_freq_artists += i[0] + ":" + str(i[1]) + ";" #leaving p[2] artist id out for now
+            most_freq_artists += "+"
+
+            # index 2 - avg year
+            avg_release_year = str(simplifiedReturnObject[2]) + "+"
+
+            # index 3 - recommended tracks
+            recommended_tracks = ''
+            for i in simplifiedReturnObject[3]:
+                recommended_tracks += i[0]+":"+i[1]+":"+str(i[3])+";"
+            recommended_tracks += "+"
+
+
+            return most_listened_genres + most_freq_artists + avg_release_year + recommended_tracks
+            
+        
     def pullAllUserInfo(body,simpleOrComplex=True):
         #simpleOrComplex determines the return type of the function. If True (default) it gives basic user stats for the user "my stats" page. If false it gives a DENSE JSON object used for comparing users at the database level.
 
@@ -366,39 +394,10 @@ def accessor_methods(body, queue):
             simplifiedReturnObject.append(userStats['avgYear'])
             simplifiedReturnObject.append(getRecommendationsFromSpotify(sp,simplifiedReturnObject[1],userStats,genreList=getTopGenres(userStats,removeDuplicates=False, topLimit=100)))
             #return(simplifiedReturnObject)
-            #
-            #
-            # converting simplifiedReturnObject to string 
-            # delim elements by ':', lists by ';'  indexes by '+'
-            # this will be an attempt at winning the most innefficient coding award 
             
-            # index 0 - genres
-            most_listened_genres = ''
-            for i in simplifiedReturnObject[0]:
-                most_listened_genres += i + ":"
-            most_listened_genres += "+"
+            # converts simplifiedReturnObject to delimited string and returns
+            return convert_pullAllUserInfo(simplifiedReturnObject)
 
-            # index 1 - artists
-            most_freq_artists = ''
-            print("Object: ")
-            print(simplifiedReturnObject)
-            for i in simplifiedReturnObject[1]:
-                most_freq_artists += i[0] + ":" + str(i[1]) + ";" #leaving p[2] artist id out for now
-            most_freq_artists += "+"
-
-            print("varr:")
-            print(most_freq_artists)
-
-            package = most_listened_genres + most_freq_artists
-
-            # index 2 - avg year
-
-
-
-
-
-            
-            return package
 
 
 
