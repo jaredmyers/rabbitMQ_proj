@@ -434,7 +434,7 @@ p {margin: 0;}
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
    <div class="row">
-            <div class="col-6 border">
+            <div class="col-6">
                 <h4 class="m-t-0 m-b-20">Friend List ({{ friend_number }})</h4>
                {% for friend in friends_list %}
                 <div id="content" class="content content-full-width">
@@ -462,7 +462,7 @@ p {margin: 0;}
                 </div>
                 {% endfor %}
                 <!-- form to enter friends-->
-                <div class="card bg-transparent">
+                <div class="card bg-transparent border-0">
                     <div class="card-body">
                         <form action="/site_spotify/chat" method="post">
                             {% csrf_token %}
@@ -477,7 +477,7 @@ p {margin: 0;}
                     </div>
                 </div>
             </div>
-      <div class="col-6 border">
+      <div class="col-6">
         <h3 class="m-t-0 m-b-20">Chat</h3>
         <div class="card mb-2 chatbox">
             <div class="card-body">

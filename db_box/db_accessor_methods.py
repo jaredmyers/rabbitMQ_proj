@@ -418,7 +418,7 @@ def accessor_methods(body,queue):
         # create chatroom if one doesn't exist, update chatroom name into friends table
         if not query_result[0][0]:
             roomID = f"{uname1}_{chat_recipient}"
-            query = f"create table if not exists {roomID} (uname VARCHAR(255), message TEXT);"
+            query = f"create table if not exists {roomID} (messageID INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(255), message TEXT);"
             val = (roomID,)
             cursor.execute(query)
             conn.commit()
@@ -462,31 +462,28 @@ def accessor_methods(body,queue):
         body = body.split(":")
         room_id = body[1]
 
-        query = f"select * from {room_id}"
+        # select message history for limiting
+        query = f"select messageID from {room_id};"
         cursor.execute(query)
         query_result = cursor.fetchall()
 
+        # limit message history to latest 20
+        if len(query_result) > 20:
+            query = f"delete from {room_id} order by messageID ASC LIMIT 1;"
+            cursor.execute(query)
+            conn.commit()
+
+        # get all remaining messages
+        query = f"select uname, message from {room_id}"
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        # sent back formated as a string to be decompressed into a lists
+        # using ; delim for lists, : delim elements
         chat_records = ''
         for i in query_result:
             chat_records += i[0] + ":" + i[1] + ";"
 
-
-        '''
-        p = 0
-        chat_records = {"messages":[]}
-        for i in query_result:
-            chat_records["messages"].append({"chat_num":str(p), "username":i[0], "message":i[1]})
-            p += 1
-        
-        p = 0
-        storage = '{'
-        for i in query_result:
-            storage += '"chat_num":"'+'"'+str(p)+'"'+'"'+i[0]+'":"'+i[1]+'",'
-            p+=1
-        storage += '}'
-
-        chat_records = storage.replace(',}','}')
-        '''
         return chat_records
 
         

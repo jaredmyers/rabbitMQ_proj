@@ -435,7 +435,7 @@ p {margin: 0;}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 <div class="container">
    <div class="row">
-            <div class="col-6 border">
+            <div class="col-6">
                 <h4 class="m-t-0 m-b-20">Friend List ({{ friend_number }})</h4>
                {% for friend in friends_list %}
                 <div id="content" class="content content-full-width">
@@ -463,9 +463,9 @@ p {margin: 0;}
                 </div>
                 {% endfor %}
                 <!-- form to enter friends-->
-                <div class="card bg-transparent">
+                <div class="card bg-transparent border-0">
                     <div class="card-body">
-                        <form action="#" method="post">
+                        
 
                            
                         <!--<textarea class="form-control comment-text"></textarea>
@@ -473,7 +473,7 @@ p {margin: 0;}
                     </div>
                 </div>
             </div>
-      <div class="col-6 border">
+      <div class="col-6">
         <h3 class="m-t-0 m-b-20">Chatting: {{ chat_recipient }}</h3>
         <div class="card mb-2 chatbox">
             <div class="card-body" id="display">
@@ -485,16 +485,16 @@ p {margin: 0;}
         </div>
         <!-- form to enter chat messages-->
 
-        <div class="card bg-transparent">
+        <div class="card bg-transparent border-0">
             <div class="card-body">
-                <form id="post-form" onclick="function sendMessageData()">
+                <form id="post-form" >
                     {% csrf_token %}
-                    {{ form.errors }}
-                    {{ form2.message|as_crispy_field }}
+                    
+                   
 
                     <input type="hidden" name="username" id="username" value="{{username}}"/>
                     <input type="hidden" name="room_id" id="room_id" value="{{room_id}}"/>
-                   <!---- <input type="text" name="message" id="message" width="250px">-->
+                   <input type="text" name="message" id="message" width="250px">
                     <input class="tango" id="close" type='submit' value="Send Message">
 
             </div>
@@ -519,7 +519,7 @@ p {margin: 0;}
                             $("#display").empty();
                             for (var key in response.messages)
                             {
-                                var temp="<div class='container darker'>"+"<p>"+response.messages[key][0]+":"+response.messages[key][1]+"</p></div>";
+                                var temp="<div class='container darker'>"+"<p>"+response.messages[key][0]+": "+response.messages[key][1]+"</p></div>";
                                 $("#display").append(temp);
                             }
                         },
@@ -527,38 +527,14 @@ p {margin: 0;}
                             alert('An error occured')
                         }
                     });
-                },9000);
+                },3000);
                 })
                 
         </script>
 
-        <script>
-
-            function sendMessageData(){
-                                
-                $.ajax({
-                    type: "POST",
-                    url: '/site_spotify',
-                    data: {
-                        "csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val(),
-                        username:$('#username').val(),
-                        room_id:$('#room_id').val(),
-                        message:$('#message').val(),
-                    },
-                    dataType: "json",
-                    success: function(data){
-                    alert(data)
-                    }
-
-
-                });
-
-            }
-        </script>
-
         
         <script type="text/javascript">
-            /*
+            
             $(document).on('submit','#post-form',function(e){
             e.preventDefault();
         
@@ -572,12 +548,12 @@ p {margin: 0;}
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                     },
                     success: function(data){
-                    alert(data)
+                    //alert(data)
                     }
                 });
                 document.getElementById('message').value = ''
             });
-            */
+            
         </script>
 
 </div>

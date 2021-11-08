@@ -282,7 +282,7 @@ def chatroom(request, chat_recipient):
                 username = form.cleaned_data['username']
                 room_id = form.cleaned_data['room_id']
                 message = form.cleaned_data['message']
-                new_message = new_chat_message(username, message, room_id)
+                #new_message = new_chat_message(username, message, room_id)
             else:
                 form = SendChat(request.POST)
                 if form.is_valid():
@@ -334,12 +334,13 @@ def sendchat(request):
 
     print(room_id, message, username)
 
-    #new_message = new_chat_message(username, message, room_id)
-    new_message = ''
-
+    new_message = new_chat_message(username, message, room_id)
+    
     if new_message:
+        print("From Djangos sendchat: Message sent successfully!")
         return HttpResponse("Message send successfully!")
     else:
+        print("From Djangos sendchat: Message did not sent")
         return HttpResponse("Message didn't send.")
 
 
