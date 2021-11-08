@@ -1,6 +1,7 @@
-"""
-Test Class for demo
-"""
+'''
+Classes housing pika subscriber and publisher code
+for establishing MQ connections
+'''
 import pika, sys, uuid
 
 class RunPublisher():

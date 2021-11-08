@@ -3,6 +3,13 @@ import uuid
 import bcrypt
 from site_spotify.send_to_db import send_to_db
 
+'''
+interface between webfront and MQ
+for login and register tasks
+interfaces with database driver which established MQ connection
+should probably be consoldated into process_threads.py
+'''
+
 def generate_hashpw(pw):
     salt = bcrypt.gensalt()
     pw = pw.encode()

@@ -1,5 +1,5 @@
 import subprocess, select
-from site_spotify.testClass import RunPublisher
+from site_spotify.PikaClasses import RunPublisher
 import site_spotify.credentials as cred
 
 #import sys

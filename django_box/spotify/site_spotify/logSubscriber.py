@@ -1,4 +1,4 @@
-from testClass import RunSubscriber
+from PikaClasses import RunSubscriber
 import credentials as cred
 
 exchange = 'exchangeAll'

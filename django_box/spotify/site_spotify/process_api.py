@@ -5,6 +5,13 @@ from site_spotify.send_to_api import send_to_api
 import site_spotify.credentials as cred
 import spotipy
 
+'''
+interface between webfront and MQ
+for anything regarding the API
+interfaces with the API driver which established MQ connection
+
+'''
+
 def fetch_token2(auth_code):
 
     CLIENT_ID = cred.client_id

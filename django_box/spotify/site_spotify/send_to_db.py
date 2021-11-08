@@ -1,6 +1,9 @@
-from site_spotify.testClass import RpcPublisher
+from site_spotify.PikaClasses import RpcPublisher
 import site_spotify.credentials as cred
 
+'''
+The database driver which establishes an MQ rpc publish connection 
+'''
 
 def send_to_db(message, queue, delete=False):
     rpc_publish = RpcPublisher(cred.user, cred.pw, cred.ip_address)

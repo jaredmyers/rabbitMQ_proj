@@ -11,24 +11,22 @@ def accessor_methods(body,queue):
     password=cred.db_pw,
     database=cred.db_database
     )
-    cursor = conn.cursor()
+    
 
     def check_session(body):
+        '''checks to see if session exists and is still valid'''
         sessionId = body
         token_expiry = 0.50
 
-        query = f"SELECT sessionId, sTime FROM sessions WHERE sessionId = '{sessionId}';"
-        cursor = conn.cursor() 
-        cursor.execute(query)
+        # grab the given session time
+        query = "SELECT sessionId, sTime FROM sessions WHERE sessionId = %s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
         
-
-
-        #if not query_result:
-        #    return ''
-        #else:
-        #    return str(query_result[0][0])
-
+        # return false if session doesn't exist,
+        # check sessions time, delete if expired
         if not query_result:
             return ''
         else:
@@ -44,34 +42,43 @@ def accessor_methods(body,queue):
             return query_result[0][0]
 
     def delete_session(body):
+        '''deletes a session'''
         body = body.split(':')
         body = body[1]
         sessionId = body
 
-        query = f"DELETE FROM sessions WHERE sessionId = '{sessionId}';"
+        query = "DELETE FROM sessions WHERE sessionId = %s;"
+        val = (sessionId,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         conn.commit()
-        
         
         return '1'
 
     def generate_sessionId(username):
-        ''' internal method'''
-        query = f"SELECT userID FROM users WHERE uname = '{username}';"
+        '''internal method - generates a sessionId'''
+        #grab current usernames userID
+        query = "SELECT userID FROM users WHERE uname = %s;"
+        val = (username,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
         userID = query_result[0][0]
 
         sessionId = uuid.uuid4().hex
-        
-        query = f"INSERT into sessions (userID, sessionId) values ('{userID}', '{sessionId}');"
-        cursor= conn.cursor()
-        cursor.execute(query)
+
+        # if user has a session, delete it
+        query = "DELETE FROM sessions WHERE userID=%s;"
+        val = (userID,)
+        cursor.execute(query, val)
         conn.commit()
         
-            
+        #insert newly generated sessionId in sessions
+        query = "INSERT into sessions (userID, sessionId) values (%s, %s);"
+        val = (userID, sessionId)
+        cursor.execute(query, val)
+        conn.commit()
+        
         return sessionId
     
     def register_user(body):
@@ -79,71 +86,80 @@ def accessor_methods(body,queue):
         username = body[1]
         hashed_pw = body[2]
 
-        query = f"SELECT userID FROM users WHERE uname = '{username}';"
+        # checks if username already exists
+        query = "SELECT userID FROM users WHERE uname = %s;"
+        val = (username,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
 
-        # if username doesn't exist
+        # create if username doesn't exist
         if not query_result:
-            query = f"insert into users (uname, pw) values ('{username}', '{hashed_pw}');"
-            cursor.execute(query)
+            query = "insert into users (uname, pw) values (%s, %s);"
+            val = (username, hashed_pw)
+            cursor.execute(query, val)
             conn.commit()
-            
             
             return generate_sessionId(username)
         else:
             return ''
 
     def login(body):
-
         given_creds = body.split(":")
         username = given_creds[1]
         password = given_creds[2]
-
-        query = f"SELECT uname, pw FROM users WHERE uname = '{username}';"
-
-        # console log for debug
-        print(query) 
+        
+        #grabs users username and hashed password
+        query = "SELECT uname, pw FROM users WHERE uname = %s;"
+        val = (username,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
         
+        #return false if user doesn't exist
         if not query_result:
             return ''
         
         uname = query_result[0][0]
         hashed = query_result[0][1]
 
+        # check is given pw matched hashed pw
         cred_match = bcrypt.checkpw(password.encode(),hashed.encode())
-        print("credmatch from accessor methods: ", cred_match)
+        print("credmatch from accessor methods: ", cred_match) # log
 
         if cred_match:
-            query = f"SELECT userID FROM users WHERE uname = '{username}';"
-            cursor.execute(query)
+            return generate_sessionId(username)
+
+            query = "SELECT userID FROM users WHERE uname = %s;"
+            val = (username,)
+            cursor.execute(query, val)
             query_result = cursor.fetchall()
             userID = query_result[0][0]
 
             sessionId = uuid.uuid4().hex
 
-            query = f"DELETE FROM sessions WHERE userID='{userID}';"
-            cursor.execute(query)
+            query = "DELETE FROM sessions WHERE userID=%s;"
+            val = (userID,)
+            cursor.execute(query, val)
             conn.commit()
         
-            query = f"INSERT into sessions (userID, sessionId) values ('{userID}', '{sessionId}');"
-            cursor.execute(query)
+            query = "INSERT into sessions (userID, sessionId) values (%s, %s);"
+            val = (userID, sessionId)
+            cursor.execute(query, val)
             conn.commit()
 
             print("sessionId from accessor methods: " + sessionId)
             
             return sessionId
         
-        conn.close()
+        
         return ''
 
     def get_threads():
+        '''get all forum threads for forum page'''
+        # grab all relevant forum thread info
+        query = "select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID order by ts desc;"
         cursor = conn.cursor()
-        query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID order by ts desc;"
         cursor.execute(query)
         query_result = cursor.fetchall()
 
@@ -160,14 +176,18 @@ def accessor_methods(body,queue):
         return json_string
 
     def get_reply_page(body):
+        '''gets replies for a given forum thread for reply page'''
         body = body.split(":")
         threadID = body[1]
 
+        # grab all relevant forum thread information
+        query = "select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID and threads.threadID=%s;"
+        val = (threadID,)
         cursor = conn.cursor()
-        query = f"select users.uname, threads.threadID, threads.title, threads.content, threads.ts from users,threads where users.userID=threads.userID and threads.threadID='{threadID}';"
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
 
+        # forum thread information, json strings delim by semicolon
         thread_json_string = ''
         for i in query_result:
             thread_json_string += '{"author":"'+i[0]+'",'
@@ -177,10 +197,13 @@ def accessor_methods(body,queue):
             thread_json_string += '"date":"'+i[4].strftime('%Y-%m-%d')+'"}'
             thread_json_string += '+'
 
-        query = f"select users.uname, replies.content, replies.replyts from users,replies where users.userID=replies.userID and replies.threadID='{threadID}' order by replies.replyts desc;"
-        cursor.execute(query)
+        # grab all relevant reply data for the given forum thread
+        query = "select users.uname, replies.content, replies.replyts from users,replies where users.userID=replies.userID and replies.threadID=%s order by replies.replyts desc;"
+        val = (threadID,)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
 
+        # reply information, json strings delim by semicolons
         replies_json_string = ''
         for i in query_result:
             replies_json_string += '{"author":"'+i[0]+'",'
@@ -191,41 +214,53 @@ def accessor_methods(body,queue):
         return (thread_json_string + replies_json_string)
 
     def make_new_thread(body):
+        '''creates new forum thread on forum page'''
         body = body.split(':')
         sessionId = body[1]
         threadname = body[2]
         threadcontent = body[3]
 
-        query = f"select userID from sessions where sessionId='{sessionId}';"
+        # grab posting users userID
+        query = "select userID from sessions where sessionId=%s;"
+        val =(sessionId,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
         
+        # returns false if session valid
         if not query_result:
             return ''
+
         userID = query_result[0][0]
         
-        query = f"insert into threads (userID, title, content) values ('{userID}','{threadname}','{threadcontent}');"
-        cursor.execute(query)
+        #inserts new forum post into threads table
+        query = "insert into threads (userID, title, content) values (%s,%s,%s);"
+        val = (userID, threadname, threadcontent)
+        cursor.execute(query, val)
         conn.commit()
 
         return '1'
 
     def make_new_reply(body):
+        '''creates new reply on reply page'''
         body = body.split(':')
         sessionId = body[1]
         threadID = body[2]
         replycontent = body[3]
 
-        query = f"select userID from sessions where sessionId='{sessionId}';"
+        # grab posting users userID
+        query = "select userID from sessions where sessionId=%s;"
+        val =(sessionId,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
 
+        # return false if session not valid
         if not query_result:
             return ''
         userID = query_result[0][0]
 
+        # inserts new reply into replies table
         query = "insert into replies (threadID, userID, content) values (%s,%s,%s);"
         val = (threadID,userID, replycontent)
         cursor.execute(query, val)
@@ -234,20 +269,25 @@ def accessor_methods(body,queue):
         return '1'
 
     def store_token(body):
+        '''stores the spotify api token, token life is 1 hour'''
         body = body.split(":")
         sessionId = body[1]
         api_token = body[2]
 
-        query = f"select userID from sessions where sessionId='{sessionId}';"
+        # grab users userID
+        query = "select userID from sessions where sessionId=%s;"
+        val = (sessionId,)
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, val)
         query_result = cursor.fetchall()
 
+        # return false is session not valid
         if not query_result:
             return ''
 
         userID = query_result[0][0]
 
+        # insert api token into apitokens table
         query = "insert into apitokens (apitoken, userID) values (%s, %s);"
         val = (api_token, userID)
         cursor.execute(query, val)
@@ -256,10 +296,11 @@ def accessor_methods(body,queue):
         return '1'
 
     def delete_token(body):
-        ''' internal method'''
+        ''' internal method - deletes api token'''
         body = body.split(":")
         sessionId = body[1]
 
+        # deletes api token based on session identity 
         query = "delete apitokens from apitokens inner join sessions on sessions.userID=apitokens.userID where sessions.sessionId=%s;"
         val = (sessionId,)
         cursor = conn.cursor()
@@ -267,16 +308,20 @@ def accessor_methods(body,queue):
         conn.commit()
 
     def get_token(body):
+        '''grabs api token from storage to make a users api calls'''
         body = body.split(":")
         sessionId = body[1]
-        api_expiry = 0.9
+        api_expiry = 0.9 
 
-        query = f"select apitokens.apitoken, apitokens.tTime from apitokens,sessions where sessions.sessionId = %s;"
+        # grabs users api token and issue date
+        query = "select apitokens.apitoken, apitokens.tTime from apitokens,sessions where sessions.sessionId = %s;"
         val = (sessionId,)
         cursor = conn.cursor()
         cursor.execute(query, val)
         query_result = cursor.fetchall()
 
+        # returns false if users api token doesn't exist
+        # removes token if it has expired
         if not query_result:
             return ''
         else:
@@ -298,6 +343,7 @@ def accessor_methods(body,queue):
         pass
     
     def add_friend(body):
+        '''adds friend to users friend list'''
         body = body.split(":")
         sessionId = body[1]
         username = body[2]
@@ -314,7 +360,6 @@ def accessor_methods(body,queue):
         ## grab potential friends userID
         query = "select userID from users where uname=%s;"
         val = (username,)
-        cursor = conn.cursor()
         cursor.execute(query, val)
         query_result = cursor.fetchall()
 
@@ -324,10 +369,13 @@ def accessor_methods(body,queue):
         
         userID2 = query_result[0][0]
 
+        # return false if user tries to friend self
+        if userID1 == userID1:
+            return ''
+
         # check if they are already friends
         query = "select * from friends where userID1=%s and userID2=%s or userID1=%s and userID2=%s;"
         val = (userID1,userID2,userID2,userID1)
-        cursor = conn.cursor()
         cursor.execute(query, val)
         query_result = cursor.fetchall()
 
@@ -335,16 +383,16 @@ def accessor_methods(body,queue):
         if query_result:
             return ''
 
-        ## add friend
+        ## add friend relationship to friends table
         query = "insert into friends (userID1, userID2) values (%s, %s);"
         val = (userID1, userID2)
-        cursor = conn.cursor()
         cursor.execute(query, val)
         conn.commit()
 
         return '1'
 
     def get_friends(body):
+        '''fetches users friends for their friend list'''
         body = body.split(":")
         sessionId = body[1]
 
@@ -360,10 +408,10 @@ def accessor_methods(body,queue):
         # grabbing all the users friend relationships
         query = "select * from friends where userID1=%s or userID2 =%s;"
         val = (userID,userID)
-        cursor = conn.cursor()
         cursor.execute(query, val)
         query_result = cursor.fetchall()
 
+        # return false if user has no friends
         if not query_result:
             return ''
 
@@ -376,7 +424,6 @@ def accessor_methods(body,queue):
         
         # selecting all the users (again, no time to fancy-fi this)
         query = "select * from users;"
-        cursor = conn.cursor()
         cursor.execute(query)
         query_result = cursor.fetchall()
 
@@ -389,6 +436,7 @@ def accessor_methods(body,queue):
         return friend_names
 
     def create_chat(body):
+        '''generates the chatroom table for the specific chat'''
         body = body.split(":")
         sessionId = body[1]
         chat_recipient = body[2]
@@ -414,8 +462,8 @@ def accessor_methods(body,queue):
         cursor.execute(query, val)
         query_result = cursor.fetchall()
         
-
         # create chatroom if one doesn't exist, update chatroom name into friends table
+        #f string vars all internal values (not user input)
         if not query_result[0][0]:
             roomID = f"{uname1}_{chat_recipient}"
             query = f"create table if not exists {roomID} (messageID INT AUTO_INCREMENT PRIMARY KEY, uname VARCHAR(255), message TEXT);"
@@ -434,9 +482,11 @@ def accessor_methods(body,queue):
         return query_result[0][0]
     
     def get_username(body):
+        '''grabs users username'''
         body = body.split(":")
         sessionId = body[1]
 
+        # grabs username based on session 
         query = "select users.uname from users inner join sessions on sessions.userID=users.userID where sessionId=%s;"
         val = (sessionId,)
         cursor = conn.cursor()
@@ -446,24 +496,29 @@ def accessor_methods(body,queue):
         return username
 
     def new_chat_message(body):
+        '''creates a new chat message for chatroom id'''
         body = body.split(":")
         username = body[1] 
         chat_message = body[2]
         room_id = body[3]
 
+        # inserts new chat message into chatroom
         query = f"insert into {room_id} (uname, message) values (%s, %s);"
         val = (username, chat_message)
+        cursor = conn.cursor()
         cursor.execute(query, val)
         conn.commit()
 
         return '1'
 
     def get_chat_messages(body):
+        '''gets all chat messages for chatroom id to populate chatbox'''
         body = body.split(":")
         room_id = body[1]
 
         # select message history for limiting
         query = f"select messageID from {room_id};"
+        cursor = conn.cursor()
         cursor.execute(query)
         query_result = cursor.fetchall()
 
@@ -486,12 +541,16 @@ def accessor_methods(body,queue):
 
         return chat_records
 
-        
-
-
-
-
+    
 ## Main entry point
+
+    '''
+    Main Entry point to database accessor methods
+    called by the rabbitMQ subscriber callback
+    acts as gigantic switch board
+    
+    '''
+
 
     print(f"from db accessor methods: {body}")
     body = body.decode('utf-8')
@@ -529,9 +588,3 @@ def accessor_methods(body,queue):
     else:
         return check_session(body)
 
-    '''
-    if queue == 'check_session':
-        return check_session(body)
-    if queue == 'delete_session':
-        return delete_session(body)
-    '''

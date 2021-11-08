@@ -2,6 +2,13 @@ from typing import ContextManager
 from site_spotify.send_to_db import send_to_db
 import json
 
+'''
+interface between webfront and MQ
+for anything regarding forum threads and chat
+interfaces with database driver which establishes MQ connection
+
+'''
+
 def get_thread_info():
     message = 'get_threads'
     response = send_to_db(message, 'threads')
