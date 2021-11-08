@@ -54,6 +54,46 @@ def get_friends(sessionId):
 
     return friends_list
 
+def create_chat(sessionId, chat_recipient):
+    message = "create_chat:" + sessionId + ":" + chat_recipient
+    response = send_to_db(message, 'threads')
+    print("sent from create_chat: ")
+    print(response)
+
+    return response
+
+def get_username(sessionId):
+    message = "get_username:" + sessionId
+    response = send_to_db(message, 'threads')
+    print("sent from get_username: ")
+    print(response)
+
+    return response
+
+def new_chat_message(username, message, room_id):
+    message = "new_chat_message:"+username+":"+message+":"+room_id
+    response = send_to_db(message, 'threads')
+    print("sent from create_chat_message: ")
+    print(response)
+    return response
+
+def get_chat_messages(room_id):
+    message = "get_messages:"+room_id
+    response = send_to_db(message, 'threads')
+    print("sent from get_chat_messages:")
+    print(response)
+    chat_messages = response.split(";")
+    del chat_messages[-1]
+
+    p = 0
+    message_dict = {}
+    for i in chat_messages:
+        message = i.split(":")
+        message_dict[p] = [message[0], message[1]]
+        p+=1
+
+    return message_dict
+
 class Thread_main():
     
     def __init__(self, author, threadID, title, content, date):

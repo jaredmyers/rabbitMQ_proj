@@ -464,7 +464,7 @@ p {margin: 0;}
                 <!-- form to enter friends-->
                 <div class="card bg-transparent">
                     <div class="card-body">
-                        <form action="#" method="post">
+                        <form action="/site_spotify/chat" method="post">
                             {% csrf_token %}
                             {{ form.errors }}
                             {{ form.addfriend|as_crispy_field }}

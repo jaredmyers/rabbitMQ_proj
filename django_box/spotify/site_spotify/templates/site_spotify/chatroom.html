@@ -432,6 +432,7 @@ p {margin: 0;}
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 <div class="container">
    <div class="row">
             <div class="col-6 border">
@@ -465,12 +466,7 @@ p {margin: 0;}
                 <div class="card bg-transparent">
                     <div class="card-body">
                         <form action="#" method="post">
-                            {% csrf_token %}
-                            {{ form.errors }}
-                            {{ form.addfriend|as_crispy_field }}
-    
-                            <input class="tango" id="close" type='submit' value="Add Friend">
-                            <input class="bravo" id="close" type='submit' name="Remove" value="Remove Friend">
+
                            
                         <!--<textarea class="form-control comment-text"></textarea>
                         <button type=button class="btn btn-dark my-3 save-comment">Submit</button>-->
@@ -480,11 +476,9 @@ p {margin: 0;}
       <div class="col-6 border">
         <h3 class="m-t-0 m-b-20">Chatting: {{ chat_recipient }}</h3>
         <div class="card mb-2 chatbox">
-            <div class="card-body">
-                 <p>stoopkid: Hey! this is me chatting!</p>
-                 <p>kingelmer: Yo dawg, hows it going over there</p>
-               
-                
+            <div class="card-body" id="display">
+
+                            
 
                 
             </div>
@@ -493,11 +487,14 @@ p {margin: 0;}
 
         <div class="card bg-transparent">
             <div class="card-body">
-                <form action="#" method="post">
+                <form id="post-form" onclick="function sendMessageData()">
                     {% csrf_token %}
                     {{ form.errors }}
-                    {{ form2.sendmessage|as_crispy_field }}
-    
+                    {{ form2.message|as_crispy_field }}
+
+                    <input type="hidden" name="username" id="username" value="{{username}}"/>
+                    <input type="hidden" name="room_id" id="room_id" value="{{room_id}}"/>
+                   <!---- <input type="text" name="message" id="message" width="250px">-->
                     <input class="tango" id="close" type='submit' value="Send Message">
 
             </div>
@@ -507,6 +504,81 @@ p {margin: 0;}
       </div>
 
    </div>
+
+   
+       <script type="text/javascript">
+       
+            $(document).ready(function(){
+
+                setInterval(function(){
+                    $.ajax({
+                        type: 'GET',
+                        url : "/site_spotify/getMessages/{{room_id}}",
+                        success: function(response){
+                            console.log(response);
+                            $("#display").empty();
+                            for (var key in response.messages)
+                            {
+                                var temp="<div class='container darker'>"+"<p>"+response.messages[key][0]+":"+response.messages[key][1]+"</p></div>";
+                                $("#display").append(temp);
+                            }
+                        },
+                        error: function(response){
+                            alert('An error occured')
+                        }
+                    });
+                },9000);
+                })
+                
+        </script>
+
+        <script>
+
+            function sendMessageData(){
+                                
+                $.ajax({
+                    type: "POST",
+                    url: '/site_spotify',
+                    data: {
+                        "csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val(),
+                        username:$('#username').val(),
+                        room_id:$('#room_id').val(),
+                        message:$('#message').val(),
+                    },
+                    dataType: "json",
+                    success: function(data){
+                    alert(data)
+                    }
+
+
+                });
+
+            }
+        </script>
+
+        
+        <script type="text/javascript">
+            /*
+            $(document).on('submit','#post-form',function(e){
+            e.preventDefault();
+        
+                $.ajax({
+                    type:'POST',
+                    url:'/site_spotify/sendchat',
+                    data:{
+                        username:$('#username').val(),
+                        room_id:$('#room_id').val(),
+                        message:$('#message').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                    success: function(data){
+                    alert(data)
+                    }
+                });
+                document.getElementById('message').value = ''
+            });
+            */
+        </script>
 
 </div>
 {% endblock %}

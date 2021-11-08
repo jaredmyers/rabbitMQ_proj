@@ -1,17 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 #from site_spotify.db_auth_login import process_login
 from site_spotify.register_user import register_user, process_login
 from site_spotify.api_test import api_test
-from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply, AddFriend, SendChat
+from site_spotify.forms import RegisterForm, LoginForm, PostThread, PostReply, AddFriend, SendChat, ProcessChatData
 import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
-from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply, add_friend, get_friends
+from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
+from site_spotify.process_threads import add_friend, get_friends, create_chat, get_username, new_chat_message, get_chat_messages
 from site_spotify.process_threads import Thread_main, Thread_replies
 from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page
-import datetime
+import datetime, random, json
 
 saved_tracks = []
 
@@ -274,17 +275,24 @@ def chatroom(request, chat_recipient):
             })
 
         if request.method == 'POST':
-            form = AddFriend(request.POST)
+            form = ProcessChatData(request.POST)
             print(request.POST)
             if form.is_valid():
-                print("addfriend form valid")
-                friendname = form.cleaned_data['addfriend']
-                print(friendname)
-                add_friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+                print("Process ChatData form valid")
+                username = form.cleaned_data['username']
+                room_id = form.cleaned_data['room_id']
+                message = form.cleaned_data['message']
+                new_message = new_chat_message(username, message, room_id)
             else:
                 form = SendChat(request.POST)
                 if form.is_valid():
                     print("send chat form valid")
+
+                        
+        
+        # create chat table between two users if non-existant
+        room_id = create_chat(request.COOKIES['sessionId'], chat_recipient)
+        username = get_username(request.COOKIES['sessionId'])
 
         
         friends_list = get_friends(request.COOKIES['sessionId'])
@@ -294,7 +302,9 @@ def chatroom(request, chat_recipient):
             
         print("rendering...")
         return render(request, "site_spotify/chatroom.html", {
-            "form": AddFriend(), "friends_list": friends_list, "friend_number": friend_number, "chat_recipient": chat_recipient, "form2": SendChat()
+            "form": AddFriend(), "friends_list": friends_list, 
+            "friend_number": friend_number, "chat_recipient": chat_recipient, 
+            "form2": SendChat(), "room_id": room_id, "username": username
         })
 
    #
@@ -308,6 +318,29 @@ def chatroom(request, chat_recipient):
         return render(request, "site_spotify/login.html", {
         "form": LoginForm(), 
     })
+
+def getMessages(request, room_id):
+    
+    message_dict = get_chat_messages(room_id)
+
+    return JsonResponse({"messages":message_dict})
+
+def sendchat(request):
+    room_id = request.POST['room_id']
+    message = request.POST['message']
+    username = request.POST['username']
+
+    print("From Djangos sendchat")
+
+    print(room_id, message, username)
+
+    #new_message = new_chat_message(username, message, room_id)
+    new_message = ''
+
+    if new_message:
+        return HttpResponse("Message send successfully!")
+    else:
+        return HttpResponse("Message didn't send.")
 
 
 def forum(request):

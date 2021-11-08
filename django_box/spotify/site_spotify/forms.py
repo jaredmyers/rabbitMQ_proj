@@ -17,7 +17,12 @@ class PostReply(forms.Form):
     replycontent = forms.CharField(widget=forms.Textarea, label="reply")
 
 class AddFriend(forms.Form):
-    addfriend = forms.CharField(label="")
+    addfriend = forms.CharField(label="", required=False)
 
 class SendChat(forms.Form):
-    sendmessage = forms.CharField(label="")
+    message = forms.CharField(label="", required=False)
+
+class ProcessChatData(forms.Form):
+    username = forms.CharField(label='')
+    room_id = forms.CharField(label='')
+    message = forms.CharField(label='')

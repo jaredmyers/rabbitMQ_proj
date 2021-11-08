@@ -18,5 +18,7 @@ urlpatterns = [
     path("logout", views.logout, name="logout"),
     path("testing", views.testing, name="testing"),
     path("thread/<int:id>", views.thread, name="thread"),
-    path("room/<str:chat_recipient>", views.chatroom, name="chatroom")
+    path("room/<str:chat_recipient>", views.chatroom, name="chatroom"),
+    path("sendchat", views.sendchat, name="sendchat"),
+    path("getMessages/<str:room_id>", views.getMessages, name="getMessages")
 ]
