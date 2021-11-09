@@ -2,23 +2,56 @@
 
 {% block body %}
 
-<section class="ftco-section pt-4 mb-5 ftco-intro">
-    <div class="container-fluid px-3 px-md-0">
+    <div class="container">
+        <h2>Stats!</h2>
+
+    </div>
+    <hr/>
     <div class="row">
-    <div class="col-md-12 mb-4">
-    <h1 class="h2">The Stats Page</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque est assumenda illum ratione nesciunt ullam non accusantium voluptas soluta veniam, quam, praesentium suscipit eos amet nisi natus nostrum, iusto expedita?</p>
+        <div class="col-6">
+            <div class="card mb-2">
+                <h6 class="card-header">Most Listened to Genres</h6>
+                <div class="card-body">
+                    {% for genre in most_listened_genres %}
+                    <p>{{ genre }}</p>
+                    {% empty %}
+                    <p>Connect to see stats!</p>
+                    {% endfor %}      
+                </div>
+            </div>
+            <div class="card mb-2">
+                <h6 class="card-header">Top Artists</h6>
+                <div class="card-body">
+                    {% for artist in most_freq_artists %}
+                    <p>{{ artist }}</p>
+                    {% endfor %}    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-6">
+            <div class="card mb-2">
+                <h6 class="card-header">Recommended Tracks</h6>
+                <div class="card-body">
+                    {% for track in recommended_tracks %}
+                    <p>{{ track }}</p>
+                    {% endfor %}   
+                </div>
+            </div>
+            <div class="card mb-2">
+                <h6 class="card-header">Average Release Year</h6>
+                <div class="card-body">
+                    <p>{{ avg_year_release }}</p>
+                </div>
+            </div>
+            
+
+            <!--<a href="{% url 'site_spotify:forum' %}">Go Back</a>-->
+        </div>
+
     </div>
-    <div class="col-md-6">
-    <h2 class="h4">Heading Two</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maxime nisi commodi consequuntur pariatur qui reprehenderit aperiam deserunt, impedit veniam sapiente voluptas minus, ipsum. Ipsum minima sunt provident! Esse, quae.</p>
-    </div>
-    <div class="col-md-6">
-    <h2 class="h4">Heading Two</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maxime nisi commodi consequuntur pariatur qui reprehenderit aperiam deserunt, impedit veniam sapiente voluptas minus, ipsum. Ipsum minima sunt provident! Esse, quae.</p>
-    </div>
-    </div>
-    </div>
-    </section>
+    
+
 
 {% endblock %}

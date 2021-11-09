@@ -91,8 +91,47 @@ def get_saved_tracks(sessionId):
 def get_stats_page(sessionId):
     message = "get_stats:" + sessionId
     response = send_to_api(message, 'api_info')
+
+    if not response:
+        return ''
+
     print("-------FROM GET_STATS_PAGE:")
-    print(response)
+    response = response.split("+")
+
+    most_listened_genres = response[0]
+    most_listened_genres = most_listened_genres.split(":")
+    del most_listened_genres[-1]
+
+
+    most_freq_artists = response[1]
+    most_freq_artists = most_freq_artists.split(";")
+    del most_freq_artists[-1]
+    mfa = []
+    for i in most_freq_artists:
+        mfa.append(i.split(":"))
+
+    avg_release_year = response[2]
+    
+    recommended_tracks = response[3]
+    recommended_tracks = recommended_tracks.split(";")
+    del recommended_tracks[-1]
+    rt = []
+    for i in recommended_tracks:
+        rt.append(i.split(":"))
+
+    rt.sort(key=lambda x:x[2], reverse=True)
+
+
+    print(most_listened_genres)
+    print("----")
+    print(mfa)
+    print("----")
+    print(avg_release_year)
+    print("----")
+    print(rt)
     print("-------------")
+
+    # take first 5 of each
+    return [most_listened_genres[:4], mfa[:4], avg_release_year, rt[:4]]
 
 

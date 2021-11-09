@@ -490,10 +490,25 @@ def stats(request):
                 "form": LoginForm(), 
     })
 
-        get_stats_page(request.COOKIES['sessionId'])
+        stats = get_stats_page(request.COOKIES['sessionId'])
+
+        if stats:
+            most_listened_genres = stats[0]
+            most_freq_artists = stats[1]
+            avg_year_release = stats[2]
+            recommended_tracks = stats[3]
+        else:
+            most_listened_genres = []
+            most_freq_artists = []
+            avg_year_release = 0
+            recommended_tracks = []
+
 
         print("rendering...")
-        return render(request, "site_spotify/stats.html")
+        return render(request, "site_spotify/stats.html", {
+            "most_listened_genres": most_listened_genres, "most_freq_artists": most_freq_artists,
+            "avg_year_release": avg_year_release, "recommended_tracks": recommended_tracks
+        })
 
    #
    # Mandatory Exception

@@ -110,7 +110,7 @@ def accessor_methods(body, queue):
             recommended_tracks = ''
             for i in simplifiedReturnObject[3]:
                 recommended_tracks += i[0]+":"+i[1]+":"+str(i[3])+";"
-            recommended_tracks += "+"
+            
 
 
             return most_listened_genres + most_freq_artists + avg_release_year + recommended_tracks
@@ -394,7 +394,7 @@ def accessor_methods(body, queue):
             simplifiedReturnObject.append(userStats['avgYear'])
             simplifiedReturnObject.append(getRecommendationsFromSpotify(sp,simplifiedReturnObject[1],userStats,genreList=getTopGenres(userStats,removeDuplicates=False, topLimit=100)))
             #return(simplifiedReturnObject)
-            
+
             # converts simplifiedReturnObject to delimited string and returns
             return convert_pullAllUserInfo(simplifiedReturnObject)
 
