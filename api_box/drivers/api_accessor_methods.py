@@ -114,7 +114,11 @@ def accessor_methods(body, queue):
 
 
             return most_listened_genres + most_freq_artists + avg_release_year + recommended_tracks
-            
+
+    def store_stats(body):
+            '''internal function - stores long json of stats in db'''
+            message = "store_stats?&#))" + body
+            success = send_to_db(message, 'check_session')
         
     def pullAllUserInfo(body,simpleOrComplex=True):
         #simpleOrComplex determines the return type of the function. If True (default) it gives basic user stats for the user "my stats" page. If false it gives a DENSE JSON object used for comparing users at the database level.
@@ -445,8 +449,10 @@ def accessor_methods(body, queue):
             #return(simplifiedReturnObject)
 
             # converts simplifiedReturnObject to delimited string and returns
-            message = "store_stats?&#))" + sessionId + "?&#))" + output
-            success = send_to_db(message, 'check_session')
+            
+
+            store_stats(sessionId + "?&#))" + output)
+
             return convert_pullAllUserInfo(simplifiedReturnObject)
 
 

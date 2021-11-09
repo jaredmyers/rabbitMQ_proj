@@ -557,7 +557,6 @@ def accessor_methods(body,queue):
         query = "insert into stats (userID, stat) values (%s, %s);"
         val = (userID, json)
         cursor = conn.cursor()
-        #query = f"insert into stats (userID, stat) values ('{userID}', '{json}');"
         cursor.execute(query, val)
         conn.commit()
 

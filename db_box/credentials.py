@@ -7,7 +7,7 @@ ip_address = 'localhost'
 
 #user='rebecca'
 #pw='njit'
-#ip_address='10.203.197.74'
+#ip_address='10.203.197.124'
 
 # MySQL Database
 
