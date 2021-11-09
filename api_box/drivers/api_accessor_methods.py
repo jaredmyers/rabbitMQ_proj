@@ -312,22 +312,29 @@ def accessor_methods(body, queue):
                                         matchingGenreSeeds.append(genreSeed)
             artistSeeds=[]
             for artistObj in artistList:
-                artistSeeds.append(artistObj[2])
+                #print(artistObj)
+                artistSeeds.append(artistObj[3])
             #TODO make an input variable that lets you decide what factors you want to weigh for recommendation presentation
             trackSeeds=[]
             for track in userInfo['tracks']:
                 trackSeeds.append(track["id"])
+            newArtistSeeds=[]
+            x=0
+            while x < 4:
+                newArtistSeeds.append(artistSeeds[x])
+                x=x+1
 
-            recommendedTacksJson=spot.recommendations(seed_artists=artistSeeds[0:4])
-            print((recommendedTacksJson["tracks"][0]).keys())
+            recommendedTacksJson=spot.recommendations(seed_artists=newArtistSeeds)
+
             returnList=[]
             if includePreview==True:
                 for recTrack in recommendedTacksJson["tracks"]:
                     returnList.append([recTrack["name"],((recTrack["artists"])[0])['name'],recTrack["id"],recTrack["popularity"],recTrack["preview_url"]])
+                    #print (recTrack["preview_url"])
             else:
                 for recTrack in recommendedTacksJson["tracks"]:
                     returnList.append([recTrack["name"],((recTrack["artists"])[0])['name'],recTrack["id"],recTrack["popularity"]])
-            #print(returnList)
+
             return(returnList)
 
         def getTopGenres(userStatDict,removeDuplicates=True,topLimit=15):
