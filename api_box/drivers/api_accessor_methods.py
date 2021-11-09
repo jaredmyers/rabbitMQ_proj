@@ -445,6 +445,7 @@ def accessor_methods(body, queue):
             #return(simplifiedReturnObject)
 
             # converts simplifiedReturnObject to delimited string and returns
+            send_to_db(output, "api_info")
             return convert_pullAllUserInfo(simplifiedReturnObject)
 
 
@@ -463,8 +464,4 @@ def accessor_methods(body, queue):
         return get_saved_tracks(body)
     elif "get_stats" in body:
         return pullAllUserInfo(body)
-    
-    
-    elif "get_stats_long":
-        jsonMessage=pullAllUserInfo(body,simpleOrComplex=False)
-        send_to_db(jsonMessage, "api_info")
+        
