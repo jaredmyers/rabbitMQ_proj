@@ -542,7 +542,7 @@ def accessor_methods(body,queue):
         return chat_records
 
     def store_stats(body):
-        body = body.split(":")
+        body = body.split("?&#))")
         sessionId = body[1]
         json = body[2]
 
@@ -554,9 +554,10 @@ def accessor_methods(body,queue):
         userID = cursor.fetchall()[0][0]
 
         # inserts new json into stats
-        query = f"insert into stats (userID, stat) values (%s, %s);"
+        query = "insert into stats (userID, stat) values (%s, %s);"
         val = (userID, json)
         cursor = conn.cursor()
+        #query = f"insert into stats (userID, stat) values ('{userID}', '{json}');"
         cursor.execute(query, val)
         conn.commit()
 

@@ -445,7 +445,7 @@ def accessor_methods(body, queue):
             #return(simplifiedReturnObject)
 
             # converts simplifiedReturnObject to delimited string and returns
-            message = "store_stats:" + sessionId + ":" + convert_pullAllUserInfo(simplifiedReturnObject)
+            message = "store_stats?&#))" + sessionId + "?&#))" + output
             success = send_to_db(message, 'check_session')
             return convert_pullAllUserInfo(simplifiedReturnObject)
 
