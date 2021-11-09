@@ -17,15 +17,18 @@ def main():
 
     output=[]
     #print(dataB.keys())
-    output.append(compareTopTracks(dataA,dataB))
-    output.append(compareTopTracks(dataA,dataB,isTopTracks=False))
+    output.append(compareTracks(dataA,dataB))
+    output.append(compareTracks(dataA,dataB,isTopTracks=False))
     output.append(compareGenres(dataA,dataB))
     output.append(compareArtistsFollowed(dataA,dataB))
     output.append(compareAlbums(dataA,dataB))
+    #print(compareAlbums(dataA,dataB))
     #output.append()
     #compareFreqListenedToArtists(dataA,dataB)
     #print(dataA.keys())
-    print(output)
+    #print(output)
+    return(output)
+
     
 
 def compareGenres(JSONdata1,JSONdata2):
@@ -48,9 +51,10 @@ def compareGenres(JSONdata1,JSONdata2):
                 for badGenre in badGenres:
                     if badGenre==genre:
                         genreMatches.remove(genre)
+    #print(genreMatches)
     return(genreMatches)
 
-def compareTopTracks(JSONdata1,JSONdata2,isTopTracks=True):
+def compareTracks(JSONdata1,JSONdata2,isTopTracks=True):
     #Returns 3 Lists in a larger list object
     #Index 0 = a list of track objects (dictionaries) of tracks that were a 1 to 1 match between top 50 songs
     #Index 1 = a list of 
@@ -82,7 +86,9 @@ def compareTopTracks(JSONdata1,JSONdata2,isTopTracks=True):
             if ((track1Name==track2["name"])):
                 #print("Track MATCH!"+track1Name)
                 trackMatches1to1.append(track1)
-            elif track1["album_name"]==track2["album_name"]:
+            #print(track1['album_name'])
+            if track1["album_name"]==track2["album_name"]:
+                #print(track1['album_name'])
                 if track1["album_name"] not in trackAlbumMatchesChecklist:
                     trackAlbumMatchesChecklist.append(track1["album_name"])
                     trackArtistMatchesReturnList.append([track1["album_name"],1])
@@ -98,6 +104,8 @@ def compareTopTracks(JSONdata1,JSONdata2,isTopTracks=True):
 
 
     returnList=[trackMatches1to1,trackArtistMatchesReturnList,trackAlbumMatchesReturnList]
+    #print(trackAlbumMatchesReturnList)
+    #print("\n")
     return(returnList)
 
 def compareArtistsFollowed(JSONdata1,JSONdata2):
