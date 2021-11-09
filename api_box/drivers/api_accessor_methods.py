@@ -149,6 +149,45 @@ def accessor_methods(body, queue):
         SPOTIFY_USER_ID=currentUserProfileObj["id"] #Used in playlists function
         currentUserFollowers=currentUserProfileObj["followers"] #Not currently used for anything
         
+        def getLibrarySongs(spot,userInfo):
+
+            def format_trackSelection(trackSelection):
+                #trackDictObji={}
+                returnListOfTracks=[]
+                #print(trackSelection.keys())
+                for trackObjBig in trackSelection["items"]:
+                    trackObj=trackObjBig['track']
+                    #print(trackObj.keys())
+                    albumDisplay=trackObj["album"]["name"]
+                    #print(albumDisplay)
+                    trackDictObj={}
+
+                    trackDictObj["id"]=trackObj["id"]
+                    trackDictObj["name"]=trackObj["name"]
+                    trackDictObj["album_name"]=albumDisplay
+                    trackDictObj["artist"]=trackObj["artists"][0]["name"]
+                    trackDictObj["popularity"]=trackObj["popularity"]
+                    trackDictObj["preview_url"]=trackObj["preview_url"]
+                    returnListOfTracks.append(trackDictObj)
+                return(returnListOfTracks)
+
+
+            libraryTracks1=spot.current_user_saved_tracks(limit=20, offset=0, market=None)
+            libraryTracks2=spot.current_user_saved_tracks(limit=20, offset=21, market=None)
+            libraryTracks3=spot.current_user_saved_tracks(limit=20, offset=42, market=None)
+            libraryTracks4=spot.current_user_saved_tracks(limit=20, offset=63, market=None)
+            libraryTracks5=spot.current_user_saved_tracks(limit=20, offset=84, market=None)
+
+            returnListFinal=[]
+
+            returnListFinal=returnListFinal+(format_trackSelection(libraryTracks1))
+            returnListFinal=returnListFinal+(format_trackSelection(libraryTracks2))
+            returnListFinal=returnListFinal+(format_trackSelection(libraryTracks3))
+            returnListFinal=returnListFinal+(format_trackSelection(libraryTracks4))
+            returnListFinal=returnListFinal+(format_trackSelection(libraryTracks5))
+
+            return(returnListFinal)
+        
         def getFollowing(username=None):
             #sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
             followingArtists = sp.current_user_followed_artists(limit=ARTIST_LIMIT)
@@ -312,22 +351,29 @@ def accessor_methods(body, queue):
                                         matchingGenreSeeds.append(genreSeed)
             artistSeeds=[]
             for artistObj in artistList:
-                artistSeeds.append(artistObj[2])
+                #print(artistObj)
+                artistSeeds.append(artistObj[3])
             #TODO make an input variable that lets you decide what factors you want to weigh for recommendation presentation
             trackSeeds=[]
             for track in userInfo['tracks']:
                 trackSeeds.append(track["id"])
+            newArtistSeeds=[]
+            x=0
+            while x < 4:
+                newArtistSeeds.append(artistSeeds[x])
+                x=x+1
 
-            recommendedTacksJson=spot.recommendations(seed_artists=artistSeeds[0:4])
-            print((recommendedTacksJson["tracks"][0]).keys())
+            recommendedTacksJson=spot.recommendations(seed_artists=newArtistSeeds)
+
             returnList=[]
             if includePreview==True:
                 for recTrack in recommendedTacksJson["tracks"]:
                     returnList.append([recTrack["name"],((recTrack["artists"])[0])['name'],recTrack["id"],recTrack["popularity"],recTrack["preview_url"]])
+                    #print (recTrack["preview_url"])
             else:
                 for recTrack in recommendedTacksJson["tracks"]:
                     returnList.append([recTrack["name"],((recTrack["artists"])[0])['name'],recTrack["id"],recTrack["popularity"]])
-            #print(returnList)
+
             return(returnList)
 
         def getTopGenres(userStatDict,removeDuplicates=True,topLimit=15):
@@ -384,6 +430,9 @@ def accessor_methods(body, queue):
         userStats=getTopTracks(True,username=SPOTIFY_USERNAME)
         userStats["followedArtists"]=getFollowing(username=SPOTIFY_USERNAME)
         userStats["savedAlbums"]=getSavedAlbums(username=SPOTIFY_USERNAME)
+        userStats["libraryTracks"]=getLibrarySongs(sp,userStats)
+        userStats["mostListenedToArtists"]=mostListenedToArtists(userStats)
+        
         output=json.dumps(userStats)
         if simpleOrComplex !=True:
             return(output)
