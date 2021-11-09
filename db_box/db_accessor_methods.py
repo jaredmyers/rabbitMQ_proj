@@ -541,6 +541,27 @@ def accessor_methods(body,queue):
 
         return chat_records
 
+    def store_stats(body):
+        body = body.split(":")
+        sessionId = body[1]
+        json = body[2]
+
+        # grab users userID
+        query = "select userID from sessions where sessionId=%s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        userID = cursor.fetchall()[0][0]
+
+        # inserts new json into stats
+        query = f"insert into stats (userID, stat) values (%s, %s);"
+        val = (userID, json)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        conn.commit()
+
+        return '1'
+
     
 ## Main entry point
 
@@ -585,6 +606,8 @@ def accessor_methods(body,queue):
         return new_chat_message(body)
     elif "get_messages" in body:
         return get_chat_messages(body)
+    elif "store_stats" in body:
+        return store_stats(body)
     else:
         return check_session(body)
 

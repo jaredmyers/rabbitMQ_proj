@@ -2,12 +2,12 @@ from django import forms
 
 class RegisterForm(forms.Form):
     username = forms.CharField(label='User Name')
-    pw = forms.CharField(label="Password")
-    pw2 = forms.CharField(label="Retype Password")
+    pw = forms.CharField(widget=forms.PasswordInput, label="Password")
+    pw2 = forms.CharField(widget=forms.PasswordInput,label="Retype Password")
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='User Name')
-    pw = forms.CharField(label="Password")
+    pw = forms.CharField(widget=forms.PasswordInput,label="Password")
 
 class PostThread(forms.Form):
     threadname = forms.CharField(label="Thread Name:")
