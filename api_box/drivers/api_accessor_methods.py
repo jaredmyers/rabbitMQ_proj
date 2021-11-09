@@ -117,8 +117,18 @@ def accessor_methods(body, queue):
 
     def store_stats(body):
             '''internal function - stores long json of stats in db'''
+
+            # if user already has a long json stat stored, operation is terminated
+            sessionId = body.split('?&#))')[1]
+            message = "check_stats:" + sessionId
+            check_stats = send_to_db(message, 'check_session')
+
+            if check_stats:
+                return ''
+
+            # stores long json if user has no json stored
             message = "store_stats?&#))" + body
-            success = send_to_db(message, 'check_session')
+            return send_to_db(message, 'check_session')
         
     def pullAllUserInfo(body,simpleOrComplex=True):
         #simpleOrComplex determines the return type of the function. If True (default) it gives basic user stats for the user "my stats" page. If false it gives a DENSE JSON object used for comparing users at the database level.
@@ -448,11 +458,10 @@ def accessor_methods(body, queue):
             simplifiedReturnObject.append(getRecommendationsFromSpotify(sp,simplifiedReturnObject[1],userStats,genreList=getTopGenres(userStats,removeDuplicates=False, topLimit=100)))
             #return(simplifiedReturnObject)
 
+            # stores long json into db for user if one doesn't exist
+            storage_success = store_stats(sessionId + "?&#))" + output)
+
             # converts simplifiedReturnObject to delimited string and returns
-            
-
-            store_stats(sessionId + "?&#))" + output)
-
             return convert_pullAllUserInfo(simplifiedReturnObject)
 
 

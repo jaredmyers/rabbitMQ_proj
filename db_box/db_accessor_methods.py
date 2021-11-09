@@ -562,7 +562,29 @@ def accessor_methods(body,queue):
 
         return '1'
 
-    
+    def check_stats(body):
+        body = body.split('?&#))')
+        sessionId = body[1]
+
+        # grab users userID
+        query = "select userID from sessions where sessionId=%s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        userID = cursor.fetchall()[0][0]
+
+        # check json
+        query = "select userID from stats where userID=%s;"
+        val = (userID,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        if not query_result:
+            return ''
+        else:
+            return '1'
+
 ## Main entry point
 
     '''
@@ -608,6 +630,8 @@ def accessor_methods(body,queue):
         return get_chat_messages(body)
     elif "store_stats" in body:
         return store_stats(body)
+    elif "check_stats" in body:
+        return check_stats(body)
     else:
         return check_session(body)
 
