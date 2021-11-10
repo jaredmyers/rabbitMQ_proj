@@ -584,6 +584,12 @@ def accessor_methods(body,queue):
             return ''
         else:
             return '1'
+    
+    def get_compare_data(sessionId):
+        '''internal function - gets data for compare function [uname, json]..'''
+        
+
+
 
 ## Main entry point
 

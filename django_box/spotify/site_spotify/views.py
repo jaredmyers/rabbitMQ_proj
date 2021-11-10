@@ -9,8 +9,7 @@ import uuid, json, traceback
 from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
-from site_spotify.process_threads import add_friend, get_friends, create_chat, get_username, new_chat_message, get_chat_messages
-from site_spotify.process_threads import Thread_main, Thread_replies
+from site_spotify.process_threads import add_friend, get_friends, create_chat, get_username, new_chat_message, get_chat_messages, remove_friend
 from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page
 import datetime, random, json
 
@@ -218,10 +217,17 @@ def chat(request):
             form = AddFriend(request.POST)
             print(request.POST)
             if form.is_valid():
-                print("addfriend form valid")
-                friendname = form.cleaned_data['addfriend']
-                print(friendname)
-                add_friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+                print("AddFriend form is valid")
+                if request.POST['Add']:
+                    print("POST is Add")
+                    friendname = form.cleaned_data['addfriend']
+                    print(friendname)
+                    add_friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+                elif request.POST['Remove']:
+                    print("POST is Remove")
+                    friendname = form.cleaned_data['addfriend']
+                    remove_friend_response = remove_friend(request.COOKIES['sessionId', friendname])
+
 
         
         friends_list = get_friends(request.COOKIES['sessionId'])

@@ -101,6 +101,14 @@ def get_chat_messages(room_id):
 
     return message_dict
 
+def remove_friend(sessionId, friendname):
+    message = "remove_friend:" + sessionId + ':' + friendname
+    response = send_to_db(message, 'threads')
+    print("send from add_friend:")
+    print(response)
+
+    return response
+
 class Thread_main():
     
     def __init__(self, author, threadID, title, content, date):
