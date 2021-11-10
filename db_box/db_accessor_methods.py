@@ -729,7 +729,7 @@ def accessor_methods(body,queue):
                         #print(track1['album_name'])
                         if track1["album_name"] not in trackAlbumMatchesChecklist:
                             trackAlbumMatchesChecklist.append(track1["album_name"])
-                            trackArtistMatchesReturnList.append([track1["album_name"],1])
+                            trackAlbumMatchesReturnList.append([track1["album_name"],1])
                         if track1["album_name"] in trackAlbumMatchesChecklist:
                             findInReturnList(trackAlbumMatchesReturnList,track1["album_name"])
                     if (track1["artist"]==track2["artist"]):
