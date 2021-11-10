@@ -134,7 +134,10 @@ def get_stats_page(sessionId):
     # take first 5 of each
     return [most_listened_genres[:4], mfa[:4], avg_release_year, rt[:4]]
 
+# does API JSON info comparison that resides on the DB
 def get_friend_recommendations(sessionId):
-    pass
+    message = "get_recommendations:"+ sessionId
+    response = send_to_db(message, 'threads')
+    print(response)
 
 

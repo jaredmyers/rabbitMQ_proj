@@ -425,7 +425,8 @@ body.flat-black {
         font-size: 14px;
         padding: 10px 25px;
 }
-/*.chatbox {
+/*
+.chatbox {
     min-height: 615px;
 }
 */
@@ -475,11 +476,15 @@ p {margin: 0;}
                 </div>
             </div>
       <div class="col-6">
-        <h3 class="m-t-0 m-b-20">Details on Match:</h3>
-        <div class="card mb-2 chatbox">
+        <h3 class="m-t-0 m-b-20">Details on Match: {{username}} </h3>
+        {% for detail in details %}
+        <div class="card mb-2">
             <div class="card-body">
+                <p>{{ detail }}</p>
 
             </div>
+        </div>
+            {% endfor %}
         </div>
 
       </div>

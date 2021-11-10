@@ -594,15 +594,18 @@ def accessor_methods(body,queue):
         cursor.execute(query)
         query_result = cursor.fetchall()
 
+        product = [current_user, query_result]
+        print(product)
+
         ## format [current user name, [(username, json), (username, json)..]
-        return [current_user, query_result]
+        return product
     
     def convert_getUsersForListComparison(body):
         pass
 
 
     def getUsersForListComparison(body):
-        body = body.split('?&#))')
+        body = body.split(':')
         sessionId = body[1]
         #typeOfRequest= body[2]
         #Type of request is either "get_list_info" or "get_detailed info"
@@ -640,7 +643,8 @@ def accessor_methods(body,queue):
         
         #return(sortedReturnList)
         # this returns a converted version of the return which is a string
-        return convert_getUsersForListComparison(sortedReturnList)
+        print(sortedReturnList)
+        #return convert_getUsersForListComparison(sortedReturnList)
         
 
     def compareUsersDetailed(body):
@@ -919,7 +923,7 @@ def accessor_methods(body,queue):
         return check_stats(body)
     elif "compare_users" in body:
         return compare_users(body)
-    elif "get_recommended_users" in body:
+    elif "get_recommendations" in body:
         return getUsersForListComparison(body)
     elif "remove_friend" in body:
         return remove_friend(body)

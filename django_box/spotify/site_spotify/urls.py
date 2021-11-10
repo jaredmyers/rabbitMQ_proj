@@ -20,5 +20,6 @@ urlpatterns = [
     path("thread/<int:id>", views.thread, name="thread"),
     path("room/<str:chat_recipient>", views.chatroom, name="chatroom"),
     path("sendchat", views.sendchat, name="sendchat"),
-    path("getMessages/<str:room_id>", views.getMessages, name="getMessages")
+    path("getMessages/<str:room_id>", views.getMessages, name="getMessages"),
+    path("details/<str:username>", views.recommended_details, name="details")
 ]

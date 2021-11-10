@@ -11,7 +11,7 @@ from site_spotify.send_to_db import send_to_db
 from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
 from site_spotify.process_threads import add_friend, get_friends, create_chat, get_username, new_chat_message, get_chat_messages, remove_friend
 from site_spotify.process_threads import ThreadMain, ThreadReplies
-from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page
+from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page, get_friend_recommendations
 import datetime, random, json
 
 saved_tracks = []
@@ -455,8 +455,14 @@ def findfriends(request):
                 "form": LoginForm(), 
     })
 
+        get_friend_recommendations(request.COOKIES['sessionId'])
+
+        recommended_list = ['stoopkid', 'kingelmer']
+        recommend_num = 2
         print("rendering...")
-        return render(request, "site_spotify/findfriends.html")
+        return render(request, "site_spotify/findfriends.html", {
+            "recommended_list": recommended_list, "recommend_num": recommend_num
+        })
 
    #
    # Mandatory Exception
@@ -468,6 +474,17 @@ def findfriends(request):
 
         return render(request, "site_spotify/login.html", {
         "form": LoginForm(), 
+    })
+
+def recommended_details(request, username):
+    
+    recommended_list = ['stoopkid', 'kingelmer']
+    recommend_num = 2
+    details = ['likes long walks on the beach, playing with dogs, candle light dinner', 'appreciates disco and jelly beans']
+    print("rendering...")
+    return render(request, "site_spotify/recommended_details.html", {
+        "recommended_list": recommended_list, "recommend_num": recommend_num, 
+        "username":username, "details":details
     })
 
 def stats(request):
