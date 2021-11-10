@@ -429,6 +429,8 @@ body.flat-black {
     min-height: 615px;
 }
 p {margin: 0;}
+
+
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -494,9 +496,10 @@ p {margin: 0;}
 
                     <input type="hidden" name="username" id="username" value="{{username}}"/>
                     <input type="hidden" name="room_id" id="room_id" value="{{room_id}}"/>
-                   <input type="text" name="message" id="message" width="250px">
-                    <input class="tango" id="close" type='submit' value="Send Message">
-
+                    <input type="text" name="message" id="message" size="50">-
+                   <!--<textarea name="message" id="message" rows="2" cols="20"></textarea>-->
+                    <!--<input class="tango" id="close" type='submit' value="Send Message">
+                    -->
             </div>
         </div>
       </div>
@@ -534,7 +537,10 @@ p {margin: 0;}
 
         
         <script type="text/javascript">
-            
+
+
+
+
             $(document).on('submit','#post-form',function(e){
             e.preventDefault();
         

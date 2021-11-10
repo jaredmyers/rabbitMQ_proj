@@ -10,6 +10,7 @@ from site_spotify.logPublisher import sendLog
 from site_spotify.send_to_db import send_to_db
 from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
 from site_spotify.process_threads import add_friend, get_friends, create_chat, get_username, new_chat_message, get_chat_messages, remove_friend
+from site_spotify.process_threads import ThreadMain, ThreadReplies
 from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page
 import datetime, random, json
 
@@ -213,29 +214,30 @@ def chat(request):
             return render(request, "site_spotify/login.html", {
                 "form": LoginForm(), 
     })
+        friend_response = True
         if request.method == 'POST':
             form = AddFriend(request.POST)
             print(request.POST)
             if form.is_valid():
                 print("AddFriend form is valid")
-                if request.POST['Add']:
-                    print("POST is Add")
+                if 'add_trigger' in request.POST:
+                    print("AddFriend valid on Add")
                     friendname = form.cleaned_data['addfriend']
                     print(friendname)
-                    add_friend_response = add_friend(request.COOKIES['sessionId'], friendname)
-                elif request.POST['Remove']:
-                    print("POST is Remove")
+                    friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+                elif 'remove_trigger' in request.POST:
+                    print("AddFriend valid on remove")
                     friendname = form.cleaned_data['addfriend']
-                    remove_friend_response = remove_friend(request.COOKIES['sessionId', friendname])
+                    friend_response = remove_friend(request.COOKIES['sessionId'], friendname)
 
 
-        
         friends_list = get_friends(request.COOKIES['sessionId'])
         friend_number = len(friends_list)
             
         print("rendering...")
         return render(request, "site_spotify/chat.html", {
-            "form": AddFriend(), "friends_list": friends_list, "friend_number": friend_number
+            "form": AddFriend(), "friends_list": friends_list, "friend_number": friend_number,
+            "friend_response": friend_response
         })
 
    #
@@ -376,7 +378,7 @@ def forum(request):
         thread_posts = []
         for thread in list_of_threads:
             j = json.loads(thread)
-            object = Thread_main(j["author"], j["threadID"], j["title"], j["content"], j["date"])
+            object = ThreadMain(j["author"], j["threadID"], j["title"], j["content"], j["date"])
             thread_posts.append(object)
 
         print("rendering...")
@@ -413,7 +415,7 @@ def thread(request, id):
 
     #load thread from json to object
     j = json.loads(thread)
-    thread = Thread_main(j["author"], j["threadID"], j["title"], j["content"], j["date"])
+    thread = ThreadMain(j["author"], j["threadID"], j["title"], j["content"], j["date"])
 
     # segment each reply
     replies = replies.split(';')
@@ -423,7 +425,7 @@ def thread(request, id):
     reply_list = []
     for reply in replies:
         j = json.loads(reply)
-        object = Thread_replies(j["author"],j["content"],j["date"])
+        object = ThreadReplies(j["author"],j["content"],j["date"])
         reply_list.append(object)
     
     reply_count = len(reply_list)

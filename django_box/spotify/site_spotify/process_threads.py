@@ -109,7 +109,7 @@ def remove_friend(sessionId, friendname):
 
     return response
 
-class Thread_main():
+class ThreadMain():
     
     def __init__(self, author, threadID, title, content, date):
         self.threadID = threadID
@@ -118,7 +118,7 @@ class Thread_main():
         self.date = date
         self.title = title
 
-class Thread_replies():
+class ThreadReplies():
 
     def __init__(self, author, content, date):
         self.author = author

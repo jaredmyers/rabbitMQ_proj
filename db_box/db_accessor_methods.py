@@ -1,6 +1,6 @@
 import mysql.connector
 import credentials as cred
-import bcrypt, uuid, datetime, random
+import bcrypt, uuid, datetime, random, json
 
 
 def accessor_methods(body,queue):
@@ -370,7 +370,7 @@ def accessor_methods(body,queue):
         userID2 = query_result[0][0]
 
         # return false if user tries to friend self
-        if userID1 == userID1:
+        if userID1 == userID2:
             return ''
 
         # check if they are already friends
@@ -596,6 +596,9 @@ def accessor_methods(body,queue):
 
         ## format [current user name, [(username, json), (username, json)..]
         return [current_user, query_result]
+    
+    def convert_getUsersForListComparison(body):
+        pass
 
 
     def getUsersForListComparison(body):
@@ -635,7 +638,10 @@ def accessor_methods(body,queue):
                 if compObj[0]==entry:
                     sortedReturnList.append(compObj)
         
-        return(sortedReturnList)
+        #return(sortedReturnList)
+        # this returns a converted version of the return which is a string
+        return convert_getUsersForListComparison(sortedReturnList)
+        
 
     def compareUsersDetailed(body):
         sessionId=body[1]
@@ -810,6 +816,61 @@ def accessor_methods(body,queue):
         except:
             print("Something went wrong in the comparison functions.")
 
+    def remove_friend(body):
+        body = body.split(":")
+        sessionId = body[1]
+        username = body[2]
+
+        ## grab current users userID
+        query = "select userID from sessions where sessionId=%s;"
+        val = (sessionId,)
+        cursor = conn.cursor()
+        cursor.execute(query, val)
+        userID1 = cursor.fetchall()[0][0]
+
+        ## grab potential friends userID
+        query = "select userID from users where uname=%s;"
+        val = (username,)
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        #returns false if potential friend doesn't exist
+        if not query_result:
+            return ''
+
+        userID2 = query_result[0][0]
+
+        # return false if user tries to delete self
+        if userID1 == userID2:
+            return ''
+
+        # check if they are already friends & get potential roomID
+        query = "select * from friends where userID1=%s and userID2=%s or userID1=%s and userID2=%s;"
+        val = (userID1,userID2,userID2,userID1)
+        cursor.execute(query, val)
+        query_result = cursor.fetchall()
+
+        # returns false if not friends
+        if not query_result:
+            return ''
+        
+        # delete chat table if exists
+        if query_result[0][2]:
+            roomID = query_result[0][2]
+
+            # delete corresponding chat table
+            query = f"drop table {roomID}"
+            cursor.execute(query)
+            conn.commit()
+        
+        ## remove friend relationship to friends table
+        query = "delete from friends where userID1=%s and userID2=%s or userID1=%s and userID2=%s;"
+        val = (userID1, userID2, userID2, userID1)
+        cursor.execute(query, val)
+        conn.commit()
+
+        return '1'
+
 
 ## Main entry point
 
@@ -819,8 +880,6 @@ def accessor_methods(body,queue):
     acts as gigantic switch board
     
     '''
-
-
     print(f"from db accessor methods: {body}")
     body = body.decode('utf-8')
 
@@ -858,6 +917,12 @@ def accessor_methods(body,queue):
         return store_stats(body)
     elif "check_stats" in body:
         return check_stats(body)
+    elif "compare_users" in body:
+        return compare_users(body)
+    elif "get_recommended_users" in body:
+        return getUsersForListComparison(body)
+    elif "remove_friend" in body:
+        return remove_friend(body)
     else:
         return check_session(body)
 

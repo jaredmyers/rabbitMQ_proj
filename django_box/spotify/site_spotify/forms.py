@@ -19,6 +19,12 @@ class PostReply(forms.Form):
 class AddFriend(forms.Form):
     addfriend = forms.CharField(label="", required=False)
 
+class AddTrigger(forms.Form):
+    add_trigger = forms.CharField(label="", required=False)
+
+class RemoveTrigger(forms.Form):
+    remove_trigger = forms.CharField(label="", required=False)
+
 class SendChat(forms.Form):
     message = forms.CharField(label="", required=False)
 
