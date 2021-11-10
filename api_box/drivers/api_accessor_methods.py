@@ -446,6 +446,7 @@ def accessor_methods(body, queue):
         userStats["savedAlbums"]=getSavedAlbums(username=SPOTIFY_USERNAME)
         userStats["libraryTracks"]=getLibrarySongs(sp,userStats)
         userStats["mostListenedToArtists"]=mostListenedToArtists(userStats)
+        userStats["username"]=SPOTIFY_USERNAME
         
         output=json.dumps(userStats)
         if simpleOrComplex !=True:
