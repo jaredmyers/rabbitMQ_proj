@@ -1,0 +1,2 @@
+10.0.2.2 - - [09/Nov/2021:18:36:44 -0500] "GET /site_spotify/login HTTP/1.1" 500 184817 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0"
+10.0.2.2 - - [09/Nov/2021:18:37:20 -0500] "GET /site_spotify/login HTTP/1.1" 200 1464 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0"

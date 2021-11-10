@@ -49854,3 +49854,414 @@ spawned uWSGI worker 7 (pid: 998, cores: 1)
 spawned uWSGI worker 8 (pid: 999, cores: 1)
 spawned uWSGI worker 9 (pid: 1000, cores: 1)
 spawned uWSGI worker 10 (pid: 1001, cores: 1)
+...brutally killing workers...
+Tue Nov  9 23:25:50 2021 - received message 0 from emperor
+worker 1 buried after 2 seconds
+worker 2 buried after 2 seconds
+worker 3 buried after 2 seconds
+worker 4 buried after 2 seconds
+worker 5 buried after 2 seconds
+worker 6 buried after 2 seconds
+worker 7 buried after 2 seconds
+worker 8 buried after 2 seconds
+worker 9 buried after 2 seconds
+worker 10 buried after 2 seconds
+binary reloading uWSGI...
+chdir() to /etc/uwsgi/vassals
+closing all non-uwsgi socket fds > 2 (max_fd = 1024)...
+found fd 3 mapped to socket 0 (/home/it490/Desktop/project/django_box/spotify/project.sock)
+running /home/it490/.local/bin/uwsgi
+*** has_emperor mode detected (fd: 6) ***
+[uWSGI] getting INI configuration from spotify_uwsgi.ini
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Nov  9 23:25:52 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x555560cebd70
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x555560cebd70 pid: 695 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 695)
+spawned uWSGI worker 1 (pid: 11946, cores: 1)
+spawned uWSGI worker 2 (pid: 11947, cores: 1)
+spawned uWSGI worker 3 (pid: 11948, cores: 1)
+spawned uWSGI worker 4 (pid: 11949, cores: 1)
+spawned uWSGI worker 5 (pid: 11950, cores: 1)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:52 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:52 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11946)...
+spawned uWSGI worker 6 (pid: 11951, cores: 1)
+spawned uWSGI worker 7 (pid: 11952, cores: 1)
+spawned uWSGI worker 8 (pid: 11953, cores: 1)
+spawned uWSGI worker 9 (pid: 11954, cores: 1)
+spawned uWSGI worker 10 (pid: 11955, cores: 1)
+worker 1 killed successfully (pid: 11946)
+Respawned uWSGI worker 1 (new pid: 11956)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:54 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:54 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11956)...
+worker 1 killed successfully (pid: 11956)
+Respawned uWSGI worker 1 (new pid: 11957)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:55 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:55 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11957)...
+worker 1 killed successfully (pid: 11957)
+Respawned uWSGI worker 1 (new pid: 11958)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:56 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:56 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11958)...
+worker 1 killed successfully (pid: 11958)
+Respawned uWSGI worker 1 (new pid: 11959)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:57 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:57 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11959)...
+worker 1 killed successfully (pid: 11959)
+Respawned uWSGI worker 1 (new pid: 11962)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:58 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:58 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11962)...
+worker 1 killed successfully (pid: 11962)
+Respawned uWSGI worker 1 (new pid: 11963)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:25:59 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:25:59 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11963)...
+worker 1 killed successfully (pid: 11963)
+Respawned uWSGI worker 1 (new pid: 11964)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:00 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:00 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11964)...
+worker 1 killed successfully (pid: 11964)
+Respawned uWSGI worker 1 (new pid: 11965)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:01 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:01 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11965)...
+worker 1 killed successfully (pid: 11965)
+Respawned uWSGI worker 1 (new pid: 11966)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:02 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:02 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11966)...
+worker 1 killed successfully (pid: 11966)
+Respawned uWSGI worker 1 (new pid: 11967)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:03 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:03 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11967)...
+worker 1 killed successfully (pid: 11967)
+Respawned uWSGI worker 1 (new pid: 11968)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:04 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:04 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11968)...
+worker 1 killed successfully (pid: 11968)
+worker respawning too fast !!! i have to sleep a bit (2 seconds)...
+Respawned uWSGI worker 1 (new pid: 11997)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:07 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:07 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 11997)...
+worker 1 killed successfully (pid: 11997)
+Respawned uWSGI worker 1 (new pid: 12000)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:08 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:08 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12000)...
+worker 1 killed successfully (pid: 12000)
+Respawned uWSGI worker 1 (new pid: 12001)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:09 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:09 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12001)...
+worker 1 killed successfully (pid: 12001)
+Respawned uWSGI worker 1 (new pid: 12002)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:10 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:10 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12002)...
+worker 1 killed successfully (pid: 12002)
+Respawned uWSGI worker 1 (new pid: 12003)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:11 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:11 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12003)...
+worker 1 killed successfully (pid: 12003)
+Respawned uWSGI worker 1 (new pid: 12004)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:12 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:12 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12004)...
+worker 1 killed successfully (pid: 12004)
+Respawned uWSGI worker 1 (new pid: 12005)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:13 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:13 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12005)...
+worker 1 killed successfully (pid: 12005)
+Respawned uWSGI worker 1 (new pid: 12006)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:14 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:14 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12006)...
+worker 1 killed successfully (pid: 12006)
+Respawned uWSGI worker 1 (new pid: 12007)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:15 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:15 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12007)...
+worker 1 killed successfully (pid: 12007)
+Respawned uWSGI worker 1 (new pid: 12008)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:16 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:16 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12008)...
+worker 1 killed successfully (pid: 12008)
+Respawned uWSGI worker 1 (new pid: 12009)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:17 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:17 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12009)...
+worker 1 killed successfully (pid: 12009)
+worker respawning too fast !!! i have to sleep a bit (2 seconds)...
+Respawned uWSGI worker 1 (new pid: 12012)
+emperor-i-am-ready-to-accept/write(): Bad file descriptor [core/uwsgi.c line 3578]
+Tue Nov  9 23:26:20 2021 - lost communication with the Emperor, goodbye...
+Tue Nov  9 23:26:20 2021 - graceful shutdown triggered...
+Gracefully killing worker 1 (pid: 12012)...
+Tue Nov  9 23:26:20 2021 - uWSGI worker 10 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 8 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 7 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 6 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 5 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 4 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 3 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Tue Nov  9 23:26:20 2021 - uWSGI worker 9 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+*** Starting uWSGI 2.0.20 (64bit) on [Tue Nov  9 18:26:20 2021] ***
+compiled with version: 9.3.0 on 19 October 2021 02:37:15
+os: Linux-5.11.0-38-generic #42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021
+nodename: it490-VirtualBox
+machine: x86_64
+clock source: unix
+detected number of CPU cores: 1
+current working directory: /etc/uwsgi/vassals
+detected binary path: /home/it490/.local/bin/uwsgi
+!!! no internal routing support, rebuild with pcre support !!!
+chdir() to /home/it490/Desktop/project/django_box/spotify
+your processes number limit is 15312
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to UNIX address /home/it490/Desktop/project/django_box/spotify/project.sock fd 3
+Python version: 3.8.10 (default, Sep 28 2021, 16:10:42)  [GCC 9.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x556e82005690
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 801944 bytes (783 KB) for 10 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x556e82005690 pid: 12014 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 12014)
+spawned uWSGI worker 1 (pid: 12016, cores: 1)
+spawned uWSGI worker 2 (pid: 12017, cores: 1)
+spawned uWSGI worker 3 (pid: 12018, cores: 1)
+spawned uWSGI worker 4 (pid: 12019, cores: 1)
+spawned uWSGI worker 5 (pid: 12020, cores: 1)
+spawned uWSGI worker 6 (pid: 12021, cores: 1)
+spawned uWSGI worker 7 (pid: 12022, cores: 1)
+spawned uWSGI worker 8 (pid: 12023, cores: 1)
+spawned uWSGI worker 9 (pid: 12024, cores: 1)
+spawned uWSGI worker 10 (pid: 12025, cores: 1)
+[pid: 12017|app: 0|req: 1/1] 10.0.2.2 () {42 vars in 792 bytes} [Tue Nov  9 23:26:23 2021] GET /site_spotify/login => generated 4006 bytes in 338 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+[pid: 12025|app: 0|req: 1/2] 10.0.2.2 () {44 vars in 823 bytes} [Tue Nov  9 23:26:44 2021] GET /site_spotify/login => generated 4006 bytes in 206 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+[pid: 12025|app: 0|req: 2/3] 10.0.2.2 () {44 vars in 823 bytes} [Tue Nov  9 23:30:01 2021] GET /site_spotify/login => generated 4006 bytes in 18 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+Internal Server Error: /site_spotify/login
+Traceback (most recent call last):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/deprecation.py", line 116, in __call__
+    response = self.process_request(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/middleware/common.py", line 53, in process_request
+    if self.should_redirect_with_slash(request):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/middleware/common.py", line 70, in should_redirect_with_slash
+    if not is_valid_path(request.path_info, urlconf):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/base.py", line 153, in is_valid_path
+    return resolve(path, urlconf)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/base.py", line 24, in resolve
+    return get_resolver(urlconf).resolve(path)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 556, in resolve
+    for pattern in self.url_patterns:
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 598, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 591, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/it490/Desktop/project/django_box/spotify/./spotify/urls.py", line 21, in <module>
+    path('site_spotify/', include("site_spotify.urls"))
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/urls.py", line 2, in <module>
+    from . import views
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/views.py", line 9, in <module>
+    from site_spotify.logPublisher import sendLog
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/logPublisher.py", line 2, in <module>
+    from PikaClasses import RunPublisher
+ModuleNotFoundError: No module named 'PikaClasses'
+[pid: 12024|app: 0|req: 1/4] 10.0.2.2 () {44 vars in 823 bytes} [Tue Nov  9 23:30:02 2021] GET /site_spotify/login => generated 184742 bytes in 282 msecs (HTTP/1.1 500) 3 headers in 126 bytes (1 switches on core 0)
+announcing my loyalty to the Emperor...
+[pid: 12025|app: 0|req: 3/5] 10.0.2.2 () {44 vars in 823 bytes} [Tue Nov  9 23:30:09 2021] GET /site_spotify/login => generated 4006 bytes in 17 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+Internal Server Error: /site_spotify/login
+Traceback (most recent call last):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/deprecation.py", line 116, in __call__
+    response = self.process_request(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/middleware/common.py", line 53, in process_request
+    if self.should_redirect_with_slash(request):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/middleware/common.py", line 70, in should_redirect_with_slash
+    if not is_valid_path(request.path_info, urlconf):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/base.py", line 153, in is_valid_path
+    return resolve(path, urlconf)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/base.py", line 24, in resolve
+    return get_resolver(urlconf).resolve(path)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 556, in resolve
+    for pattern in self.url_patterns:
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 598, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 591, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/it490/Desktop/project/django_box/spotify/./spotify/urls.py", line 21, in <module>
+    path('site_spotify/', include("site_spotify.urls"))
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/urls.py", line 2, in <module>
+    from . import views
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/views.py", line 9, in <module>
+    from site_spotify.logPublisher import sendLog
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/logPublisher.py", line 2, in <module>
+    from PikaClasses import RunPublisher
+ModuleNotFoundError: No module named 'PikaClasses'
+[pid: 12024|app: 0|req: 2/6] 10.0.2.2 () {42 vars in 792 bytes} [Tue Nov  9 23:30:13 2021] GET /site_spotify/login => generated 184605 bytes in 95 msecs (HTTP/1.1 500) 3 headers in 126 bytes (1 switches on core 0)
+[pid: 12025|app: 0|req: 4/7] 10.0.2.2 () {42 vars in 792 bytes} [Tue Nov  9 23:34:30 2021] GET /site_spotify/login => generated 4006 bytes in 19 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
+Internal Server Error: /site_spotify/login
+Traceback (most recent call last):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/deprecation.py", line 116, in __call__
+    response = self.process_request(request)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/middleware/common.py", line 53, in process_request
+    if self.should_redirect_with_slash(request):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/middleware/common.py", line 70, in should_redirect_with_slash
+    if not is_valid_path(request.path_info, urlconf):
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/base.py", line 153, in is_valid_path
+    return resolve(path, urlconf)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/base.py", line 24, in resolve
+    return get_resolver(urlconf).resolve(path)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 556, in resolve
+    for pattern in self.url_patterns:
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 598, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/resolvers.py", line 591, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/it490/Desktop/project/django_box/spotify/./spotify/urls.py", line 21, in <module>
+    path('site_spotify/', include("site_spotify.urls"))
+  File "/home/it490/.local/lib/python3.8/site-packages/django/urls/conf.py", line 34, in include
+    urlconf_module = import_module(urlconf_module)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/urls.py", line 2, in <module>
+    from . import views
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/views.py", line 9, in <module>
+    from site_spotify.logPublisher import sendLog
+  File "/home/it490/Desktop/project/django_box/spotify/./site_spotify/logPublisher.py", line 2, in <module>
+    from PikaClasses import RunPublisher
+ModuleNotFoundError: No module named 'PikaClasses'
+[pid: 12024|app: 0|req: 3/8] 10.0.2.2 () {42 vars in 792 bytes} [Tue Nov  9 23:36:44 2021] GET /site_spotify/login => generated 184605 bytes in 87 msecs (HTTP/1.1 500) 3 headers in 126 bytes (1 switches on core 0)
+[pid: 12025|app: 0|req: 5/9] 10.0.2.2 () {42 vars in 792 bytes} [Tue Nov  9 23:37:20 2021] GET /site_spotify/login => generated 4006 bytes in 18 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
