@@ -584,7 +584,20 @@ def accessor_methods(body,queue):
             return ''
         else:
             return '1'
-    
+
+    def get_compare_data(sessionId):
+
+        current_user = get_username("get_username:" + sessionId)
+
+        query = "select users.uname, stats.stat from users,stats where users.userID=stats.userID;"
+        cursor = conn.cursor()
+        cursor.execute(query)
+        query_result = cursor.fetchall()
+
+        ## format [current user name, [(username, json), (username, json)..]
+        return [current_user, query_result]
+
+
     def getUsersForComparison(body):
 
         users="Query return TUPLE OF JSON object from users"
