@@ -618,20 +618,27 @@ def accessor_methods(body,queue):
         comparisonListDetails=[]
         sortDict={}
 
+        print("TEST_1: Current Username is: "+currentUsername)
+
         if len(tableData) <= 1:
-            raise Exception("Not enough user information in database to make comparison list!")
+            raise Exception("Not enough user information in database to make comparison list!\n")
+                #return(false)
 
         for userObject in tableData[1]: #in the spirit of as little queries as possible hahahaha
             if userObject[0]==currentUsername:
                 currentJSON=userObject[1]
+                print("TEST_2: JSON found for current user, "+currentUsername+" length of Json file:"+(str(len(currentJSON)))+"\n")
         
         for userObject in tableData[1]:
-            if userObject[0]==currentUsername:
-                pass
-            else:
+            print("Test_3: Comparing "+str(userObject[0])+" against current user.\n")
+            if userObject[0]!=currentUsername:
                 listingDetails=compare_users(currentJSON,userObject[1],IS_SIMPLE=True)
                 comparisonListDetails.append([userObject[0],listingDetails])
+                print("Test_5: listingDetails for current user are: "+str(listingDetails)+"\n")
                 sortDict[userObject[0]]=listingDetails[1]
+                print("Test_6: the code has made it past where it crashed last time in this iteration.")
+            else:
+                print("Test_4: if you see this script does not compare user against his/her own data \n")
         sortedSortDict=sorted(sortDict.items(), key=lambda x: x[1], reverse=True)
         
         sortedReturnList=[]
