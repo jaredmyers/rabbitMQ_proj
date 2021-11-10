@@ -4,30 +4,49 @@ import pika
 
 def main():
     #TODO Get Object from database?
+    IS_SIMPLE=False
+    
+    try:
+        #Pull from user 1
+        f = open('sampleDBpull4.json')
+        dataA = json.load(f)
+        f.close()
 
-    #Pull from user 1
-    f = open('sampleDBpull4.json')
-    dataA = json.load(f)
-    f.close()
-
-    #Pull from user 2
-    f = open('sampleDBpull3.json')
-    dataB = json.load(f)
-    f.close()
+        #Pull from user 2
+        f = open('sampleDBpull2.json')
+        dataB = json.load(f)
+        f.close()
+    except:
+        print("File error")
 
     output=[]
-    #print(dataB.keys())
-    output.append(compareTracks(dataA,dataB))
-    output.append(compareTracks(dataA,dataB,isTopTracks=False))
-    output.append(compareGenres(dataA,dataB))
-    output.append(compareArtistsFollowed(dataA,dataB))
-    output.append(compareAlbums(dataA,dataB))
-    #print(compareAlbums(dataA,dataB))
-    #output.append()
-    #compareFreqListenedToArtists(dataA,dataB)
-    #print(dataA.keys())
-    #print(output)
-    return(output)
+    try:
+        #print(dataB.keys())
+        output.append(compareTracks(dataA,dataB))
+        output.append(compareTracks(dataA,dataB,isTopTracks=False))
+        output.append(compareGenres(dataA,dataB))
+        output.append(compareArtistsFollowed(dataA,dataB))
+        output.append(compareAlbums(dataA,dataB))
+        #print(compareAlbums(dataA,dataB))
+        #output.append()
+        #compareFreqListenedToArtists(dataA,dataB)
+        #print(dataA.keys())
+        #print(output)
+        with open('CompareOutputSample.json', 'w') as f:
+            json.dump(output, f)
+        try:
+            if IS_SIMPLE==False:
+                return(output)
+            else:
+                return([dataB["username"],len(output)])
+        except:
+            print("Error returning program output. Make sure you are calling the function with the correct IS_SIMPLE value")
+    except KeyError:
+        print("The JSON files you're using produced a key error. \n This can happen when using an old version of the 'Long JSON' output. Recompute the User info with the userInfoPuller script and ")
+    except:
+        print("Something went wrong in the comparison functions.")
+        
+
 
     
 
@@ -82,7 +101,7 @@ def compareTracks(JSONdata1,JSONdata2,isTopTracks=True):
         track1Name=track1["name"]
         for track2 in tracks2:
             #print( track1["artist"]+" versus "+track2["artist"])
-
+            print(track1.keys())
             if ((track1Name==track2["name"])):
                 #print("Track MATCH!"+track1Name)
                 trackMatches1to1.append(track1)
