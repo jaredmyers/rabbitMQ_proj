@@ -1,5 +1,5 @@
 """
-Test Class for demo
+Classes containing the Pika code for communicating with MQ
 """
 import pika, sys, uuid
 from api_accessor_methods import accessor_methods

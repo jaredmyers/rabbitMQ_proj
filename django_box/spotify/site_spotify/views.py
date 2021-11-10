@@ -33,94 +33,84 @@ def index(request):
     })
 
 def c_home(request):
-
-    bad_login = False
-    if request.method == 'POST':
-        ## block for handling if form is registration
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            print("register form valid")
-            username = form.cleaned_data['username']
-            pw = form.cleaned_data['pw']
-            pw2 = form.cleaned_data['pw2']
-            if not pw == pw2:
-                print("passwords don't match")
-                bad_login = True
-                return render(request, "site_spotify/register.html", {
-                    "form": form, "bad_login": bad_login
-                })
-            else:
-                registered = register_user(username, pw)
-                if registered:
-                    print("user was registered")
-                    print(registered)
-                    sessionId = registered
-                    response = render(request, "site_spotify/home.html")
-                    response.set_cookie('sessionId', sessionId)
-                    return response
-                else:
-                    print("user was not registered, dup uname")
+    try:
+        bad_login = False
+        if request.method == 'POST':
+            ## block for handling if form is registration
+            form = RegisterForm(request.POST)
+            if form.is_valid():
+                print("register form valid")
+                username = form.cleaned_data['username']
+                pw = form.cleaned_data['pw']
+                pw2 = form.cleaned_data['pw2']
+                if not pw == pw2:
+                    print("passwords don't match")
                     bad_login = True
                     return render(request, "site_spotify/register.html", {
                         "form": form, "bad_login": bad_login
-                })
-        else:
-            ## block for handling if form is regular login
-            form = LoginForm(request.POST)
-            print(request.POST)
-            if form.is_valid():
-                print("loginForm form valid")
-                username = form.cleaned_data['username']
-                pw = form.cleaned_data['pw']
-                print(username, pw)
+                    })
+                else:
+                    registered = register_user(username, pw)
+                    if registered:
+                        print("user was registered")
+                        print(registered)
+                        sessionId = registered
+                        response = render(request, "site_spotify/home.html")
+                        response.set_cookie('sessionId', sessionId)
+                        return response
+                    else:
+                        print("user was not registered, dup uname")
+                        bad_login = True
+                        return render(request, "site_spotify/register.html", {
+                            "form": form, "bad_login": bad_login
+                    })
+            else:
+                ## block for handling if form is regular login
+                form = LoginForm(request.POST)
+                print(request.POST)
+                if form.is_valid():
+                    print("loginForm form valid")
+                    username = form.cleaned_data['username']
+                    pw = form.cleaned_data['pw']
+                    print(username, pw)
 
-                authentication = process_login(username, pw)
-            
-                print(authentication)
-                if not authentication:
-                    print("LOGIN FAIL1")
+                    authentication = process_login(username, pw)
+                
+                    print(authentication)
+                    if not authentication:
+                        print("LOGIN FAIL1")
+                        bad_login = True
+                        return render(request, "site_spotify/login.html", {
+                            "form": form, "bad_login": bad_login
+                        })
+                    #return HttpResponseRedirect(reverse("site_spotify:login"))
+                else:
+                    print("form not valid")
+                    print("LOGIN FAIL2")
                     bad_login = True
                     return render(request, "site_spotify/login.html", {
                         "form": form, "bad_login": bad_login
                     })
-                #return HttpResponseRedirect(reverse("site_spotify:login"))
-            else:
-                print("form not valid")
-                print("LOGIN FAIL2")
-                bad_login = True
-                return render(request, "site_spotify/login.html", {
-                    "form": form, "bad_login": bad_login
-                })
 
-        print("LOGIN SUCCESSFUL")
-    
-    sessionId = authentication
+            print("LOGIN SUCCESSFUL")
+        
+        sessionId = authentication
 
-    response = render(request, "site_spotify/home.html")
-    response.set_cookie('sessionId', sessionId)
-    return response
+        response = render(request, "site_spotify/home.html")
+        response.set_cookie('sessionId', sessionId)
+        return response
 
-    #if 'saved_tracks' not in request.session:
-    #    request.session["saved_tracks"] = []
+    #
+   # Mandatory Exception
+   #
+    except Exception as e:
+        print(e)
+        print(traceback.format_exc())
+        sendLog("From Django views: " + str(e))
 
-    #if request.method == 'POST':
-    #    if 'token' in request.POST:
-    #        token = request.POST['token']
-    #        print("Django, the token is: " + token)
-    #        print("sending to api...")
-    #        request.session["saved_tracks"] = api_test(token)
-
-    #if request.session['token']:
-    #    saved_tracks = api_test(request.session['token'])
-    #else:
-    #    print("It didn't work.")
-
-    #print("after api call....")
-    #print(request.session["saved_tracks"])
-    
-    #return render(request, "site_spotify/dashboard.html", {
-    #    "saved_tracks": request.session['saved_tracks'] 
-    #})
+        return render(request, "site_spotify/login.html", {
+        "form": LoginForm(), 
+    })
 
 def apiconnect(request):
 
@@ -196,6 +186,7 @@ def home(request):
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {
@@ -246,6 +237,7 @@ def chat(request):
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {
@@ -463,6 +455,7 @@ def friends(request):
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {
@@ -552,6 +545,7 @@ def connect(request):
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {
@@ -577,6 +571,7 @@ def logout(request):
    #
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         sendLog("From Django views: " + str(e))
 
         return render(request, "site_spotify/login.html", {

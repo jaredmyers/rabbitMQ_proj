@@ -1,8 +1,10 @@
 """
-Test Class for demo
+Classes with contain the Pika code for communicated with MQ
 """
 import pika, sys, uuid
-from api_accessor_methods import accessor_methods
+
+#from api_accessor_methods import accessor_methods
+# rpc_subcribes callback method is commented out, remember this if this feature is needed
 
 class RunPublisher():
     """
@@ -283,8 +285,9 @@ class RunSubscriber():
 
 
         def send_to_accessor_methods(body, queue):
-            response = accessor_methods(body, queue)
-            return response
+            #response = accessor_methods(body, queue)
+            #return response
+            return body
    
         def on_request(ch, method, props, body):
 

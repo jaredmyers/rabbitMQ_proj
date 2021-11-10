@@ -11,6 +11,7 @@ webservers log and sending out to fanout queue
 '''
 
 log_to_scan = "/var/log/nginx/access.log"
+#log_to_scan = "/home/it490/Desktop/project/django_box/spotify/uwsgi-emperor.log"
 
 def send_log(log_lines):
     exchange = 'exchangeAll'
