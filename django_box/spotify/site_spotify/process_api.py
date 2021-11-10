@@ -134,4 +134,7 @@ def get_stats_page(sessionId):
     # take first 5 of each
     return [most_listened_genres[:4], mfa[:4], avg_release_year, rt[:4]]
 
+def get_friend_recommendations(sessionId):
+    pass
+
 

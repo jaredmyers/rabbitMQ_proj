@@ -434,7 +434,7 @@ def thread(request, id):
         "thread": thread, "reply_list": reply_list, "reply_count": reply_count, "form": PostReply()})
 
 
-def friends(request):
+def findfriends(request):
     try:
 
         if 'sessionId' in request.COOKIES:
@@ -456,7 +456,7 @@ def friends(request):
     })
 
         print("rendering...")
-        return render(request, "site_spotify/friends.html")
+        return render(request, "site_spotify/findfriends.html")
 
    #
    # Mandatory Exception
