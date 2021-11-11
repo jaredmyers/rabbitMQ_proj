@@ -813,7 +813,7 @@ def accessor_methods(body,queue):
         if IS_SIMPLE==False:
             return(output)
         else:
-            return([dataB["username"],len(output)])
+            return([dataB["username"],len(str(output))])
         
 
     def remove_friend(body):
