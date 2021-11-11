@@ -138,6 +138,17 @@ def get_stats_page(sessionId):
 def get_friend_recommendations(sessionId):
     message = "get_recommendations:"+ sessionId
     response = send_to_db(message, 'threads')
+    print("FROM get_friend_recommendations: ")
     print(response)
+
+    response = response.split(';')
+    del response[-1]
+
+    recommended_friends = []
+    for each in response:
+        recommended_friends.append(each.split(':'))
+
+    return recommended_friends
+
 
 

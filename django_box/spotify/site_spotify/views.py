@@ -455,13 +455,15 @@ def findfriends(request):
                 "form": LoginForm(), 
     })
 
-        get_friend_recommendations(request.COOKIES['sessionId'])
-
-        recommended_list = ['stoopkid', 'kingelmer']
-        recommend_num = 2
+        recommended_friends = get_friend_recommendations(request.COOKIES['sessionId'])
+        recommended_num = len(recommended_friends)
+        print("from django find friends: ")
+        print(recommended_friends)
+        #recommended_list = ['stoopkid', 'kingelmer']
+        #recommend_num = 2
         print("rendering...")
         return render(request, "site_spotify/findfriends.html", {
-            "recommended_list": recommended_list, "recommend_num": recommend_num
+            "recommended_list": recommended_friends, "recommended_num": recommended_num
         })
 
    #

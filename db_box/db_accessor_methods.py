@@ -600,8 +600,20 @@ def accessor_methods(body,queue):
         ## format [current user name, [(username, json), (username, json)..]]
         return product
     
-    def convert_getUsersForListComparison(body):
-        pass
+    def convert_getUsersForListComparison(recommended):
+        # incoming format [['kingelmer', ['wizzywiz', 5]]]
+        # converting to string
+
+        print("from convert script: ")
+        print(recommended)
+        recommended_friends = ''
+        for i in recommended:
+            recommended_friends += i[0] + ":" + i[1][1] + ";"
+
+        print("returning recommended_friends")
+        print(recommended_friends)
+        return recommended_friends
+
 
 
     def getUsersForListComparison(body):
@@ -647,8 +659,8 @@ def accessor_methods(body,queue):
         
         #return(sortedReturnList)
         # this returns a converted version of the return which is a string
-        print(comparisonListDetails)
-        #return convert_getUsersForListComparison(sortedReturnList)
+        print("running through to convert_getUsers..")
+        return convert_getUsersForListComparison(sortedReturnList)
         
 
     def compareUsersDetailed(body):
