@@ -694,7 +694,11 @@ def accessor_methods(body,queue):
 
     def compare_users(userJSON1,userJSON2,IS_SIMPLE=False):
 
-        import json
+        #import json
+        def getUserBsTopTrack(JSONdata2):
+            partA='<iframe src="https://open.spotify.com/embed/track/'
+            partB='"width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
+            return(partA+(JSONdata2["tracks"][0])["id"]+partB)
 
         def compareGenres(JSONdata1,JSONdata2):
             #print(JSONdata1["genres"])
@@ -823,6 +827,7 @@ def accessor_methods(body,queue):
         output.append(compareGenres(dataA,dataB))
         output.append(compareArtistsFollowed(dataA,dataB))
         output.append(compareAlbums(dataA,dataB))
+        output.append(getUserBsTopTrack(dataB))
         
         print(output)
         print("\n")
