@@ -610,7 +610,16 @@ def accessor_methods(body,queue):
         #typeOfRequest= body[2]
         #Type of request is either "get_list_info" or "get_detailed info"
         # List info is used when displaying the list of users. Get detailed info is when getting a specific user
-
+        
+        def sortDetails(sampleList):
+            for i in range(len(sampleList)):
+            # We want the last pair of adjacent elements to be (n-2, n-1)
+                for j in range(len(sampleList) - 1):
+                    if sampleList[j][1][1] > sampleList[j+1][1][1]:
+                        # Swap
+                        sampleList[j], sampleList[j+1] = sampleList[j+1], sampleList[j]
+            return(sampleList)  
+        
         tableData=[]
         tableData=get_compare_data(sessionId)
         currentUsername=tableData[0]
@@ -618,6 +627,7 @@ def accessor_methods(body,queue):
         comparisonListDetails=[]
         sortDict={}
         print("TEST_1: Current Username is: "+currentUsername)
+        
         
         #if len(tableData) <= 1:
             #raise Exception("Not enough user information in database to make comparison list!\n")
@@ -637,17 +647,12 @@ def accessor_methods(body,queue):
                 comparisonListDetails.append([userObject[0],listingDetails])
                 sortDict[userObject[0]]=listingDetails[1]
         sortedSortDict=sorted(sortDict.items(), key=lambda x: x[1], reverse=True)
-        
-        sortedReturnList=[]
 
-        for entry in sortedSortDict:
-            for compObj in comparisonListDetails:
-                if compObj[0]==entry:
-                    sortedReturnList.append(compObj)
         
         #return(sortedReturnList)
         # this returns a converted version of the return which is a string
-        print(comparisonListDetails)
+        print(sortDetails(comparisonListDetails))
+        return(sortDetails(comparisonListDetails))
         #return convert_getUsersForListComparison(sortedReturnList)
         
 
