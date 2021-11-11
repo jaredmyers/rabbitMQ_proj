@@ -799,14 +799,16 @@ def accessor_methods(body,queue):
                             trackAlbumMatchesReturnList.append([track1["album_name"],1])
                         if track1["album_name"] in trackAlbumMatchesChecklist:
                             findInReturnList(trackAlbumMatchesReturnList,track1["album_name"])
-                    if (track1["artist"]==track2["artist"]):
-                        #print("WE GOT A BINGO "+track1["artist"])
-                        if track1["artist"] not in trackArtistMatchesChecklist:
-                            trackArtistMatchesChecklist.append(track1["artist"])
-                            trackArtistMatchesReturnList.append([track1["artist"],1])
-                        else:
-                            findInReturnList(trackArtistMatchesReturnList,track2["artist"])
-
+                    if ("artist" in track1.keys()) and ("artist" in track2.keys()):
+                        if (track1["artist"]==track2["artist"]):
+                            #print("WE GOT A BINGO "+track1["artist"])
+                            if track1["artist"] not in trackArtistMatchesChecklist:
+                                trackArtistMatchesChecklist.append(track1["artist"])
+                                trackArtistMatchesReturnList.append([track1["artist"],1])
+                            else:
+                                findInReturnList(trackArtistMatchesReturnList,track2["artist"])
+                    else:
+                        print("No artist associated with: "+track1["name"])
 
             returnList=[trackMatches1to1,trackArtistMatchesReturnList,trackAlbumMatchesReturnList]
             #print(trackAlbumMatchesReturnList)
