@@ -438,8 +438,8 @@ p {margin: 0;}
 <div class="container">
    <div class="row">
             <div class="col-6">
-                <h4 class="m-t-0 m-b-20">Recommended: {{recommend_num}} </h4>
-               {% for recommended in recommended_list %}
+                <h4 class="m-t-0 m-b-20">Recommended: {{recommended_num}} </h4>
+               {% for recommended in recommended_friends %}
                 <div id="content" class="content content-full-width">
                     <div class="m-b-2">
                         <div class="p-10 bg-white">
@@ -452,7 +452,14 @@ p {margin: 0;}
                                  </div>
                                  <div class="media-body valign-middle text-right overflow-visible">
                                         <a href="/site_spotify/details/{{ recommended }}" class="btn btn-default">Details</a>
-                                       <a href="#" class="btn btn-default">Add Friend</a>
+                                        <form class="btn btn-default" action="" method="post">
+                                            {% csrf_token %}
+                                            <input class="tango btn btn-default" type="submit" name="addfriend" value="Add Friend">
+                                            <input type="hidden" name="friendname" id="friendname" value="{{ recommended }}"/>
+                                            <!--- <input class="tango" id="close" type='submit' name="add_trigger" value="Add Friend">
+                                           -->
+                                        </form>
+                                        
                                  </div>
                             </div>
                         </div>
@@ -466,25 +473,62 @@ p {margin: 0;}
                 </div>
                {% endfor %}
                 <!-- form to enter friends-->
+                
                 <div class="card bg-transparent border-0">
-                    <div class="card-body">
-                       
-                           
-                        <!--<textarea class="form-control comment-text"></textarea>
-                        <button type=button class="btn btn-dark my-3 save-comment">Submit</button>-->
+                    <div class="card mb-2">
+                        <!--<h6 class="card-header">Top Shared Tracks</h6>-->
+                        <div class="card-body">
+                            <iframe src="{{ details.song_preview }}"width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+                        </div>
                     </div>
                 </div>
             </div>
       <div class="col-6">
         <h3 class="m-t-0 m-b-20">Details on Match: {{username}} </h3>
-        {% for detail in details %}
         <div class="card mb-2">
+            <h6 class="card-header">Top Shared Tracks</h6>
             <div class="card-body">
-                <p>{{ detail }}</p>
-
+                {% for track in details.mutual_tracks %}
+                <p>{{ track }}</p>
+                {% empty %}
+                <p>No shared tracks. Make sure you've connected!!</p>
+                {% endfor %}      
             </div>
         </div>
-            {% endfor %}
+        <div class="card mb-2">
+            <h6 class="card-header">Top Shared Artists</h6>
+            <div class="card-body">
+                {% for artist in details.mutual_artists %}
+                <p>{{ artist }}</p>
+                {% empty %}
+                <p>No shared artists. Make sure you've connected!!</p>
+                {% endfor %}      
+            </div>
+        </div>
+        <div class="card mb-2">
+            <h6 class="card-header">Top Shared Genres</h6>
+            <div class="card-body">
+                {% for genre in details.mutual_genres %}
+                <p>{{ genre }}</p>
+                {% empty %}
+                <p>No shared genres. Make sure you've connected!!</p>
+                {% endfor %}      
+            </div>
+        </div>
+        <div class="card mb-2">
+            <h6 class="card-header">Top Shared Albums</h6>
+            <div class="card-body">
+                {% for album in details.saved_albums %}
+                <p>{{ album }}</p>
+                {% empty %}
+                <p>No shared albums. Make sure you've connected!!</p>
+                {% endfor %}    
+            </div>
+        </div>
+
+
+
         </div>
 
       </div>
@@ -494,4 +538,6 @@ p {margin: 0;}
    </div>
 
 </div>
+<iframe src="{{ details.song_preview }}"width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
 {% endblock %}

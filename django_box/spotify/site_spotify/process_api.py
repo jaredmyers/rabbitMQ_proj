@@ -154,9 +154,62 @@ def get_details_page(sessionId, username):
     message = "get_details_page:" + sessionId + ":" + username
     response = send_to_db(message, 'threads')
     print("FROM GET DETAILS PAGE: ")
-    print(response)
-
+    response = response.split("+")
     
+    mutual_tracks = response[0]
+    mutual_tracks = mutual_tracks.split(";")
+    del mutual_tracks[-1]
+    mt = []
+    for i in mutual_tracks:
+        mt.append(i.split(":"))
 
+    mutual_artists = response[1]
+    mutual_artists = mutual_artists.split(";")
+    del mutual_artists[-1]
+    ma = []
+    for i in mutual_artists:
+        ma.append(i.split(":"))
+    
+    mutual_genres = response[2]
+    mutual_genres = mutual_genres.split(";")
+    del mutual_genres[-1]
+    mg = []
+    for i in mutual_genres:
+        mg.append(i.split(":"))
+    del mg[-1]
+
+    saved_albums = response[3]
+    saved_albums = saved_albums.split(";")
+    del saved_albums[-1]
+    sa = []
+    for i in saved_albums:
+        sa.append(i.split(':'))
+
+    song_preview = response[4]
+
+    print(mutual_tracks)
+    print("-----")
+    print(mutual_artists)
+    print("-----")
+    print(mutual_genres)
+    print("-----")
+    print(saved_albums)
+    print("-----")
+    print(song_preview)
+
+    song_link = song_preview.split('"')[1]
+
+    details_obj = DisplayDetailsPage(mt, ma, mg, sa, song_link)
+
+    return details_obj
+
+class DisplayDetailsPage():
+
+    def __init__(self, mutual_tracks, mutual_artists, mutual_genres, saved_albums, song_preview):
+        self.mutual_tracks = mutual_tracks
+        self.mutual_artists = mutual_artists
+        self.mutual_genres = mutual_genres
+        self.saved_albums = saved_albums
+        self.preview = song_preview
 
 

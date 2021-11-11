@@ -669,10 +669,37 @@ def accessor_methods(body,queue):
 
     def convert_compareUsersDetailed(body):
         '''converts compareUsersDetailed into string for transport''' 
-        print("FROM convert_compareUsersDetailed: ")
-        print(body)
+       
+        index0 = body[0]
+        mutual_tracks = ''
+        for i in index0[0]:
+            mutual_tracks += i['name'] + ':' + i['artist'] + ';'
+        mutual_tracks += '+'
+        
+        mutual_artists = ''
+        for i in index0[1]:
+            mutual_artists += i[0] + ';'
+        mutual_artists += '+'
 
-        return '1'    
+        index2 = body[2]
+        mutual_genres = ''
+        for i in index2:
+            mutual_genres += i + ':'
+        mutual_genres += ';+'
+
+        index4 = body[4]
+        print(index4)
+        saved_albums = ''
+        for i in index4: 
+            saved_albums += i[2][0]['name'] + ':' + i[0] + ';'
+        saved_albums += '+'
+
+        song_preview = body[5]
+
+        package = mutual_tracks + mutual_artists + mutual_genres + saved_albums + song_preview
+
+
+        return package
 
     def compareUsersDetailed(body):
         body = body.split(":")

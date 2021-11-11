@@ -495,17 +495,33 @@ def findfriends(request):
     })
 
 def recommended_details(request, username):
+
+    # adds friend if user clicks add friend
+    friend_response = False
+    if request.method == 'POST':
+        form = AddFriend(request.POST)
+        print(request.POST)
+        if form.is_valid():
+             print("AddFriend form is valid")
+             if 'friendname' in request.POST:
+                friendname = request.POST['friendname']
+                print(friendname)
+                friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+                friend_response = True
     
 
-    get_details_page(request.COOKIES['sessionId'], username)
+    recommended_friends = get_friend_recommendations(request.COOKIES['sessionId'])
+    recommended_num = len(recommended_friends)
 
-    recommended_list = ['stoopkid', 'kingelmer']
-    recommend_num = 2
-    details = ['likes long walks on the beach, playing with dogs, candle light dinner', 'appreciates disco and jelly beans']
+    details = get_details_page(request.COOKIES['sessionId'], username)
+
+    #recommended_list = ['stoopkid', 'kingelmer']
+    #recommend_num = 2
+    #details = ['likes long walks on the beach, playing with dogs, candle light dinner', 'appreciates disco and jelly beans']
     print("rendering...")
     return render(request, "site_spotify/recommended_details.html", {
-        "recommended_list": recommended_list, "recommend_num": recommend_num, 
-        "username":username, "details":details
+        "recommended_friends": recommended_friends, "recommended_num": recommended_num, 
+        "username":username, "details":details, "friend_response": friend_response
     })
 
 def stats(request):
