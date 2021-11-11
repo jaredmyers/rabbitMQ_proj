@@ -647,7 +647,7 @@ def accessor_methods(body,queue):
         
         #return(sortedReturnList)
         # this returns a converted version of the return which is a string
-        print(sortedReturnList)
+        print(comparisonListDetails)
         #return convert_getUsersForListComparison(sortedReturnList)
         
 
