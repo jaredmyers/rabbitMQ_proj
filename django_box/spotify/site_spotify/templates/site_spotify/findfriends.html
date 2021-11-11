@@ -432,6 +432,9 @@ body.flat-black {
 p {margin: 0;}
 </style>
 
+{% if friend_response %}
+<script>alert("Friend Added!.");</script>
+{% endif %}
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
@@ -451,8 +454,12 @@ p {margin: 0;}
                                  </div>
                                  <div class="media-body valign-middle text-right overflow-visible">
                                         <a href="/site_spotify/details/{{ recommended }}" class="btn btn-default">Details</a>
-                                        <form action="#" method="post">
-                                            <button name="addfriend" value="addfriend">Add Friend</button>
+                                        <form class="btn btn-default" action="" method="post">
+                                            {% csrf_token %}
+                                            <input class="tango btn btn-default" type="submit" name="addfriend" value="Add Friend">
+                                            <input type="hidden" name="friendname" id="friendname" value="{{ recommended }}"/>
+                                            <!--- <input class="tango" id="close" type='submit' name="add_trigger" value="Add Friend">
+                                           -->
                                         </form>
                                         <!--<a href="#" class="btn btn-default">Add Friend</a>-->
                                  </div>

@@ -455,6 +455,21 @@ def findfriends(request):
                 "form": LoginForm(), 
     })
 
+        # adds friend if user clicks add friend
+        friend_response = False
+        if request.method == 'POST':
+            form = AddFriend(request.POST)
+            print(request.POST)
+            if form.is_valid():
+                print("AddFriend form is valid")
+                if 'friendname' in request.POST:
+                    friendname = request.POST['friendname']
+                    print(friendname)
+                    friend_response = add_friend(request.COOKIES['sessionId'], friendname)
+                    friend_response = True
+
+
+
         recommended_friends = get_friend_recommendations(request.COOKIES['sessionId'])
         recommended_num = len(recommended_friends)
         print("from django find friends: ")
@@ -463,7 +478,8 @@ def findfriends(request):
         #recommend_num = 2
         print("rendering...")
         return render(request, "site_spotify/findfriends.html", {
-            "recommended_friends": recommended_friends, "recommended_num": recommended_num
+            "recommended_friends": recommended_friends, "recommended_num": recommended_num,
+            "friend_response":friend_response
         })
 
    #
