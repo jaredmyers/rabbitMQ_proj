@@ -566,6 +566,10 @@ def accessor_methods(body,queue):
         body = body.split(':')
         sessionId = body[1]
 
+        print("from check stat")
+        print(body)
+        print(sessionId)
+
         # grab users userID
         query = "select userID from sessions where sessionId=%s;"
         val = (sessionId,)

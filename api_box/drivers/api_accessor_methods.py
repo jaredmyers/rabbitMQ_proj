@@ -119,7 +119,7 @@ def accessor_methods(body, queue):
             '''internal function - stores long json of stats in db'''
 
             # if user already has a long json stat stored, operation is terminated
-            sessionId = body.split('?&#))')[1]
+            sessionId = body.split('?&#))')[0]
             message = "check_stats:" + sessionId
             check_stats = send_to_db(message, 'check_session')
 

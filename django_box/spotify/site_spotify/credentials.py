@@ -6,7 +6,7 @@ ip_address = 'localhost'
 
 #user = 'rebecca'
 #pw='njit'
-#ip_address = '10.203.197.124'
+#ip_address = '10.203.197.62'
 
 # Spotify Creds
 
