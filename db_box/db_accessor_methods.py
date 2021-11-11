@@ -785,8 +785,8 @@ def accessor_methods(body,queue):
             return(albumsMatched)    
         output=[]
 
-        dataA=json.load(userJSON1)
-        dataB=json.load(userJSON2)
+        dataA=userJSON1
+        dataB=userJSON2
         
         #print(dataB.keys())
         output.append(compareTracks(dataA,dataB))
