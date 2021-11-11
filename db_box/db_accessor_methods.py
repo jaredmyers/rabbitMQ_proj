@@ -778,7 +778,30 @@ def accessor_methods(body,queue):
                     if album1[1] == album2[1]:
                         albumsMatched.append(album1)
             #print((albumsMatched))
-            return(albumsMatched)  
+            return(albumsMatched)    
+        output=[]
+
+        dataA=userJSON1
+        dataB=userJSON2
+        
+        #print(dataB.keys())
+        output.append(compareTracks(dataA,dataB))
+        output.append(compareTracks(dataA,dataB,isTopTracks=False))
+        output.append(compareGenres(dataA,dataB))
+        output.append(compareArtistsFollowed(dataA,dataB))
+        output.append(compareAlbums(dataA,dataB))
+        #print(compareAlbums(dataA,dataB))
+        #output.append()
+        #compareFreqListenedToArtists(dataA,dataB)
+        #print(dataA.keys())
+        #print(output)
+        #with open('CompareOutputSample.json', 'w') as f:
+            #json.dump(output, f)
+        
+        if IS_SIMPLE==False:
+            return(output)
+        else:
+            return([dataB["username"],len(output)])
 
         try:
             #Pull from user 1
