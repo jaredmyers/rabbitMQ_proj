@@ -679,11 +679,9 @@ def accessor_methods(body,queue):
         sessionId=body[1]
         specifiedUserUsername=body[2]
         
-        try:
-            bigCompareData=get_compare_data(sessionId)
-            currentUserUsername=bigCompareData[0]
-        except:
-            raise Exception("Could not cycle through database")
+        bigCompareData=get_compare_data(sessionId)
+        currentUserUsername=bigCompareData[0]
+
 
         currentUserJSON=""
         specifiedUserJSON=""
@@ -693,11 +691,10 @@ def accessor_methods(body,queue):
                 specifiedUserJSON=userDataObj[1]
             if userDataObj[0]==currentUserUsername:
                 currentUserJSON=userDataObj[1]
-        try:
-            return convert_compareUsersDetailed(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))
+        
+        print(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))        
+        return convert_compareUsersDetailed(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))
             #return(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))
-        except:
-            raise Exception("Could not Compare User JSON Files in Detailed Format") 
             
 
     def compare_users(userJSON1,userJSON2,IS_SIMPLE=False):
