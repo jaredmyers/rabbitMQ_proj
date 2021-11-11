@@ -594,15 +594,18 @@ def accessor_methods(body,queue):
         cursor.execute(query)
         query_result = cursor.fetchall()
 
-        ## format [current user name, [(username, json), (username, json)..]
-        return [current_user, query_result]
+        product = [current_user, query_result]
+        print(product)
+
+        ## format [current user name, [(username, json), (username, json)..]]
+        return product
     
     def convert_getUsersForListComparison(body):
         pass
 
 
     def getUsersForListComparison(body):
-        body = body.split('?&#))')
+        body = body.split(':')
         sessionId = body[1]
         #typeOfRequest= body[2]
         #Type of request is either "get_list_info" or "get_detailed info"
@@ -614,27 +617,21 @@ def accessor_methods(body,queue):
         currentJSON=""
         comparisonListDetails=[]
         sortDict={}
-        print("TEST_1: Current Username is: "+currentUsername)
 
         if len(tableData) <= 1:
-            raise Exception("Not enough user information in database to make comparison list!\n")
-                #return(false)
+            raise Exception("Not enough user information in database to make comparison list!")
 
         for userObject in tableData[1]: #in the spirit of as little queries as possible hahahaha
             if userObject[0]==currentUsername:
                 currentJSON=userObject[1]
-                print("TEST_2: JSON found for current user, "+currentUsername+" length of Json file:"+(str(len(currentJSON)))+"\n")
         
         for userObject in tableData[1]:
-            print("Test_3: Comparing "+str(userObject[0])+" against current user.\n")
-            if userObject[0]!=currentUsername:
+            if userObject[0]==currentUsername:
+                pass
+            else:
                 listingDetails=compare_users(currentJSON,userObject[1],IS_SIMPLE=True)
                 comparisonListDetails.append([userObject[0],listingDetails])
-                print("Test_5: listingDetails for current user are: "+str(listingDetails)+"\n")
                 sortDict[userObject[0]]=listingDetails[1]
-                print("Test_6: the code has made it past where it crashed last time in this iteration.")
-            else:
-                print("Test_4: if you see this script does not compare user against his/her own data \n")
         sortedSortDict=sorted(sortDict.items(), key=lambda x: x[1], reverse=True)
         
         sortedReturnList=[]
@@ -646,7 +643,8 @@ def accessor_methods(body,queue):
         
         #return(sortedReturnList)
         # this returns a converted version of the return which is a string
-        return convert_getUsersForListComparison(sortedReturnList)
+        print(sortedReturnList)
+        #return convert_getUsersForListComparison(sortedReturnList)
         
 
     def compareUsersDetailed(body):
@@ -674,8 +672,6 @@ def accessor_methods(body,queue):
             
 
     def compare_users(userJSON1,userJSON2,IS_SIMPLE=False):
-
-        import json
 
         def compareGenres(JSONdata1,JSONdata2):
             #print(JSONdata1["genres"])
@@ -782,32 +778,47 @@ def accessor_methods(body,queue):
                     if album1[1] == album2[1]:
                         albumsMatched.append(album1)
             #print((albumsMatched))
-            return(albumsMatched)    
+            return(albumsMatched)  
+
+        try:
+            #Pull from user 1
+            f = open('sampleDBpull4.json')
+            dataA = json.load(f)
+            f.close()
+
+            #Pull from user 2
+            f = open('sampleDBpull2.json')
+            dataB = json.load(f)
+            f.close()
+        except:
+            print("File error")
+
         output=[]
-
-        dataA=json.load(userJSON1)
-        dataB=json.load(userJSON2)
-        
-        #print(dataB.keys())
-        output.append(compareTracks(dataA,dataB))
-        output.append(compareTracks(dataA,dataB,isTopTracks=False))
-        output.append(compareGenres(dataA,dataB))
-        output.append(compareArtistsFollowed(dataA,dataB))
-        output.append(compareAlbums(dataA,dataB))
-        #print(compareAlbums(dataA,dataB))
-        #output.append()
-        #compareFreqListenedToArtists(dataA,dataB)
-        #print(dataA.keys())
-        #print(output)
-        #with open('CompareOutputSample.json', 'w') as f:
-            #json.dump(output, f)
-        
-        if IS_SIMPLE==False:
-            return(output)
-        else:
-            return([dataB["username"],len(output)])
-
-
+        try:
+            #print(dataB.keys())
+            output.append(compareTracks(dataA,dataB))
+            output.append(compareTracks(dataA,dataB,isTopTracks=False))
+            output.append(compareGenres(dataA,dataB))
+            output.append(compareArtistsFollowed(dataA,dataB))
+            output.append(compareAlbums(dataA,dataB))
+            #print(compareAlbums(dataA,dataB))
+            #output.append()
+            #compareFreqListenedToArtists(dataA,dataB)
+            #print(dataA.keys())
+            #print(output)
+            #with open('CompareOutputSample.json', 'w') as f:
+                #json.dump(output, f)
+            try:
+                if IS_SIMPLE==False:
+                    return(output)
+                else:
+                    return([dataB["username"],len(output)])
+            except:
+                print("Error returning program output. Make sure you are calling the function with the correct IS_SIMPLE value")
+        except KeyError:
+            print("The JSON files you're using produced a key error. \n This can happen when using an old version of the 'Long JSON' output. Recompute the User info with the userInfoPuller script and ")
+        except:
+            print("Something went wrong in the comparison functions.")
 
     def remove_friend(body):
         body = body.split(":")
@@ -912,7 +923,7 @@ def accessor_methods(body,queue):
         return check_stats(body)
     elif "compare_users" in body:
         return compare_users(body)
-    elif "get_recommended_users" in body:
+    elif "get_recommendations" in body:
         return getUsersForListComparison(body)
     elif "remove_friend" in body:
         return remove_friend(body)
