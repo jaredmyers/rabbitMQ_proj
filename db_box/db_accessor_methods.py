@@ -860,6 +860,7 @@ def accessor_methods(body,queue):
         output.append(compareArtistsFollowed(dataA,dataB))
         output.append(compareAlbums(dataA,dataB))
         output.append(getUserBsTopTrack(dataB))
+        output.append([dataA["avgYear"],dataB["avgYear"]],(dataA["avgYear"]-dataB["avgYear"]))
         
         print(output)
         print("\n")
