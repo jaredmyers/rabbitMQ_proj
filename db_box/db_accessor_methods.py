@@ -806,6 +806,9 @@ def accessor_methods(body,queue):
         output.append(compareGenres(dataA,dataB))
         output.append(compareArtistsFollowed(dataA,dataB))
         output.append(compareAlbums(dataA,dataB))
+        
+        print(output)
+        print("\n")
 
         if IS_SIMPLE==False:
             return(output)
