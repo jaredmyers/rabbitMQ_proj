@@ -608,7 +608,7 @@ def accessor_methods(body,queue):
         print(recommended)
         recommended_friends = ''
         for i in recommended:
-            recommended_friends += i[0] + ":" + i[1][1] + ";"
+            recommended_friends += i[0] + ":" + str(i[1][1]) + ";"
 
         print("returning recommended_friends")
         print(recommended_friends)
@@ -663,14 +663,9 @@ def accessor_methods(body,queue):
         
         #return(sortedReturnList)
         # this returns a converted version of the return which is a string
-<<<<<<< HEAD
-        print("running through to convert_getUsers..")
-        return convert_getUsersForListComparison(sortedReturnList)
-=======
         print(sortDetails(comparisonListDetails))
-        return(sortDetails(comparisonListDetails))
+        return convert_getUsersForListComparison(sortDetails(comparisonListDetails))
         #return convert_getUsersForListComparison(sortedReturnList)
->>>>>>> 6509573728d16561b75e02704ddad5fc4f666281
         
 
     def compareUsersDetailed(body):

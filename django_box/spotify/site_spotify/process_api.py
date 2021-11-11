@@ -146,7 +146,7 @@ def get_friend_recommendations(sessionId):
 
     recommended_friends = []
     for each in response:
-        recommended_friends.append(each.split(':'))
+        recommended_friends.append(each.split(':')[0])
 
     return recommended_friends
 

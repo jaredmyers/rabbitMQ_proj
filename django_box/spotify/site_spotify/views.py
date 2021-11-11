@@ -463,7 +463,7 @@ def findfriends(request):
         #recommend_num = 2
         print("rendering...")
         return render(request, "site_spotify/findfriends.html", {
-            "recommended_list": recommended_friends, "recommended_num": recommended_num
+            "recommended_friends": recommended_friends, "recommended_num": recommended_num
         })
 
    #
