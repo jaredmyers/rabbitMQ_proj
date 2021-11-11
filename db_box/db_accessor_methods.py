@@ -676,27 +676,38 @@ def accessor_methods(body,queue):
        
         index0 = body[0]
         mutual_tracks = ''
-        for i in index0[0]:
-            mutual_tracks += i['name'] + ':' + i['artist'] + ';'
-        mutual_tracks += '+'
+        try: 
+            for i in index0[0]:
+                mutual_tracks += i['name'] + ':' + i['artist'] + ';'
+            mutual_tracks += '+'
+        except:
+            mutual_tracks = ';+'
         
         mutual_artists = ''
-        for i in index0[1]:
-            mutual_artists += i[0] + ';'
-        mutual_artists += '+'
+        try:
+            for i in index0[1]:
+                mutual_artists += i[0] + ';'
+            mutual_artists += '+'
+        except:
+            mutual_artists += ';+'
 
         index2 = body[2]
         mutual_genres = ''
-        for i in index2:
-            mutual_genres += i + ':'
-        mutual_genres += ';+'
+        try:
+            for i in index2:
+                mutual_genres += i + ':'
+            mutual_genres += ';+'
+        except:
+            mutual_genres = ';+'
 
         index4 = body[4]
-        print(index4)
         saved_albums = ''
-        for i in index4: 
-            saved_albums += i[2][0]['name'] + ':' + i[0] + ';'
-        saved_albums += '+'
+        try:
+            for i in index4: 
+                saved_albums += i[2][0]['name'] + ':' + i[0] + ';'
+            saved_albums += '+'
+        except:
+            saved_albums += ';+'
 
         song_preview = body[5]
 

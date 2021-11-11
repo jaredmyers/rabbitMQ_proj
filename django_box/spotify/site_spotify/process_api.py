@@ -160,30 +160,34 @@ def get_details_page(sessionId, username):
     mutual_tracks = mutual_tracks.split(";")
     del mutual_tracks[-1]
     mt = []
-    for i in mutual_tracks:
-        mt.append(i.split(":"))
+    if mutual_tracks:
+        for i in mutual_tracks:
+            mt.append(i.split(":"))
 
     mutual_artists = response[1]
     mutual_artists = mutual_artists.split(";")
     del mutual_artists[-1]
     ma = []
-    for i in mutual_artists:
-        ma.append(i.split(":"))
+    if mutual_artists:
+        for i in mutual_artists:
+            ma.append(i.split(":"))
     
     mutual_genres = response[2]
     mutual_genres = mutual_genres.split(";")
     del mutual_genres[-1]
     mg = []
-    for i in mutual_genres:
-        mg.append(i.split(":"))
-    del mg[-1]
+    if mutual_genres:
+        for i in mutual_genres:
+            mg.append(i.split(":"))
+        del mg[-1]
 
     saved_albums = response[3]
     saved_albums = saved_albums.split(";")
     del saved_albums[-1]
     sa = []
-    for i in saved_albums:
-        sa.append(i.split(':'))
+    if saved_albums:
+        for i in saved_albums:
+            sa.append(i.split(':'))
 
     song_preview = response[4]
 
