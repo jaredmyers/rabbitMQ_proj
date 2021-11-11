@@ -617,11 +617,15 @@ def accessor_methods(body,queue):
         currentJSON=""
         comparisonListDetails=[]
         sortDict={}
-
+        print("TEST_1: Current Username is: "+currentUsername)
+        
         if len(tableData) <= 1:
-            raise Exception("Not enough user information in database to make comparison list!")
-
+            raise Exception("Not enough user information in database to make comparison list!\n")
+                #return(false)
+        debugVar=1
+        
         for userObject in tableData[1]: #in the spirit of as little queries as possible hahahaha
+            print("Cycle "+debugVar+" of "+(str(len(tableData[1]))))
             if userObject[0]==currentUsername:
                 currentJSON=userObject[1]
         
