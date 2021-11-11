@@ -619,8 +619,8 @@ def accessor_methods(body,queue):
         sortDict={}
         print("TEST_1: Current Username is: "+currentUsername)
         
-        if len(tableData) <= 1:
-            raise Exception("Not enough user information in database to make comparison list!\n")
+        #if len(tableData) <= 1:
+            #raise Exception("Not enough user information in database to make comparison list!\n")
                 #return(false)
         #debugVar=1
         
@@ -677,6 +677,8 @@ def accessor_methods(body,queue):
 
     def compare_users(userJSON1,userJSON2,IS_SIMPLE=False):
 
+        import json
+
         def compareGenres(JSONdata1,JSONdata2):
             #print(JSONdata1["genres"])
             #graspingForStraws=False
@@ -728,7 +730,7 @@ def accessor_methods(body,queue):
                 track1Name=track1["name"]
                 for track2 in tracks2:
                     #print( track1["artist"]+" versus "+track2["artist"])
-                    print(track1.keys())
+                    #print(track1.keys())
                     if ((track1Name==track2["name"])):
                         #print("Track MATCH!"+track1Name)
                         trackMatches1to1.append(track1)
@@ -782,70 +784,34 @@ def accessor_methods(body,queue):
                     if album1[1] == album2[1]:
                         albumsMatched.append(album1)
             #print((albumsMatched))
-            return(albumsMatched)    
+            return(albumsMatched) 
+
+        #try:
+            #Pull from user 1
+            #f = open('sampleDBpull4.json')
+        dataA = json.load(userJSON1)
+            #f.close()
+
+            #Pull from user 2
+            #f = open('sampleDBpull2.json')
+        dataB = json.load(userJSON2)
+            #f.close()
+        #except:
+            #print("File error")
+
         output=[]
 
-        dataA=userJSON1
-        dataB=userJSON2
-        
-        #print(dataB.keys())
         output.append(compareTracks(dataA,dataB))
         output.append(compareTracks(dataA,dataB,isTopTracks=False))
         output.append(compareGenres(dataA,dataB))
         output.append(compareArtistsFollowed(dataA,dataB))
         output.append(compareAlbums(dataA,dataB))
-        #print(compareAlbums(dataA,dataB))
-        #output.append()
-        #compareFreqListenedToArtists(dataA,dataB)
-        #print(dataA.keys())
-        #print(output)
-        #with open('CompareOutputSample.json', 'w') as f:
-            #json.dump(output, f)
-        
+
         if IS_SIMPLE==False:
             return(output)
         else:
             return([dataB["username"],len(output)])
-
-        try:
-            #Pull from user 1
-            f = open('sampleDBpull4.json')
-            dataA = json.load(f)
-            f.close()
-
-            #Pull from user 2
-            f = open('sampleDBpull2.json')
-            dataB = json.load(f)
-            f.close()
-        except:
-            print("File error")
-
-        output=[]
-        try:
-            #print(dataB.keys())
-            output.append(compareTracks(dataA,dataB))
-            output.append(compareTracks(dataA,dataB,isTopTracks=False))
-            output.append(compareGenres(dataA,dataB))
-            output.append(compareArtistsFollowed(dataA,dataB))
-            output.append(compareAlbums(dataA,dataB))
-            #print(compareAlbums(dataA,dataB))
-            #output.append()
-            #compareFreqListenedToArtists(dataA,dataB)
-            #print(dataA.keys())
-            #print(output)
-            #with open('CompareOutputSample.json', 'w') as f:
-                #json.dump(output, f)
-            try:
-                if IS_SIMPLE==False:
-                    return(output)
-                else:
-                    return([dataB["username"],len(output)])
-            except:
-                print("Error returning program output. Make sure you are calling the function with the correct IS_SIMPLE value")
-        except KeyError:
-            print("The JSON files you're using produced a key error. \n This can happen when using an old version of the 'Long JSON' output. Recompute the User info with the userInfoPuller script and ")
-        except:
-            print("Something went wrong in the comparison functions.")
+        
 
     def remove_friend(body):
         body = body.split(":")
