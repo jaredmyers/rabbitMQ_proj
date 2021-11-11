@@ -789,12 +789,12 @@ def accessor_methods(body,queue):
         #try:
             #Pull from user 1
             #f = open('sampleDBpull4.json')
-        dataA = json.load(userJSON1)
+        dataA = json.loads(userJSON1)
             #f.close()
 
             #Pull from user 2
             #f = open('sampleDBpull2.json')
-        dataB = json.load(userJSON2)
+        dataB = json.loads(userJSON2)
             #f.close()
         #except:
             #print("File error")
