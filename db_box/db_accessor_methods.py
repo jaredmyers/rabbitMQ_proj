@@ -563,7 +563,7 @@ def accessor_methods(body,queue):
         return '1'
 
     def check_stats(body):
-        body = body.split('?&#))')
+        body = body.split(':')
         sessionId = body[1]
 
         # grab users userID
