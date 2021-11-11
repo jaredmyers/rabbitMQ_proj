@@ -11,7 +11,7 @@ from site_spotify.send_to_db import send_to_db
 from site_spotify.process_threads import get_thread_info, get_reply_page, send_new_thread, send_new_reply
 from site_spotify.process_threads import add_friend, get_friends, create_chat, get_username, new_chat_message, get_chat_messages, remove_friend
 from site_spotify.process_threads import ThreadMain, ThreadReplies
-from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page, get_friend_recommendations
+from site_spotify.process_api import fetch_token, store_token_api, get_saved_tracks, get_stats_page, get_friend_recommendations, get_details_page
 import datetime, random, json
 
 saved_tracks = []
@@ -496,6 +496,9 @@ def findfriends(request):
 
 def recommended_details(request, username):
     
+
+    get_details_page(request.COOKIES['sessionId'], username)
+
     recommended_list = ['stoopkid', 'kingelmer']
     recommend_num = 2
     details = ['likes long walks on the beach, playing with dogs, candle light dinner', 'appreciates disco and jelly beans']

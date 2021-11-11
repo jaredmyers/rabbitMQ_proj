@@ -150,5 +150,13 @@ def get_friend_recommendations(sessionId):
 
     return recommended_friends
 
+def get_details_page(sessionId, username):
+    message = "get_details_page:" + sessionId + ":" + username
+    response = send_to_db(message, 'threads')
+    print("FROM GET DETAILS PAGE: ")
+    print(response)
+
+    
+
 
 

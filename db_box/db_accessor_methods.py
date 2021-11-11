@@ -666,9 +666,16 @@ def accessor_methods(body,queue):
         print(sortDetails(comparisonListDetails))
         return convert_getUsersForListComparison(sortDetails(comparisonListDetails))
         #return convert_getUsersForListComparison(sortedReturnList)
-        
+
+    def convert_compareUsersDetailed(body):
+        '''converts compareUsersDetailed into string for transport''' 
+        print("FROM convert_compareUsersDetailed: ")
+        print(body)
+
+        return '1'    
 
     def compareUsersDetailed(body):
+        body = body.split(":")
         sessionId=body[1]
         specifiedUserUsername=body[2]
         
@@ -687,7 +694,8 @@ def accessor_methods(body,queue):
             if userDataObj[0]==currentUserUsername:
                 currentUserJSON=userDataObj[1]
         try:
-            return(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))
+            return convert_compareUsersDetailed(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))
+            #return(compare_users(currentUserJSON,specifiedUserJSON,IS_SIMPLE=False))
         except:
             raise Exception("Could not Compare User JSON Files in Detailed Format") 
             
@@ -945,6 +953,8 @@ def accessor_methods(body,queue):
         return getUsersForListComparison(body)
     elif "remove_friend" in body:
         return remove_friend(body)
+    elif "get_details_page" in body:
+        return compareUsersDetailed(body)
     else:
         return check_session(body)
 
