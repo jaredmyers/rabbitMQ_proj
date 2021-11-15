@@ -608,8 +608,14 @@ def accessor_methods(body,queue):
         # incoming format [['kingelmer', ['wizzywiz', 5]]]
         # converting to string
 
+        if not recommended:
+            recommended = ["none"]
+
         print("from convert script: ")
         print(recommended)
+
+        return json.dumps(recommended)
+        '''
         recommended_friends = ''
         for i in recommended:
             recommended_friends += i[0] + ":" + str(i[1][1]) + ";"
@@ -617,6 +623,7 @@ def accessor_methods(body,queue):
         print("returning recommended_friends")
         print(recommended_friends)
         return recommended_friends
+        '''
 
 
 
@@ -673,7 +680,9 @@ def accessor_methods(body,queue):
 
     def convert_compareUsersDetailed(body):
         '''converts compareUsersDetailed into string for transport''' 
-       
+
+        return json.dumps(body)
+
         index0 = body[0]
         mutual_tracks = ''
         try: 

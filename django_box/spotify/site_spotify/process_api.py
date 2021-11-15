@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 from site_spotify.send_to_db import send_to_db
 from site_spotify.send_to_api import send_to_api
 import site_spotify.credentials as cred
-import spotipy
+import spotipy, json
 
 '''
 interface between webfront and MQ
@@ -139,8 +139,19 @@ def get_friend_recommendations(sessionId):
     message = "get_recommendations:"+ sessionId
     response = send_to_db(message, 'threads')
     print("FROM get_friend_recommendations: ")
-    print(response)
+    recommended = json.loads(response)
+    print(recommended)
+    if 'none' in recommended:
+        recommended = []
+        return recommended
+    
+    recommended_friends = []
+    for i in recommended:
+        recommended_friends.append(i[0])
 
+    return recommended_friends
+
+    '''
     response = response.split(';')
     del response[-1]
 
@@ -149,11 +160,14 @@ def get_friend_recommendations(sessionId):
         recommended_friends.append(each.split(':')[0])
 
     return recommended_friends
-
+    '''
 def get_details_page(sessionId, username):
     message = "get_details_page:" + sessionId + ":" + username
     response = send_to_db(message, 'threads')
     print("FROM GET DETAILS PAGE: ")
+    
+    
+    '''
     response = response.split("+")
     
     mutual_tracks = response[0]
@@ -206,6 +220,7 @@ def get_details_page(sessionId, username):
     details_obj = DisplayDetailsPage(mt, ma, mg, sa, song_link)
 
     return details_obj
+'''
 
 class DisplayDetailsPage():
 
