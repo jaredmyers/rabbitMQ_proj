@@ -606,7 +606,7 @@ def accessor_methods(body,queue):
     
     def convert_getUsersForListComparison(recommended):
         # incoming format [['kingelmer', ['wizzywiz', 5]]]
-        # converting to string
+        # converting to string -- edit now just json.dumps
 
         if not recommended:
             recommended = ["none"]

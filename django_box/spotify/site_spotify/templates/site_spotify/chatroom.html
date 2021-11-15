@@ -430,6 +430,12 @@ body.flat-black {
 }
 p {margin: 0;}
 
+.chatcolor1 {
+    color: #47a386
+}
+.chatcolor2 {
+    color: #c54940
+}
 
 </style>
 
@@ -507,10 +513,13 @@ p {margin: 0;}
       </div>
 
    </div>
-
+   {{ chat_recipient|json_script:"chat_recipient" }}
+   {{ username|json_script:"username" }}
    
        <script type="text/javascript">
-       
+            const chat_recipient = JSON.parse(document.getElementById("chat_recipient").textContent);
+            const username = JSON.parse(document.getElementById("username").textContent);
+
             $(document).ready(function(){
 
                 setInterval(function(){

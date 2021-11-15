@@ -166,7 +166,7 @@ def get_details_page(sessionId, username):
     response = send_to_db(message, 'threads')
     print("FROM GET DETAILS PAGE: ")
     
-    
+
     '''
     response = response.split("+")
     
