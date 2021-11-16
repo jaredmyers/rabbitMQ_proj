@@ -322,7 +322,10 @@ def accessor_methods(body, queue):
 
             for year in releaseYearStatList:
                 AvgReleaseYearStat+=year
-            AvgReleaseYearStat=int(AvgReleaseYearStat/(len(releaseYearStatList)))
+            if (len(releaseYearStatList)>0):
+                AvgReleaseYearStat=int(AvgReleaseYearStat/(len(releaseYearStatList)))
+            else:
+                AvgReleaseYearStat=2009
             #print("Year List: "+str(releaseYearStatList))
             #print("Genre Dict: "+str(genreStatDict)+"\n")
             #print("Avg Year: "+str(AvgReleaseYearStat)+"\n")
