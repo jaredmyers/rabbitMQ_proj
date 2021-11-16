@@ -755,7 +755,11 @@ def accessor_methods(body,queue):
         def getUserBsTopTrack(JSONdata2):
             partA='<iframe src="https://open.spotify.com/embed/track/'
             partB='"width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>'
-            return(partA+(JSONdata2["tracks"][0])["id"]+partB)
+            if (len(JSONdata2["tracks"])>0):
+                return(partA+(JSONdata2["tracks"][0])["id"]+partB)
+            else:
+                print("User B had no tracks?! this may be caused by the API request limit being reached. I will supply a top track to prevent breakage.")
+                return(partA+"7BMgx9rf5sNUCUGXnKKoew"+partB)
 
         def compareGenres(JSONdata1,JSONdata2):
             #print(JSONdata1["genres"])
