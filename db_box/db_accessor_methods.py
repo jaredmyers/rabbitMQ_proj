@@ -877,6 +877,12 @@ def accessor_methods(body,queue):
             dataB = json.loads(userJSON2)
         else:
             dataB=userJSON2
+            
+        print("DataA Input:")
+        print(dataA)
+        
+        print("DataB Input:")
+        print(dataB)
 
         output=[]
 
