@@ -1006,7 +1006,7 @@ def accessor_methods(body,queue):
     elif "check_stats" in body:
         return check_stats(body)
     elif "compare_users" in body:
-        return compare_users(body)
+        return compareUsersDetailed(body)
     elif "get_recommendations" in body:
         return getUsersForListComparison(body)
     elif "remove_friend" in body:
