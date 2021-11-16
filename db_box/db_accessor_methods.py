@@ -828,7 +828,8 @@ def accessor_methods(body,queue):
                             else:
                                 findInReturnList(trackArtistMatchesReturnList,track2["artist"])
                     else:
-                        print("No artist associated with: "+track1["name"])
+                        #print("No artist associated with: "+track1["name"])
+                        pass
 
             returnList=[trackMatches1to1,trackArtistMatchesReturnList,trackAlbumMatchesReturnList]
             #print(trackAlbumMatchesReturnList)
@@ -865,18 +866,17 @@ def accessor_methods(body,queue):
             #print((albumsMatched))
             return(albumsMatched) 
 
-        #try:
-            #Pull from user 1
-            #f = open('sampleDBpull4.json')
-        dataA = json.loads(userJSON1)
+        if(str(type(userJSON1))!="<class 'dict'>"):
+            print("did not crash")
+            dataA = json.loads(userJSON1)
             #f.close()
+        else:
+            dataA = userJSON1
 
-            #Pull from user 2
-            #f = open('sampleDBpull2.json')
-        dataB = json.loads(userJSON2)
-            #f.close()
-        #except:
-            #print("File error")
+        if(str(type(userJSON2))!="<class 'dict'>"):
+            dataB = json.loads(userJSON2)
+        else:
+            dataB=userJSON2
 
         output=[]
 
