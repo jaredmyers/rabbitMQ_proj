@@ -166,6 +166,24 @@ def get_details_page(sessionId, username):
     response = send_to_db(message, 'threads')
     print("FROM GET DETAILS PAGE: ")
     
+    details = json.loads(response)
+    
+    mutual_tracks = details[0]
+    mutual_artists = details[1]
+    mutual_genres = details[2]
+    saved_albums = details[4]
+    song_preview = details[5]
+
+    print(mutual_tracks)
+    print('-------')
+    print(mutual_artists)
+    print('-------')
+    print(mutual_genres)
+    print('-------')
+    print(saved_albums)
+    print('-------')
+    
+    
 
     '''
     response = response.split("+")
@@ -214,13 +232,14 @@ def get_details_page(sessionId, username):
     print(saved_albums)
     print("-----")
     print(song_preview)
+    '''
 
     song_link = song_preview.split('"')[1]
 
-    details_obj = DisplayDetailsPage(mt, ma, mg, sa, song_link)
+    details_obj = DisplayDetailsPage(mutual_tracks, mutual_artists, mutual_genres, saved_albums, song_link)
 
     return details_obj
-'''
+
 
 class DisplayDetailsPage():
 

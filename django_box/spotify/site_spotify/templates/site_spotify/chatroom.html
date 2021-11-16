@@ -513,12 +513,8 @@ p {margin: 0;}
       </div>
 
    </div>
-   {{ chat_recipient|json_script:"chat_recipient" }}
-   {{ username|json_script:"username" }}
-   
+
        <script type="text/javascript">
-            const chat_recipient = JSON.parse(document.getElementById("chat_recipient").textContent);
-            const username = JSON.parse(document.getElementById("username").textContent);
 
             $(document).ready(function(){
 
@@ -539,16 +535,13 @@ p {margin: 0;}
                             alert('An error occured')
                         }
                     });
-                },3000);
+                },2000);
                 })
                 
         </script>
 
         
         <script type="text/javascript">
-
-
-
 
             $(document).on('submit','#post-form',function(e){
             e.preventDefault();

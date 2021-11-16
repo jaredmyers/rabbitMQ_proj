@@ -438,6 +438,7 @@ def accessor_methods(body,queue):
     def create_chat(body):
         '''generates the chatroom table for the specific chat'''
         body = body.split(":")
+        print(body)
         sessionId = body[1]
         chat_recipient = body[2]
 

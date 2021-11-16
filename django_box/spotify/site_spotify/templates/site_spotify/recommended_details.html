@@ -430,7 +430,10 @@ body.flat-black {
     min-height: 615px;
 }
 */
-p {margin: 0;}
+p {
+    margin: 0;
+    font-size:18px
+}
 </style>
 
 
@@ -487,12 +490,12 @@ p {margin: 0;}
       <div class="col-6">
         <h3 class="m-t-0 m-b-20">Details on Match: {{username}} </h3>
         <div class="card mb-2">
-            <h6 class="card-header">Top Shared Tracks</h6>
+            <h6 class="card-header">Top Shared Genres</h6>
             <div class="card-body">
-                {% for track in details.mutual_tracks %}
-                <p>{{ track }}</p>
+                {% for genre in details.mutual_genres %}
+                <p>{{ genre }}</p>
                 {% empty %}
-                <p>No shared tracks. Make sure you've connected!!</p>
+                <p>No shared genres.</p>
                 {% endfor %}      
             </div>
         </div>
@@ -502,17 +505,7 @@ p {margin: 0;}
                 {% for artist in details.mutual_artists %}
                 <p>{{ artist }}</p>
                 {% empty %}
-                <p>No shared artists. Make sure you've connected!!</p>
-                {% endfor %}      
-            </div>
-        </div>
-        <div class="card mb-2">
-            <h6 class="card-header">Top Shared Genres</h6>
-            <div class="card-body">
-                {% for genre in details.mutual_genres %}
-                <p>{{ genre }}</p>
-                {% empty %}
-                <p>No shared genres. Make sure you've connected!!</p>
+                <p>No shared artists. </p>
                 {% endfor %}      
             </div>
         </div>
@@ -522,7 +515,17 @@ p {margin: 0;}
                 {% for album in details.saved_albums %}
                 <p>{{ album }}</p>
                 {% empty %}
-                <p>No shared albums. Make sure you've connected!!</p>
+                <p>No shared albums.</p>
+                {% endfor %}      
+            </div>
+        </div>
+        <div class="card mb-2">
+            <h6 class="card-header">Top Shared Tracks</h6>
+            <div class="card-body">
+                {% for track in details.mutual_tracks %}
+                <p>{{ track }}</p>
+                {% empty %}
+                <p>No shared albums.</p>
                 {% endfor %}    
             </div>
         </div>
